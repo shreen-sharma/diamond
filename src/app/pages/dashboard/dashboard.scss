@@ -1,0 +1,182 @@
+// @import '../../../../theme/sass/smartTables';
+@import '../../theme/sass/smartTables';
+@media screen and (min-width: 1620px) {
+  .row.shift-up {
+    > * {
+      margin-top: -573px;
+    }
+  }
+}
+
+@media screen and (max-width: 1620px) {
+  .card.feed-panel.large-card {
+    height: 824px;
+  }
+}
+
+.user-stats-card {
+  .card-title {
+    padding: 0 0 15px;
+  }
+}
+
+.blurCalendar {
+  height: 475px;
+}
+.smallTextHeader {
+  font-size: 20px!important;
+}
+td {
+  // text-align: center;
+  font-size: 16px;
+  // padding: 8px;
+  vertical-align: bottom;
+}
+th {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: 400;
+  // padding: 10px;
+  vertical-align: bottom;
+  position: relative;
+
+}
+.hand {
+  cursor: pointer;
+}
+
+.table[_ngcontent-c7] > tbody[_ngcontent-c7] > tr[_ngcontent-c7] > td[_ngcontent-c7], .table[_ngcontent-c7] > tbody[_ngcontent-c7] > tr[_ngcontent-c7] > th[_ngcontent-c7], .table[_ngcontent-c7] > tfoot[_ngcontent-c7] > tr[_ngcontent-c7] > td[_ngcontent-c7], .table[_ngcontent-c7] > tfoot[_ngcontent-c7] > tr[_ngcontent-c7] > th[_ngcontent-c7], .table[_ngcontent-c7] > thead[_ngcontent-c7] > tr[_ngcontent-c7] > td[_ngcontent-c7], .table[_ngcontent-c7] > thead[_ngcontent-c7] > tr[_ngcontent-c7] > th[_ngcontent-c7] {
+padding: 0.5%!important;
+// padding-left: 0.5%!important;
+// padding-right: 0.5%!important;
+border: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+:host /deep/ svg:not(:root) {
+  overflow: visible;
+}
+
+// HTML  CSS   Result
+// Edit on 
+body {
+  color: #fff;
+  font: 600 14px/24px "Open Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", Sans-Serif;
+}
+.box {
+  background: rgba(155, 208, 233, 0.062);
+  border-radius: 6px;
+  cursor: pointer;
+  height: 80px;
+  line-height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  transition-property: background, border-radius;
+  transition-duration: 1s;
+  transition-timing-function: linear;
+  width: 285px;
+}
+.box:hover {
+  background: rgba(155, 208, 233, 0.062);
+  border-radius: 35%;
+}
+hr.style-three {
+  height: 30px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px 0 0 0;
+  border-radius: 20px;
+  }
+  hr.style-three:before {
+  display: block;
+  content: "";
+  height: 30px;
+  margin-top: -31px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0 0 1px 0;
+  border-radius: 20px;
+  }
+  .feed{
+    width: auto;
+    height: 400px;
+    overflow: visible;
+  }
+  .feedBox{
+    width: auto;
+    height: 40px;
+  }
+//   For table scrolling
+.table-responsive-sm{
+    overflow-y:scroll;
+    height:400px;
+    display:block;
+    width: 100%;
+ }
+ .table-responsive-lg{
+   overflow-y: scroll;
+   height: auto;
+   display: block;
+   width: 100%;
+ }
+ :host /deep/ .btn[_ngcontent-c7]{
+   padding: 8px 6px; 
+ }
+ :host /deep/ .btn:hover{
+   transform: scale(1.05);
+ }
+:host /deep/ .table-sm[_ngcontent-c7] th[_ngcontent-c7] {
+position: static;
+}
+.btn.btn-default.focus[_ngcontent-c7], .btn.btn-default[_ngcontent-c7]:focus, .btn.btn-default[_ngcontent-c7]:hover, .btn.focus[_ngcontent-c7], .btn[_ngcontent-c7]:focus, .btn[_ngcontent-c7]{
+  background-color: rgba(36, 118, 189, 0.89);
+}
+.btn.btn-default.focus[_ngcontent-c7], .btn.btn-default[_ngcontent-c7]:focus, .btn.btn-default[_ngcontent-c7]:hover, .btn.focus[_ngcontent-c7], .btn[_ngcontent-c7]:focus, .btn[_ngcontent-c7]:hover{
+  background-color: rgb(36, 118, 189);
+}
+
+@keyframes exploding-stroke{
+  0% {
+    stroke-width: 2px;
+    opacity: 1;
+}
+100% {
+    stroke-width: 20px;
+    opacity: 0.7;
+}
+}
+:host /deep/ .ct-point{
+  animation: exploding-stroke 1s ease-out infinite;
+}
+@keyframes dasharray-craziness {
+  0% {
+    stroke-dasharray: 7px 2px;
+  }
+  80% {
+    stroke-dasharray: 7px 5px;
+    stroke-width: 5px
+  }
+  100% {
+    stroke-dasharray: 7px 2px;
+  }
+}
+:host /deep/ .ct-line{
+  stroke-dasharray: 5px 2px;
+  animation: dasharray-craziness 5s infinite linear;
+}
+.chartist-tooltip {
+  /* set me to make the tooltip for the point at 2 more visible */ 
+  position: relative;
+}
+u{
+  color: rgb(141, 26, 235);
+  float: left;
+}
+b{
+  float: left;
+}

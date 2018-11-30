@@ -1,0 +1,58 @@
+<form [formGroup]="hierRelForm"  #f="ngForm" (ngSubmit)="submit()">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="form-group col-sm-12" [ngClass]="{'has-error': (!parent.valid && parent.touched), 'has-success': (parent.valid && parent.touched)}" >
+          <label for="division">Division</label>
+          <select class="form-control" id="division" [formControl]="parent" (change)="loadChildrenById($event.target.value,null,'LO')">
+              <option *ngFor="let div of divisions" [value]="div.hierId">{{div.hierName}}</option>
+          </select>
+            <small *ngIf= "(!parent.valid && parent.touched)" class="text-danger">
+                  Division is required.
+          </small>
+        </div>
+      </div>
+      <ba-card cardTitle="All Locations" baCardClass="with-scroll">
+        <div class="row">
+          <div class="form-group col-sm-12">
+            <ngx-treeview
+                [config]="treeConfig"
+                [items]="chilrenList"
+                [itemTemplate]="treeItemTemplate"
+                [headerTemplate]="treeHeaderTemplate"
+                (selectedChange)="onChildrenChange($event)">
+            </ngx-treeview>
+          </div>
+        </div>
+      </ba-card>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <button *ngIf="addAccess" type="submit" class="btn btn-primary btn-raised" [disabled]="!f.form.valid">Save</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #treeItemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+  <div class="form-check">
+      <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa" [class.fa-caret-right]="item.collapsed"
+          [class.fa-caret-down]="!item.collapsed"></i>
+      <label class="form-check-label custom-control custom-checkbox">
+          <input type="checkbox" class="form-check-input custom-control-input"
+              [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange()" [disabled]="item.disabled" />
+          <span class="custom-control-description">{{item.text}}</span>
+      </label>
+  </div>
+</ng-template>
+
+<ng-template #treeHeaderTemplate let-item="item" let-config="config" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+  <div class="form-check">
+      <label class="form-check-label custom-control custom-checkbox" *ngIf="config.hasAllCheckBox">
+          <input type="checkbox" class="form-check-input custom-control-input"
+              [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange(item.checked)"/>
+          <span class="custom-control-description">{{item.text}}</span>
+      </label>
+  </div>
+</ng-template>

@@ -1,0 +1,125 @@
+<div class="table-responsive-sm">
+  <table class="table table-bordered" style="text-align: center">
+    <thead style="background-color: darkgrey">
+      <th>Particulars</th>
+      <th>Carats</th>
+      <th>Amount($)</th>
+      <th>Amount(₹)</th>
+      <th></th>
+      <th>Particulars</th>
+      <th>Amount($)</th>
+      <th>Amount(₹)</th>
+    </thead>
+    <tbody>
+      <!-- <tr *ngFor='let pay of top10Customer'>
+            <td style="text-align: left">{{ pay.customerName }}</td>
+            <td style="text-align: right">{{ pay.USD }}</td>
+            <td style="text-align: right">{{ pay.INR }}</td>
+          </tr> -->
+      <tr>
+        <td style="text-align: left"><u>Receivables</u></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: left"></td>
+        <td style="text-align: right; background-color: darkgrey"></td>
+        <td style="text-align: left"><u>Payables</u></td>
+        <td style="text-align: left"></td>
+        <td style="text-align: right"></td>
+      </tr>
+      <tr>
+        <td style="text-align: left">Rupees</td>
+        <td style="text-align: right"></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: right">{{recINR | currency : "INR" : true}}</td>
+        <td style="text-align: right; background-color: darkgrey"></td>
+        <td style="text-align: left">Rupees</td>
+        <td style="text-align: left"></td>
+        <td style="text-align: right">{{payINR | currency : "INR" : true}}</td>
+      </tr>
+      <tr>
+        <td style="text-align: left">Dollars</td>
+        <td style="text-align: right"></td>
+        <td style="text-align: right">{{recUSD | currency : "USD" : true }}</td>
+        <td style="text-align: right"></td>
+        <td style="text-align: right; background-color: darkgrey"></td>
+        <td style="text-align: left">Dollars</td>
+        <td style="text-align: right">{{payUSD | currency :"USD" : true}}</td>
+        <td style="text-align: right"></td>
+      </tr>
+      <!-- <tr>
+              <td style="text-align: left"></td>
+              <td style="text-align: right"></td>
+              <td style="text-align: right"></td>
+              <td style="text-align: left"></td>
+              <td style="text-align: right"></td>
+              <td style="text-align: right"></td>
+              <td style="text-align: left"></td>
+              <td style="text-align: right"></td>
+            </tr> -->
+      <tr>
+        <td style="text-align: left"><u>Stock</u></td>
+        <td style="text-align: right">{{stkCarats}}</td>
+        <td style="text-align: right">{{stkUSD | currency :"USD" : true}}</td>
+        <td style="text-align: right">{{stkINR | currency : "INR" : true}}</td>
+        <td style="text-align: right; background-color: darkgrey"></td>
+        <td style="text-align: left"><u>Brokerage</u></td>
+        <td style="text-align: right">{{brokUSD | currency : "USD" : true}}</td>
+        <td style="text-align: right">{{brokINR | currency : "INR" : true}}</td>
+      </tr>
+      <tr>
+        <td style="text-align: left"><u>Weight Loss</u></td>
+        <td style="text-align: right">{{wlCarats}}</td>
+        <td style="text-align: right">{{wlUSD | currency : "USD" : true}}</td>
+        <td style="text-align: right">{{wlINR | currency: "INR" : true}}</td>
+        <td style="text-align: right; background-color: darkgrey"></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: left"></td>
+        <td style="text-align: right"></td>
+      </tr>
+      <tr>
+        <td style="text-align: left"><u>Notional Profit/Loss</u></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: right">{{npUSD | currency : "USD" : true}}</td>
+        <td style="text-align: right">{{npINR | currency : "INR" : true}}</td>
+        <td style="text-align: right; background-color: darkgrey"></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: left"></td>
+        <td style="text-align: right"></td>
+      </tr>
+      <tr>
+        <td style="text-align: left"><u>Trading Profit/Loss</u></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: right">{{tpUSD | currency :"USD" : true}}</td>
+        <td style="text-align: right">{{tpINR | currency : "INR" : true}}</td>
+        <td style="text-align: right; background-color: darkgrey"></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: left"></td>
+        <td style="text-align: right"></td>
+      </tr>
+      <!-- <tr>
+        <td style="text-align: left"><u>Bank</u></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: right">60.00</td>
+        <td style="text-align: right; background-color: darkgrey"></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: left"></td>
+        <td style="text-align: right"></td>
+      </tr> -->
+      <tr>
+        <td style="text-align: left"></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: right">
+        <td style="text-align: right; font-weight: bold">
+          <hr>{{(recINR + stkINR + wlINR + npINR + tpINR) | currency : "INR" : true}}
+        </td>
+        <td style="text-align: right; background-color: darkgrey"></td>
+        <td style="text-align: right"></td>
+        <td style="text-align: left"></td>
+        <td style="text-align: right; font-weight: bold">
+          <hr>{{(payINR + brokINR) | currency : "INR" : true}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

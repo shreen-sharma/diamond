@@ -1,0 +1,92 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="paymentReceiptEntryForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+
+          <div class="row row">
+            <div class="form-group col-sm-10">
+              <label for="invoiceNo">Invoice No.</label>
+              <select class="form-control" [formControl]="invoiceNo" id="invoiceNo">
+                    <option value="Category 1">Category 1</option>
+                    <option value="Category 2">Category 2</option>
+                    <option value="Category 3">Category 3</option>
+              </select>
+            </div>
+            <div class="col-sm-2">
+              <p></p>
+              <button type="button" class="btn btn-default">Select Invoice No</button>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <textarea class="form-control"  rows="6"></textarea>
+            </div>
+            </div>
+           <div class="row row"> 
+            <div class="form-group col-sm-4">
+              <label for="docNo">Doc. No.</label>
+               <input type="string" class="form-control" [formControl]="docNo" id="docNo">
+            </div>          
+            <div class="form-group col-sm-4">
+              <label for="docDate">Doc. Date</label>
+              <input type="date" class="form-control" [formControl]="docDate" id="docDate">
+            </div>          
+            <div class="form-group col-sm-4">
+              <label for="bank">Bank/Cash</label>
+              <select class="form-control" [formControl]="bank" id="bank">
+                    <option value="Bank">Bank</option>
+                    <option value="Cash">Cash</option>
+             </select>
+            </div>
+          </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card cardTitle="Bank Entry" baCardClass="with-scroll">
+          <div class="row row">
+            <div class="form-group col-sm-4">
+              <label for="bankName">Bank Name</label>
+              <select class="form-control" [formControl]="bank" id="bank">
+                    <option value="Bank 1">Bank 1</option>
+                    <option value="Bank 2">Bank 2</option>
+                    <option value="Bank 3">Bank 3</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="chequeDate">Cheque Date</label>
+              <input type="date" class="form-control" [formControl]="chequeDate" id="chequeDate">
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="chequeNo">Cheque No.</label>
+               <input type="string" class="form-control" [formControl]="chequeNo" id="chequeNo">
+            </div>
+              </div>
+        </ba-card>
+            </div>
+</div>
+
+           <div class="row row">
+             <div class="form-group col-sm-6">
+              <label for="outstandingAmount">Outstanding Amount</label>
+              <input type="number" class="form-control" [formControl]="outstandingAmount" id="outstandingAmount">
+            </div>
+              <div class="form-group col-sm-6">
+              <label for="totalAmount">Total Amount</label>
+              <input type="number" class="form-control" [formControl]="totalAmount" id="totalAmount">
+            </div>
+            </div>
+
+
+        </ba-card>
+      </div>
+          
+      <div class="form-group">
+        <div class="col-sm-12">
+          <button type="submit" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+        </div>
+      </div>
+
+    </div> 
+  </form>
+</div>

@@ -1,0 +1,28 @@
+[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.checkbox {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+/deep/ ngx-treeview-item {
+    width: 45%;
+    margin-right: 5%;
+    float: left;
+    overflow: hidden;
+}
+
+$card-title-height: 44px;
+
+:host /deep/ .card{
+    &.with-scroll {
+        .card-body {
+          height: calc(100% - #{$card-title-height});
+         overflow-y: hidden;
+          flex: 0 1 auto;
+        }
+      }
+}

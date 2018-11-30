@@ -1,0 +1,92 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)">
+    <i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+
+  <form [formGroup]="lotItemCreationForm" (ngSubmit)="submit()">
+    <div class="row" *ngIf="errorMsg">
+      <div class="alert alert-danger alert-dismissable col-12">
+        <a class="close" aria-label="close" (click)="errorMsg=''">&times;</a>
+        <strong>Danger!</strong> {{errorMsg}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="row">
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!lot.valid && lot.touched), 'has-success': (lot.valid && lot.touched)}">
+              <label for="lot">Select Lot</label>
+              <select [formControl]="lot" class="form-control" id="lot" (change)="onLotChange($event.target.value)">
+                <option *ngFor="let lot of lotList" [value]="lot.lotId">{{lot.lotName}}</option>
+              </select>
+              <div *ngIf="(lot.touched && !lot.valid)" class="text-danger">
+                <small>
+                  Select one Lot.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-4">
+              <label for="itemCategory">Select Category</label>
+              <select class="form-control" id="itemCategory" (change)="onCategoryChange($event.target.value)">
+                <option value=-1>Select</option>
+                <option *ngFor="let itemCategory of catList" [value]="itemCategory.catId">{{itemCategory.catName}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-sm-4">
+              <label for="creationDate">Creation Date</label>
+              <input type="text" class="form-control" [value]="todayDate" id="creationDate" disabled>
+            </div>
+          </div>
+
+          <div class="form-group col-sm-12">
+            <!-- <label for="itemNotAvailableLot">Item Not Available in Selected Lot</label> -->
+            <ba-card cardTitle="Item Not Available in Selected Lot" baCardClass="with-scroll">
+              <!-- <input type="text" [formControl]="itemName" readonly class="form-control" id="itemName"> -->
+              <div class="form-group col-sm-12">
+                <ngx-treeview [config]="treeConfig" [items]="categoryWiseLotItem" [itemTemplate]="treeItemTemplate" (selectedChange)="onItemListChange($event)">
+                </ngx-treeview>
+              </div>
+
+              <!-- <div class="form-group col-sm-12" hidden>
+                <label for="itemNotAvailableLot">Item Not Available Lot</label>
+                <input type="text" [formControl]="itemNotAvailableLot" class="form-control" id="itemNotAvailableLot">
+              </div> -->
+            </ba-card>
+          </div>
+
+        </ba-card>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #treeItemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+  <div class="form-check">
+    <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa" [class.fa-caret-right]="item.collapsed"
+      [class.fa-caret-down]="!item.collapsed"></i>
+    <label class="form-check-label custom-control custom-checkbox">
+      <input type="checkbox" class="form-check-input custom-control-input" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange()"
+        [disabled]="item.disabled" />
+      <span class="custom-control-description">{{item.text}}</span>
+    </label>
+  </div>
+</ng-template>
+
+<ng-template #treeHeaderTemplate let-item="item" let-config="config" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+  <div class="form-check">
+    <label class="form-check-label custom-control custom-checkbox" *ngIf="config.hasAllCheckBox">
+      <input type="checkbox" class="form-check-input custom-control-input" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange(item.checked)"
+      />
+      <span class="custom-control-description">{{item.text}}</span>
+    </label>
+  </div>
+</ng-template>

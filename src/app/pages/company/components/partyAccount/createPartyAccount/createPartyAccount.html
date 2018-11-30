@@ -1,0 +1,99 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+
+  <form [formGroup]="partyAccountForm" #formDir="ngForm" (ngSubmit)="submit()">
+    <div class="row" *ngIf="errorMsg">
+      <div class="alert alert-danger alert-dismissable col-12">
+        <a class="close" aria-label="close" (click)="errorMsg=''">&times;</a>
+        <strong>Danger!</strong> {{errorMsg}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="row">
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!partyMasterId.valid && partyMasterId.touched), 'has-success': (partyMasterId.valid && partyMasterId.touched)}">
+              <label for="partyMasterId">Select Party</label>
+              <select [formControl]="partyMasterId" class="form-control" id="partyMasterId" (change)="onPartyChange($event.target.value)">
+                <option *ngFor="let par of partyList" [value]="par.partyId">{{par.partyName}}</option>
+              </select>
+                 <small *ngIf="(!partyMasterId.valid && partyMasterId.touched) || (partyMasterId.untouched && formDir.submitted)" class="text-danger">
+                       Select One Party
+                </small>
+            </div>
+            
+             <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!partyAccCode.valid && partyAccCode.touched) || (partyAccCode.untouched && formDir.submitted)), 'has-success': (partyAccCode.valid && partyAccCode.touched)}">
+                <label for="partyAccCode">Account Code</label>
+                <input type="text" class="form-control" [formControl]="partyAccCode" id="partyAccCode">
+                  <div *ngIf="((!partyAccCode.valid && partyAccCode.touched) || (partyAccCode.untouched && formDir.submitted)) && partyAccCode.errors != null" class="text-danger">
+                    <small *ngIf= "partyAccCode.errors.required">
+                        Account Code is required.
+                    </small>
+                    <small *ngIf= "partyAccCode.errors.maxlength">
+                        Account Code must not be greater than 10.
+                    </small>
+                  </div>
+             </div>
+           
+             <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!partyAccDesc.valid && partyAccDesc.touched) || (partyAccDesc.untouched && formDir.submitted)), 'has-success': (partyAccDesc.valid && partyAccDesc.touched)}">
+               <label for="partyAccDesc">Description</label>
+                <input type="text" class="form-control" [formControl]="partyAccDesc" id="partyAccDesc">
+                <div *ngIf="((!partyAccDesc.valid && partyAccDesc.touched) || (partyAccDesc.untouched && formDir.submitted)) && partyAccDesc.errors != null" class="text-danger">
+                    <small *ngIf= "partyAccDesc.errors.required">
+                        Description is required.
+                    </small>
+                    <small *ngIf= "partyAccDesc.errors.maxlength">
+                        Description must not be greater than 100.
+                    </small>
+                  </div>
+             </div>
+          </div>
+          
+          <div class="form-group col-sm-12">
+            <ba-card cardTitle="Available Process Privileges Details in order ** Process Type-Name_Code **" baCardClass="with-scroll">
+              <div class="form-group col-sm-12">
+                  <ngx-treeview
+                    [config]="treeConfig"
+                    [items]="availList" 
+                    [itemTemplate]="treeItemTemplate"
+                    (selectedChange)="onProcessListChange($event)"> 
+                </ngx-treeview>  
+              </div>
+            </ba-card>
+          </div> 
+              
+        </ba-card>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button type="submit" [disabled]="!partyAccountForm.valid && formDir.submitted" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #treeItemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+  <div class="form-check">
+      <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa" [class.fa-caret-right]="item.collapsed"
+          [class.fa-caret-down]="!item.collapsed"></i>
+      <label class="form-check-label custom-control custom-checkbox">
+          <input type="checkbox" class="form-check-input custom-control-input"
+              [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange()" [disabled]="item.disabled" />
+          <span class="custom-control-description">{{item.text}}</span>
+      </label>
+  </div>
+</ng-template>
+
+<ng-template #treeHeaderTemplate let-item="item" let-config="config" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+  <div class="form-check">
+      <label class="form-check-label custom-control custom-checkbox" *ngIf="config.hasAllCheckBox">
+          <input type="checkbox" class="form-check-input custom-control-input"
+              [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange(item.checked)"/>
+          <span class="custom-control-description">{{item.text}}</span>
+      </label>
+  </div>
+</ng-template>

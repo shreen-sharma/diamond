@@ -1,0 +1,57 @@
+@import "../../theme/sass/conf/conf";
+
+.modal-buttons .btn {
+  margin-right: 20px;
+  padding: 0 0 0 1em;
+}
+.table{
+  text-align: center; 
+  width: 100%;float:center!important;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+}
+table td, table th {
+  border: solid 1px black !important;
+  border-collapse: collapse; 
+}
+//Add a comment to this line
+
+.modal-content {
+  color: black;
+  background-color: rgb(250, 253, 255);
+}
+.modal-header{
+  text-align: center!important;
+}
+// .modal-footer{
+//   border-top: 1px dotted #818181;
+//   text-align: center;
+// }
+.form-control{
+  color: black;
+  border: 1px solid black;
+  margin-bottom: .5em;
+}
+.labelText{
+  color: black;
+  margin: 0 1em 0 1em;
+}
+:-moz-placeholder{
+  color: black;
+}
+:-ms-input-placeholder{
+  color: black;
+}
+::-moz-placeholder{
+  color: black;
+}
+::-webkit-input-placeholder{
+  color: black;
+}
+.row{
+  margin: 1em 1em 1em 1em;
+}
+.email{
+  font-size: .8em!important; 
+  text-align: center!important;
+}

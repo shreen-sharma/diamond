@@ -1,0 +1,2 @@
+
+export * from './hierarchyDivision.component';

@@ -1,0 +1,131 @@
+<div class="widgets">
+    <form [formGroup]="analyticsReportForm">
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <div class="row">
+
+
+                    <div class="form-group col-sm-4" *ngIf="isKDRegister">
+                        <label for="party">Select Supplier</label>
+                        <select formControlName="party" class="form-control" id="party" #selectParty>
+                            <option *ngIf="isKDRegister" value="" [selected]="isSelected"> -- Select Supplier -- </option>
+                            <option *ngFor="let party of partyTypeList" [value]="party.partyId">{{party.partyName}}</option>
+                        </select>
+
+                    </div>
+                    <div *ngIf="isKDRegister" class="form-group col-sm-3">
+                        <label for="fromDate">From Date</label>
+                        <input type="date" [formControl]="fromDate" id="fromDate" class="form-control">
+
+                    </div>
+                    <div *ngIf="isKDRegister" class="form-group col-sm-3">
+                        <label for="toDate">To Date</label>
+                        <input type="date" [formControl]="toDate" id="toDate" class="form-control">
+                    </div>
+                    <div *ngIf="isKDRegister" class="form-group col-sm-2">
+                        <label for="invoice">Invoice Type</label>
+                        <select [formControl]="invoice" class="form-control" id="invoice">
+                            <option value="" [selected]="isSelected"> -- Select Invoice -- </option>
+                            <option *ngFor="let invoice of invoiceTypeList" [value]="invoice.code">{{invoice.name}}</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group col-sm-4" *ngIf="isConDcRegister">
+                        <label for="party">Select Supplier</label>
+                        <select formControlName="party" class="form-control" id="party" #selectParty>
+                            <option *ngIf="isConDcRegister" value="" [selected]="isSelected"> -- Select Supplier -- </option>
+                            <option *ngFor="let party of partyTypeList" [value]="party.partyId">{{party.partyName}}</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group col-sm-3" *ngIf="isBrokerAgeReport">
+                        <label for="party" *ngIf="isBroker">Select Broker</label>
+                        <label for="party" *ngIf="!isBroker">Select Party</label>
+                        <select formControlName="party" class="form-control" id="party" #selectParty>
+                            <option *ngFor="let party of partyTypeList | async" [ngValue]="party">{{party.partyName}}</option>
+                        </select>
+
+                    </div>
+
+                    <div *ngIf="isreceivableByBrok" class="form-group col-sm-3">
+                        <label for="party">Select Party</label>
+                        <select formControlName="party" class="form-control" id="party" #selectParty>
+                            <option *ngFor="let party of partyTypeList1 | async" [ngValue]="party">{{party.partyName}}</option>
+                        </select>
+                    </div>
+
+                    <div *ngIf="isreceivableByBrok" class="form-group col-sm-2">
+                        <label for="invoice">Invoice Type</label>
+                        <select [formControl]="invoice" class="form-control" id="invoice">
+                            <option value="" [selected]="isSelected"> -- Select Invoice -- </option>
+                            <option *ngFor="let invoice of invoiceTypeList" [value]="invoice.code">{{invoice.name}}</option>
+                        </select>
+
+                    </div>
+
+                    <div *ngIf="isConDcRegister" class="form-group col-sm-3">
+                        <label for="fromDate">From Date</label>
+                        <input type="date" [formControl]="fromDate" id="fromDate" class="form-control">
+
+                    </div>
+                    <div *ngIf="isConDcRegister" class="form-group col-sm-3">
+                        <label for="toDate">To Date</label>
+                        <input type="date" [formControl]="toDate" id="toDate" class="form-control">
+                    </div>
+                    <div *ngIf="isConDcRegister" class="form-group col-sm-3">
+                        <label for="level">Select Consignment Status</label>
+                        <select [formControl]="level" class="form-control" id="level">
+                            <option value="-1" [selected]="true">ALL</option>
+                            <option value="N">DC</option>
+                            <option value="Y">Consignment</option>
+                        </select>
+                        <!-- <small *ngIf="(!level.valid && level.touched)" class="text-danger">
+                            level is required
+                        </small> -->
+                    </div>
+
+                    <div *ngIf="ispayableDue || isreceivableDue" class="form-group col-sm-3">
+                        <label for="level">Status</label>
+                        <select [formControl]="level" class="form-control" id="level">
+                            <!-- <option value="-1" >ALL</option> -->
+                            <option value="N" [selected]="true">Pending</option>
+                            <option value="Y">Paid</option>
+                        </select>
+                        <!-- <small *ngIf="(!level.valid && level.touched)" class="text-danger">
+                            level is required
+                        </small> -->
+                    </div>
+
+                    <div *ngIf="ispayableDue || isreceivableDue || isreceivableCustBrok || isreceivableByBrok || isPayableCustBrok ||isPayableByBrok || isConDcRegister || isKDRegister" class="col-sm-4 form-inline">
+                        <p>&nbsp;</p>
+                        <button type="button" (click)="createReport()" style="width:13em; height:2.5em" class="btn btn-warning btn-icon">
+                            <i class="fa fa-file"></i> Generate Report</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ba-card cardTitle="Invoice Details" baCardClass="with-scroll" class="smart-table-container">
+                            <div class="custom">
+                                <button *ngIf="!isConDcRegister" id="csv" (click)="ConvertToCSV()" style="width:13em; height:2.5em" class="btn btn-info btn-sm">
+                                    <i class="fa fa-file-excel-o"></i> Export Excel</button> &nbsp;&nbsp; &nbsp;&nbsp;
+                                <button id="pdf" (click)="ConvertToPDF()" style="width:13em; height:2.5em;float: right;" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-file-pdf-o"></i> Export PDF</button>
+                                <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+                                <!-- <div class="custom"> -->
+                                <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+                            </div>
+                            <div class="row">
+                                <p> </p>
+                            </div>
+                        </ba-card>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

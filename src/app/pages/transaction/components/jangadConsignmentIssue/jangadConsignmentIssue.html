@@ -1,0 +1,12 @@
+<div class="widgets">
+
+  <div class="row">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+    <ba-card cardTitle="Delivery Challan Issue" baCardClass="with-scroll" class="smart-table-container">
+      <div class="custom">
+        <ng2-smart-table [settings]="settings" [source]="source" (create)="handleCreate()" (edit)="handleEdit($event)" (delete)="onDeleteConfirm($event)"></ng2-smart-table>
+      </div>
+    </ba-card>
+  </div>
+
+</div>

@@ -1,0 +1,206 @@
+<div class="widgets">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+    <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+    <form [formGroup]="jangadCNReturnForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+  
+            <div class="row">
+
+              <div class="form-group col-sm-3">
+                <label for="brokerName">Broker</label>
+                <input type="text" [formControl]="brokerName" class="form-control" id="brokerName" readonly>
+              </div>
+                
+              <div class="form-group col-sm-3">
+                <label for="partyName">Party</label>
+                <input type="text" [formControl]= "partyName" class="form-control" id="partyName" readonly>
+              </div>
+
+              <div class="form-group col-sm-2">
+                <label for="processName">Process</label>
+                <input type="text" [formControl]= "processName" class="form-control" id="processName" readonly>
+              </div>
+
+              <div class="form-group col-sm-2">
+                <label for="issueDate">Issue Date</label>
+                <input type="text" [formControl]="issueDate" class="form-control" id="issueDate" readonly>
+              </div>
+                            
+              <div class="form-group col-sm-2">
+                <label for="issueNo">Issue Challan No.</label>
+                <input type="text" [formControl]="issueNo" class="form-control" id="issueNo" readonly>
+              </div>        
+
+              <div class="form-group col-sm-3">
+                <label for="deptName">Department Name</label>
+                <input type="text" [formControl]="deptName" class="form-control" id="deptName" readonly>
+              </div>
+
+              <div class="form-group col-sm-2">
+                <label for="receiptDate">Receipt Date</label>
+                <input type="date" [formControl]="receiptDate" class="form-control" id="receiptDate">
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="carryPerson">Carry Person</label>
+                <input type="text" [formControl]="carryPerson" class="form-control" id="carryPerson">
+              </div>
+
+              <div class="col-sm-3 form-inline">
+                <div class="col-sm-6">
+                  <label class="checkbox-inline" for="isConsignment">
+                    <input type="checkbox" [formControl]="isConsignment" id="isConsignment" disabled>&nbsp;&nbsp;Consignment
+                  </label>
+                </div>
+                
+                <div class="col-sm-6">
+                  <label class="checkbox-inline text-right" for="status">
+                    <input type="checkbox" [formControl]="status" id="status">&nbsp;&nbsp;Provisional
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-2">
+                <button type="button" class="btn btn-success margin" [disabled]="selectBtn" (click)="lgModalShow()">Select Delivery Challan Issue</button>
+              </div> 
+
+            </div>
+
+            <div *ngIf="successMessage">
+              <div class="form-group alert alert-success alert-dismissable col-md-12">
+                <a class="close" aria-label="close" (click)="successMessage = null">&times;</a>
+                <strong>Success!&nbsp;</strong> {{ successMessage }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <ba-card cardTitle="Delivery Challan Return Details" baCardClass="with-scroll">
+
+                  <div class="row">
+                    <div class="form-group col-sm-3">
+                      <label for="lotCtrl">Lot Name</label>
+                      <input type="text" class="form-control" [formControl]="lotCtrl" id="lotCtrl" readonly>
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label for="itemCtrl">Item Name</label>
+                      <input type="text" class="form-control" [formControl]="itemCtrl" id="itemCtrl" readonly>
+                    </div>
+                    <div class="form-group col-sm-2">
+                      <label for="issCaratsCtrl">Issued Cts</label>
+                      <input type="number" class="form-control" [formControl]="issCaratsCtrl" id="issCaratsCtrl" readonly>
+                    </div>
+                    <div class="form-group col-sm-3">
+                      <label for="remarksCtrl">Remarks (If any)</label>
+                      <input type="text" class="form-control" [formControl]="remarksCtrl" id="remarksCtrl">
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                      <div class="row">
+                        <div class="form-group col-sm-3">
+                          <label for="selectedPcsCtrl">Selected Pieces</label>
+                          <input type="number" class="form-control" [formControl]="selectedPcsCtrl" id="selectedPcsCtrl">
+                        </div>
+                        <div class="form-group col-sm-3">
+                          <label for="selectedCaratsCtrl">Selected Cts</label>
+                          <input type="number" class="form-control" [formControl]="selectedCaratsCtrl" id="selectedCaratsCtrl">
+                        </div>
+                        <div class="form-group col-sm-3">
+                          <label for="agreedRateCtrl">Agreed Rate</label>
+                          <input type="number" class="form-control" [formControl]="agreedRateCtrl" id="agreedRateCtrl">
+                        </div>
+                        <div class="form-group col-sm-3">
+                          <label for="rejectedPcsCtrl">Rejected Pieces</label>
+                          <input type="number" class="form-control" [formControl]="rejectedPcsCtrl" id="rejectedPcsCtrl">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group col-sm-6">
+                      <div class="row">
+                        <div class="form-group col-sm-3">
+                          <label for="rejectedCaratsCtrl">Rejected Cts</label>
+                          <input type="number" class="form-control" [formControl]="rejectedCaratsCtrl" id="rejectedCaratsCtrl">
+                        </div>
+                        <div class="form-group col-sm-6">
+                          <label for="negoIssueCtrl">Negotiation Comment (For Rejection)</label>
+                          <select [formControl]="negoIssueCtrl" class="form-control" id="negoIssueCtrl">
+                            <option *ngFor="let nego of negoIssueList" [ngValue]="nego">{{nego.name}}</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-3">
+                          <button type="button" class="btn btn-success margin" [disabled]="!lotCtrl.value || !itemCtrl.value || !issCaratsCtrl.value" (click)="onUpdate()">Update</button>
+                        </div>
+                        <div class="form-group col-sm-5"></div>
+                        <div class="form-group col-sm-4">
+                          <button type="button" class="btn btn-info" [disabled]="!lotCtrl.value || !itemCtrl.value || !issCaratsCtrl.value" (click)="onPreviewHistory()">Preview History</button>&emsp;
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <button type="button" class="btn btn-info" [disabled]="!selectBtn" (click)="onPreviewAll()">Preview All</button>      
+                        </div>
+                      </div>
+                    </div>
+                  
+                  </div>
+
+                  <div class="row" *ngIf="!isViewMode">
+                    <div class="col-sm-12">
+                      <ba-card cardTitle="Issued Delivery Challan Details" baCardClass="with-scroll">
+                        <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
+                      </ba-card>
+                    </div>
+                  </div>
+                </ba-card>
+              </div>
+            </div>
+
+   
+            <div class="row">
+              
+              <div class="form-group col-sm-3">
+                <label for="totalIssuedCarats">Total Issued Carats</label>
+                <input type="number" class="form-control" [formControl]="totalIssuedCarats" id="totalIssuedCarats" readonly>
+              </div>
+              <div class="form-group col-sm-3">
+                <label for="totalSelectedCarats">Total Selected Carats</label>
+                <input type="number" class="form-control" [formControl]="totalSelectedCarats" id="totalSelectedCarats" readonly>
+              </div>
+              <div class="form-group col-sm-3">
+                <label for="rejectedCts">Total Rejection Carats</label>
+                <input type="number" class="form-control" [formControl]="rejectedCts" id="rejectedCts" readonly>
+              </div>
+              <div class="form-group col-sm-3">
+                <label for="rejectionPerc">Rejection %</label>
+                <input type="number" class="form-control" [formControl]="rejectionPerc" id="rejectionPerc" readonly>
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="instruction">Instructions (If any)</label>
+                <input type="text" [formControl]="instruction" class="form-control" id="instruction">
+              </div>
+
+              <div class="form-group col-sm-3">
+                <label for="dcCloseDate">Closed DC Date</label>
+                <input type="text" [formControl]="dcCloseDate" class="form-control" id="dcCloseDate" readonly>
+              </div>
+              <div class="form-group col-sm-3">
+                <button type="button" *ngIf="showCloseBtn" class="btn btn-info btn-raised margin" [disabled]="!selectBtn" (click)="onCloseDC()">Close DC</button>
+                <button type="button" *ngIf="showBookBtn" class="btn btn-info btn-raised margin" [disabled]="!selectBtn" (click)="onBookSale()">Book Sale</button>
+              </div>
+
+            </div>   
+              
+          </ba-card>
+        </div>
+      </div> 
+       
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button type="submit" *ngIf="showSbmtBtn" [disabled]="jangadReturnList.length == 0" class="btn btn-primary btn-raised">Update Stock</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-default" (click)="handleBack()">Cancel</button>
+            <button type="button" class="btn btn-success btn-raised" [disabled]="totalSelectedCarats.value <= 0" (click)="print()" style="float:right!important;margin-right: 5em!important;">Print</button> 
+          </div>
+        </div>
+  
+    </form>
+  </div>

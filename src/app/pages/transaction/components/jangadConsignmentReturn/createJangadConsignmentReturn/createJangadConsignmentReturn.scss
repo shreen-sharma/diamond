@@ -1,0 +1,59 @@
+
+@import '../../../../../theme/sass/smartTables';
+@import "../../../../../theme/sass/conf/conf";
+
+p {
+    padding:5px;
+}
+
+select {
+    width: 100%!important;
+    height: calc(2.25rem + 0px)!important;
+}
+
+input:read-only, input:disabled {
+    color: whitesmoke;
+}
+
+input:read-only:hover {
+    cursor: not-allowed;
+}
+
+.margin {
+    margin-top: 19px!important;
+    margin-right: 15px;
+    padding: 7px 15px;
+}
+
+.margin_new {
+    // margin-left: 25px;
+    padding: 7px 25px;
+}
+
+[type="checkbox"] {
+    margin-right: 5px;
+    size: 16px;
+}
+
+.checkbox-inline {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 4px;
+    font-size: 14.5px;
+}
+
+:host /deep/ {
+    ng2-smart-table {
+    
+      tbody {
+        tr {
+          color: $default-text;
+        }
+        tr:hover {
+          background: rgba(6, 248, 236, 0.205);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+

@@ -1,0 +1,29 @@
+
+@import '../../../../../theme/sass/smartTables';
+p {
+    padding:5px;
+}
+select {
+    width: 100%!important;
+    height: calc(2.25rem + 0px)!important;
+}
+
+input:read-only, input:disabled {
+    color: whitesmoke;
+}
+
+input:read-only:hover {
+    cursor: not-allowed;
+}
+
+[type="checkbox"] {
+    margin-right: 5px;
+    size: 16px;
+}
+
+.checkbox-inline {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 4px;
+    font-size: 14.5px;
+}

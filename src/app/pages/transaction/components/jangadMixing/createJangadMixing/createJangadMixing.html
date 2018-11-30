@@ -1,0 +1,82 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="jangadMixingForm" (ngSubmit)="submit()">
+    
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+  
+              <div class="row">
+                <div class="form-group col-sm-4">
+                  <label for="selectPartyAccount">Select Party Account</label>
+                  <select [formControl]="selectPartyAccount" class="form-control" id="selectPartyAccount">
+                        <option value="partyAccount 1">Party Account 1</option>
+                        <option value="partyAccount 2">Party Account 2</option>
+                        <option value="partyAccount 3">Party Account 3</option>
+                  </select>
+                </div>
+                
+                  <div class="form-group col-sm-4">
+                  <label for="jangadMixingDate">Jangad Mixing Date</label>
+                  <input type="date" [formControl]="jangadMixingDate" class="form-control" id="jangadMixingDate">
+                </div>
+                
+                <div class="form-group col-sm-4">
+                  <label for="selectLot">Select Lot</label>
+                  <select [formControl]="selectLot" class="form-control" id="selectLot">
+                      <option value="selectLot 1">Select Lot 1</option>
+                      <option value="selectLot 2">Select Lot 2</option>
+                      <option value="selectLot 3">Select Lot 3</option>
+                  </select>
+                </div>
+              </div> 
+
+              <div class="form-group">
+                  <label for="availableJangad">Available jangads For Adjustments</label>
+                    <textarea rows="10" [formControl]="availableJangad" cols="10" class="form-control" id="availableJangad"></textarea>
+              </div>
+         
+
+
+   
+          <div class="row row">
+          
+          <div class="form-group col-sm-2">
+              <label for="utilizedCarats">Utilized Carats</label>
+              <input type="text" class="form-control" id="utilizedCarats">
+          </div> 
+          <div class="form-group col-sm-2">
+              <label for="processedCarats">Processed Carats</label>
+              <input type="text" class="form-control" id="processedCarats">
+          </div> 
+
+            <div class="form-group col-sm-2">
+              <label for="processedPieces">Processed Pieces</label>
+              <input type="text" class="form-control" id="processedPieces">
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="averageReturn">Average Return</label>
+                <input type="text" placeholder ="%" class="form-control" id="averageReturn">
+            </div>
+                <div class="form-group col-sm-4">
+                  <label for="adjustedToJangadNo">Adjusted To Jangad No</label>
+                  <select [formControl]="selectLot" class="form-control" id="adjustedToJangadNo">
+                      <option value="return 1">return 1</option>
+                      <option value="return 2">return 2</option>
+                      <option value="return 3">return 3</option>
+                  </select>
+                </div>
+          </div>
+       </ba-card>
+        </div>       
+      </div>
+        
+      <div class="form-group">
+        <div class="col-sm-12">
+          <button type="submit" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+        </div>
+      </div>
+
+  </form>
+</div>

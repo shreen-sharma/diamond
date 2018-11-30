@@ -1,0 +1,30 @@
+<div class="channels-block">
+  <select class="form-control parameter-select" [(ngModel)]="parameter" (change)="onParamChange()">
+    <option *ngFor="let param of parameters" [ngValue]="param" ><div *ngIf="param">{{param.paramName}} </div></option>
+  </select>
+  <div class="chart-bg"></div>
+  <div class="item-chart" id="itemChart">
+    <!-- <div class="canvas-holder"> -->
+
+      <canvas class="chart-area" width="320px" height="300px"></canvas>
+      <div class="item-text" *ngIf="parameter">
+        <span translate>{{parameter.paramName}}</span>
+      </div>
+    <!-- </div> -->
+    <div class="item-legend"></div>
+  </div>
+
+  <!-- <div class="channels-info">
+    <div>
+      <div class="channels-info-item" *ngFor="let item of doughnutData">
+        <div class="legend-color" [ngStyle]="{'background-color': item.color }"></div>
+        <p>{{ item.label }}<span class="channel-number">+{{ item.percentage }}%</span></p>
+        <div class="progress progress-sm channel-progress">
+          <div class="progress-bar" role="progressbar"
+               [attr.aria-valuenow]="item.percentage" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: item.percentage + '%' }">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>

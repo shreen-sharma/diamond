@@ -1,0 +1,157 @@
+<div class="widgets">
+ <button type="button" class="btn btn-default mb-2" (click)="handleBack()"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="createImportRemittanceForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="row">
+             <div class="form-group col-sm-4" [ngClass]="{'has-error': (!invoiceNo.valid && invoiceNo.touched), 'has-success': (invoiceNo.valid && invoiceNo.touched)}">
+              <label for="invoiceNo">Invoice No.</label>
+              <input type="number" [formControl]="invoiceNo" class="form-control" id="invoiceNo" readonly>
+            </div> 
+             <div class="col-sm-3 form-inline">
+              <label class="checkbox-inline" for="advRemitt">
+                <input type="checkbox" [formControl]="advRemitt" id="advRemitt">&nbsp;&nbsp;Advance Remittance
+              </label>
+            </div>            
+            <div class="form-group col-sm-5">
+              <button type="button" class="btn btn-success margin" [disabled]="selectPo" (click)="lgModalShow()">
+              <i class="fa fa-check-square-o" aria-hidden="true"></i> Select Import Invoice Number</button>
+            </div>
+             <div class="form-group col-sm-3" >
+              <label for="bankId">Select our Bank</label>
+              <select [formControl]="bankId" class="form-control" id="bankId">
+                <option *ngFor="let bank of bankList" [value]="bank?.id">{{bank?.name}}</option>
+               </select> 
+            </div>
+
+             <div class="form-group col-sm-3" [ngClass]="{'has-error': (!adviceNo.valid && adviceNo.touched), 'has-success': (adviceNo.valid && adviceNo.touched)}">
+              <label for="adviceNo">Advice Number</label>
+              <input type="number" [formControl]="adviceNo" class="form-control" id="adviceNo">          
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!adviceDate.valid && adviceDate.touched ), 'has-success': (adviceDate.valid)}">
+              <label for="adviceDate">Advice Date</label>
+              <input type="date" [formControl]="adviceDate"  class="form-control" id="adviceDate">
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!valueDate.valid && valueDate.touched ), 'has-success': (valueDate.valid)}">
+              <label for="valueDate">Value Date</label>
+              <input type="date" [formControl]="valueDate"  class="form-control" id="valueDate">
+            </div>
+      
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!amtInFC.valid && amtInFC.touched), 'has-success': (amtInFC.valid && amtInFC.touched)}">
+              <label for="amtInFC">Amt in Fc</label>
+              <input type="number" [formControl]="amtInFC" class="form-control" id="amtInFC" readonly>          
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!bnkExhRate.valid && bnkExhRate.touched), 'has-success': (bnkExhRate.valid && bnkExhRate.touched)}">
+              <label for="bnkExhRate">Bank Exh Rate</label>
+              <input type="number" [formControl]="bnkExhRate" class="form-control" id="bnkExhRate" readonly>          
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!amtInRs.valid && amtInRs.touched), 'has-success': (amtInRs.valid && amtInRs.touched)}">
+              <label for="amtInRs">Amt in Rs</label>
+              <input type="number" [formControl]="amtInRs" class="form-control" id="amtInRs" readonly>          
+            </div>
+            
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!broker.valid && broker.touched), 'has-success': (broker.valid && broker.touched)}">
+              <label for="broker">Broker</label>
+              <select [formControl]="broker" class="form-control" id="broker">
+                <option *ngFor="let broker of brokerList" [value]="broker?.partyId">{{broker?.partyName}}</option>
+                </select> 
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="commissionRate">Commission Rate(%)</label>
+              <input type="number" [formControl]="commissionRate" class="form-control" id="commissionRate">
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="commission">Commission</label>
+              <input type="number" [formControl]="commission" class="form-control" id="commission">
+            </div>
+
+            <div class="form-group col-sm-3">
+              <label for="addcharge">Additional Charge</label>
+              <input type="number" class="form-control" [formControl]="addcharge" id="addcharge">
+            </div>
+
+            <div class="form-group col-sm-3">
+              <label for="processFee">Process Fees</label>
+              <input type="number" class="form-control" [formControl]="processFee" id="processFee">
+            </div>
+
+            <div class="form-group col-sm-3">
+              <label for="avgRate">Avg Rate</label>
+              <input type="number" class="form-control" [formControl]="avgRate" id="avgRate">
+            </div>
+
+          </div>
+     
+
+      <ngb-tabset>
+         <ngb-tab id="remtAmtDetails" title="Remitted amount Details">
+          <ng-template ngbTabContent>
+            <div class="row">
+              <div class="form-group col-sm-3" [ngClass]="{'has-error': (!remAdjustType.valid && remAdjustType.touched), 'has-success': (remAdjustType.valid && remAdjustType.touched)}">
+                <label for="remAdjustType">Adjustment Type</label>
+                <select [formControl]="remAdjustType" class="form-control" id="remAdjustType">
+                  <option *ngFor="let type of remAdjustTypeList" [value]="type.catId">{{type.Name}}</option>
+                </select>
+              </div>
+             
+              <div class="form-group col-sm-3" [ngClass]="{'has-error': (!fwdContract.valid && fwdContract.touched), 'has-success': (fwdContract.valid && fwdContract.touched)}">
+                <label for="fwdContract">Forward Contract List</label>
+                <select [formControl]="fwdContract" class="form-control" id="fwdContract">
+                  <option *ngFor="let type of fwdContractList" [value]="type.contId">{{type.Name}}</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-3">
+                <label for="AdjustAmtFc">Adjusted Amount in FC</label>
+                  <input type="number" class="form-control" [formControl]="AdjustAmtFc" id="AdjustAmtFc">
+              </div>
+              
+              <div class="form-group col-sm-3">
+                <label for="remExchRate">Exchange Rate</label>
+                  <input type="number" class="form-control" [formControl]="remExchRate" id="remExchRate">
+              </div>
+
+              <div class="form-group col-sm-3">
+                <label for="RemtAmtInRs">Amount in Rs</label>
+                  <input type="number" class="form-control" [formControl]="RemtAmtInRs" id="RemtAmtInRs">
+              </div>
+            </div>
+
+          </ng-template>
+         </ngb-tab>
+
+        <ngb-tab id="licUtil" title="Licence Utilization (Exchange Control)">
+          <ng-template ngbTabContent>
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <ba-card cardTitle="" baCardClass="with-scroll">
+                    <div class="row">
+                      
+                    </div> 
+                  </ba-card>
+                </div>
+              </div>
+              
+            </div>
+          </ng-template>
+        </ngb-tab>
+     </ngb-tabset>
+    
+      <div class="form-group">
+        <div class="col-sm-12">
+          <button type="submit" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-default" (click)="handleBack()">Cancel</button>
+        </div>
+      </div>
+
+       </ba-card>
+      </div>
+    </div>
+  </form>
+</div>

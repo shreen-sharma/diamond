@@ -1,0 +1,133 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="createOpeningStockEntryForm" #formDir="ngForm" (ngSubmit)="submit()">
+    <div *ngIf="!isViewMode" class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="row">
+              <!-- | propValNotInArray:'catId':stockEntrycatIds:editCatId -->
+            <div class="form-group col-sm-3"  [ngClass]="{'has-error': !openingStockEntryIdParam && ((!catId.valid && catId.touched) || (catId.untouched && formDir.submitted)), 'has-success': (catId.valid && catId.touched)}">
+               <label for="catId">Category</label>
+               <select formControlName="catId" class="form-control" id="catId" (change)="onChangeCat($event.target.value)">
+                <option *ngFor="let cat of catList" [value]="cat.catId">{{cat.catName}}</option>
+              </select>
+              
+              <small *ngIf=" !openingStockEntryIdParam && ((!catId.valid && catId.touched) || (catId.untouched && formDir.submitted))" class="text-danger">
+                 Select one Category.
+                </small>
+            </div>
+
+            <!-- <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!totalCarats.valid && totalCarats.touched) || (totalCarats.untouched && formDir.submitted)), 'has-success': (totalCarats.valid && totalCarats.touched)}">
+              <label for="totalCarats">Total Carats</label>
+              <input type="number" [formControl]="totalCarats" class="form-control" id="totalCarats" required>
+              <small *ngIf="(!totalCarats.valid && totalCarats.touched) || (totalCarats.untouched && formDir.submitted)" class="text-danger">
+                  Specify Total Carats.
+                 </small>
+            </div> -->
+
+            <div class="form-group col-sm-3 input-container input-container1">
+              <label for="avgRate">Average Rate</label>
+              <input type="number" [formControl]="avgRate" class="form-control" id="avgRate" readonly>
+            </div>
+
+            <div class="form-group col-sm-3 input-container input-container2">
+                <label for="amount">Gross Amount</label>
+                <input type="number" [formControl]="amount" class="form-control" id="amount" readonly>
+            </div>
+
+          </div>
+        </ba-card>
+      </div>
+    </div>
+
+
+    <div class="row"  formGroupName="lotTransactionRequestDTO">
+      <div class="col-md-12">
+        <ba-card cardTitle="Lot Detail ( Total Added Carats : {{totalAddedCarats}} )" baCardClass="with-scroll">
+            <div *ngIf="!isViewMode" class="row">
+
+            <div class="form-group col-sm-3" >
+              <label for="lotMasterByToLotId">Lot Name</label>
+              <select formControlName="lotMasterByToLotId" class="form-control" id="lotMasterByToLotId" (change)="onChangeDLot($event.target.value)">
+                <option *ngFor="let lot of lotList" [value]="lot.lotId">{{lot.lotName}}</option>
+              </select>
+              <!-- <small *ngIf="(!lotMasterByToLotId.valid && lotMasterByToLotId.touched) || (lotMasterByToLotId.untouched && formDir.submitted)" class="text-danger">
+                  Select One Lot.
+                 </small> -->
+            </div>
+
+            <div class="form-group col-sm-3" >
+              <label for="lotItemByToLotItemId">Item Name</label>
+              <select formControlName="lotItemByToLotItemId" class="form-control" id="lotItemByToLotItemId">
+                <option *ngFor="let item of itemDList" [value]="item.value">{{item.title}}</option>
+              </select>
+              <!-- <small *ngIf="(!lotItemByToLotItemId.valid && lotItemByToLotItemId.touched) || (lotItemByToLotItemId.untouched && formDir.submitted)" class="text-danger">
+                  Select atleast one Item.
+                 </small> -->
+            </div>
+
+            <div class="form-group col-sm-2" >
+              <label for="carats">Carats</label>
+              <input type="number" formControlName="carats" class="form-control" id="carats">
+              <!-- <small *ngIf="caratStatus" class="text-danger">
+                  Carats must not be greater than Available Carats
+              </small> -->
+              <!-- <small *ngIf="(!carats.valid && carats.touched) || (carats.untouched && formDir.submitted)" class="text-danger">
+                  Carats is Required.
+                 </small> -->
+            </div>
+
+            <div class="form-group col-sm-2" >
+              <label for="rate">Rate</label>
+              <input type="number" formControlName="rate" class="form-control" id="rate">
+              <!-- <small *ngIf="(!rate.valid && rate.touched) || (rate.untouched && formDir.submitted)" class="text-danger">
+                  Rate is Required.
+                 </small> -->
+            </div>
+
+
+            <div class="form-group col-sm-2">
+                <p></p>
+                <button type="button" class="btn btn-success btn-icon" (click)="addItem()"><i class="fa fa-plus-circle"></i>  Add</button>&nbsp;&nbsp;
+
+               <!-- <button type="button" class="btn btn-danger btn-icon" (click)="onRemove()"><i class="fa fa-minus-circle"></i>  Remove</button>&nbsp;&nbsp; -->
+                <small *ngIf="itemStatus" class="text-danger">
+                    &nbsp;&nbsp;{{status}}
+                </small>
+                <!-- <small *ngIf="delStatus" class="text-danger">
+                    Cannot found
+                </small> -->
+
+            </div>
+
+          </div>
+
+          <div class="form-group">
+
+              <div *ngIf="addedLotItemList.length > 0" >
+                <div class="row" >
+                  <div class="col-sm-12">
+
+                    <ba-card cardTitle="Lot Item Details" baCardClass="with-scroll" class="smart-table-container">
+                      <ng2-smart-table [settings]="settings" [source]="source" (editConfirm)="onCreateConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+                    </ba-card>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+
+
+        </ba-card>
+      </div>
+    </div>
+
+
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button *ngIf="!isViewMode" type="submit" [disabled]="!createOpeningStockEntryForm.valid && formDir.submitted" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+        </div>
+  </form>
+</div>

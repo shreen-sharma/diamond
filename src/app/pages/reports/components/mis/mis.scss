@@ -1,0 +1,15 @@
+@import '../../../../theme/sass/smartTables';
+
+
+.report {
+    margin-left: -15px!important;
+}
+table, td {
+    border: 1px solid black;
+}
+.btn{
+    box-shadow: 5px 10px 8px rgba(75, 68, 68, 0.575);
+}
+.custom{
+    overflow-x: scroll;
+}

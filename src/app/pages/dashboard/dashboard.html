@@ -1,0 +1,1178 @@
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://demos.creative-tim.com/material-dashboard/assets/css/material-dashboard.min.css?v=2.1.0"> -->
+<div *ngIf="flag">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- <div class="box">
+    <img src="../../../assets/img/sam-icon.png">
+  </div> -->
+  <!-- <hr class="style-three"> -->
+  <!-- Div for 1st Dashboard starts here! -->
+  <div class="main-content1" *ngIf="!isDashboad1">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 col-md-6 col-sm-6" (click)="Summary()" style="cursor: pointer; ">
+          <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <!-- <i class="material-icons">content_copy</i> -->
+                <!-- <i class="fa fa-diamond"></i> -->
+                <img src="../../../assets/img/stock-icon.png">
+              </div>
+              <p class="card-category" style="float: right; margin-right: 1%"><b>CARATS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMBINED</b>
+                <br>{{comCarats}} &nbsp;&nbsp;&nbsp; $ {{comSaleAmtUSD | number : '1.2-2'}} &nbsp;&nbsp;&nbsp; ₹ {{ comSaleAmtINR | number : '1.2-2'}} &nbsp;&nbsp;&nbsp;</p>
+              <p class="card-category" style="float:right; margin-top: 1%; font-weight: bold;border-right: 1px solid;
+              height: 35px; margin-right: 4%; padding-right:3em">STOCK<br> Exchange Rate : {{exchangeRate}}
+                </p>
+              <h3 class="card-title">
+                <small></small>
+              </h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats" style="float: right; margin-right: 2%">
+                <!-- <i class="material-icons text-danger">warning</i>
+              <a href="#pablo">Get More Space...</a> -->
+                <!-- <i class="material-icons"></i> -->
+                <h6><b>Carats &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Physical</b>
+                  <br>{{phyCarats}} &nbsp;&nbsp;&nbsp; $ {{phySaleAmtUSD | number : '1.2-2'}} &nbsp;&nbsp;&nbsp; ₹ {{phySaleAmtINR | number : '1.2-2'}} &nbsp;&nbsp;&nbsp; </h6>
+                <!-- <div class="vl"></div> -->
+              </div>
+              <div class="stats" style="float: right; border-right: 1px solid;
+              height: 35px; margin-right: 4%; padding-right:3em">
+                <!-- <i class="material-icons text-danger">warning</i>
+                <a href="#pablo">Get More Space...</a> -->
+                <!-- <i class="material-icons"></i> -->
+                <h6><b>Carats &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DC</b>
+                  <br>{{dcCarats}} &nbsp;&nbsp;&nbsp; $ {{dcSaleAmtUSD | number : '1.2-2'}} &nbsp;&nbsp;&nbsp; ₹ {{dcSaleAmtINR | number : '1.2-2'}} &nbsp;&nbsp;&nbsp; </h6>
+                <!-- <div class="vl"></div> -->
+              </div>
+              <div class="stats" style="float: right; border-right: 1px solid;
+              height: 35px; margin-right: 4%; padding-right:3em">
+                <!-- <div class="vl"></div> -->
+                <!-- <i class="material-icons text-danger">warning</i>
+                    <a href="#pablo">Get More Space...</a> -->
+                <!-- <i class="material-icons"></i> -->
+                <h6><b>Carats &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consignment</b>
+                  <br>{{conCarats}} &nbsp;&nbsp;&nbsp; $ {{conSaleAmtUSD | number : '1.2-2'}} &nbsp;&nbsp;&nbsp; ₹ {{conSaleAmtINR | number : '1.2-2'}} &nbsp;&nbsp;&nbsp; </h6>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-icon card-header-icon">
+              <div class="card-icon">
+                <!-- <i class="material-icons">content_copy</i> -->
+                <!-- <i class="fa fa-diamond"></i> -->
+                <img src="../../../assets/img/sell-icon.png" height="50" width="50">
+              </div>
+              <p class="card-category" style="font-weight: bold">Current FY Sales</p>
+              <h3 class="card-title">
+                <small></small>
+              </h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons"></i>
+                <h6>Carats <br>₹ {{totalSalesAmount | number : '1.2-2'}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalSalesCarats
+                  | number : '1.2-2'}} </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-icon">
+                <!-- <i class="fa fa-dollar"></i> -->
+                <img src="../../../assets/img/buy-icon.png" height="50" width="50">
+              </div>
+              <p class="card-category" style="font-weight: bold">Current FY Purchase</p>
+              <h3 class="card-title"></h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons"></i>
+                <h6>Carats <br>₹ {{totalPurchaseAmount | number : '1.2-2'}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{totalPurchaseCarats
+                  | number : '1.2-2'}} </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-icon">
+                <!-- <i class="material-icons">store</i> -->
+                <!-- <i class="fa fa-dollar"></i> -->
+                <img src="../../../assets/img/profit-icon.png" height="50" width="50">
+              </div>
+              <p class="card-category" style="font-weight: bold">Trading Profit In Currrent FY</p>
+              <h3 class="card-title"></h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons"></i>
+                <h6>$ {{totalNPUSD| number : '1.2-2'}} &nbsp;&nbsp;&nbsp; ₹ {{totalNPINR| number : '1.2-2'}} </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+              <div class="card-icon">
+                <!-- <i class="material-icons">info_outline</i> -->
+                <!-- <i class="fa fa-rupee"></i> -->
+                <img src="../../../assets/img/pay-icon.png" height="50" width="50">
+              </div>
+              <p class="card-category" style="font-weight: bold">Current FY Payable</p>
+              <h3 class="card-title"></h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons"></i>
+                <h6 align="right"> $ {{totalPayUSD | number : '1.2-2'}}
+                  <br> ₹ {{totalPayINR | number : '1.2-2'}}
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+              <div class="card-icon">
+                <!-- <i class="fa fa-twitter"></i> -->
+                <!-- <i class="fa fa-money"></i> -->
+                <img src="../../../assets/img/r-icon.png" height="50" width="50">
+              </div>
+              <p class="card-category" style="font-weight: bold">Current FY Receivable</p>
+              <h3 class="card-title"></h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons"></i>
+                <h6>$ {{totalRecUSD | number : '1.2-2'}}
+                  <br> ₹ {{totalRecINR | number : '1.2-2'}}
+                </h6>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <h4 class="card-title" style="text-align: center">TOP 10 CUSTOMER (IN SALES VOLUME)</h4>
+              <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+            </div>
+            <div class="table-responsive-sm">
+              <table class="table table-sm" style="text-align: center">
+                <thead class="text-danger">
+                  <th>Customer</th>
+                  <th>Amount($)</th>
+                  <th>Amount(₹)</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let pay of top10Customer'>
+                    <td style="text-align: left">{{ pay.customerName }}</td>
+                    <td style="text-align: right">{{ pay.USD }}</td>
+                    <td style="text-align: right">{{ pay.INR }}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <h4 class="card-title" style="text-align: center">TOP 10 SUPPLIER (IN PURCHASE VOLUME)</h4>
+              <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+            </div>
+            <div class="table-responsive-sm">
+              <table class="table table-sm" style="text-align: center">
+                <thead class="text-danger">
+                  <th>Supplier</th>
+                  <th>Amount($)</th>
+                  <th>Amount(₹)</th>
+
+                </thead>
+                <tbody>
+                  <tr *ngFor='let pay of top10Supplier'>
+                    <td style="text-align: left">{{ pay.supplierName }}</td>
+                    <td style="text-align: right">{{ pay.USD }}</td>
+                    <td style="text-align: right">{{ pay.INR }}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-chart">
+            <div class="card-header card-header-info">
+              <h4 class="card-title"> Sales</h4>
+            </div>
+            <div class="card-body" style="margin-left: 4%">
+              <!-- <div id="tooltip"><b>Selected Value:</b>
+              </div> -->
+              <br/>
+              <br/>
+              <div class="ct-chart" id="dailySalesChart"></div>
+              <p class="card-category">
+                <!-- <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p> -->
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <!-- <i class="material-icons">access_time</i> updated 4 minutes ago -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-chart">
+            <div class="card-header card-header-info">
+              <h4 class="card-title">Purchase</h4>
+            </div>
+            <div class="card-body" style="margin-left: 4%">
+              <!-- <div id="tooltip1"><b>Selected Value:</b>
+                </div> -->
+              <br/>
+              <br/>
+              <div class="ct-chart" id="completedTasksChart"></div>
+              <p class="card-category">
+                <!-- <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p> -->
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <!-- <i class="material-icons">access_time</i> updated 4 minutes ago -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-4">
+            <div class="card card-chart">
+                <div class="card-header card-header-danger">
+                    <div class="ct-chart" id="completedTasksChart"></div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Completed Tasks</h4>
+                    <p class="card-category">Last Campaign Performance</p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                    </div>
+                </div>
+            </div>
+        </div> -->
+      </div>
+
+      <div class="row">
+        <div class="col-xlg-9 col-xl-6 col-lg-6  col-md-12 col-sm-12 col-12">
+          <div class="row">
+            <div class="card">
+              <div class="card-header card-header-success">
+                <h4 class="card-title" style="text-align: center">TOP 10 SUPPLIER (IN PURCHASE VOLUME)</h4>
+                <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+              </div>
+              <div class="table-responsive-sm">
+                <table class="table table-sm" style="text-align: center">
+                  <thead class="text-warning">
+                    <th>Supplier</th>
+                    <th>Amount($)</th>
+                    <th>Amount(₹)</th>
+
+                  </thead>
+                  <tbody>
+                    <tr *ngFor='let pay of top10Supplier'>
+                      <td style="text-align: left; margin-left: 1%;">{{ pay.supplierName }}</td>
+                      <td style="text-align: right">{{ pay.USD }}</td>
+                      <td style="text-align: right">{{ pay.INR }}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Manual Feed-->
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-success">
+              <h4 class="card-title" style="text-align: center">Action Items</h4>
+              <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+            </div>
+            <!-- <marquee direction="up" scrolldelay="0.01" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();"> -->
+            <div class="feed" style="overflow-y: scroll">
+              <div class="feedBox">
+                <img src="../../../assets/img/cash-report.png" height="35px" width="35px" style="margin-left: 2%;">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the purchase invoices need to be paid!</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="PIRepo()">
+                  <u>Click here to know the the Purchase Invoices need to be paid!</u>
+                  <br>
+                  <p>
+                    <b>In next 10 days, the purchase invoices need to be paid.</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/sale-report.png" height="35px" width="35px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the sales invoices need to be realised.</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SIRepo()">
+                  <u>Click here to know the the Sales Invoices need to be realised!</u>
+                  <br>
+                  <p>
+                    <b>In next 10 days, the sales invoices need to be realised.</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/cons-icon.png" height="30px" width="30px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the open consignment.!</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="OCRepo()">
+                  <u>Click here to know the Open Consignment!</u>
+                  <br>
+                  <p>
+                    <b>In next 10 days, all the consignment pending to act.</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/del-icon.png" height="32px" width="32px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the open Delivery Challans!</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="ODCRepo()">
+                  <u>Click here to know the Open Delivery Challans!</u>
+                  <br>
+                  <p>
+                    <b>List of Open Delivery Challans in order of “Issue Date”.</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                  <u>Click here to know the Stock Summary Report!</u>
+                  <br>
+                  <p>
+                    <b>Stock Summary Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <!-- New Reports -->
+              <div class="feedBox">
+                <img src="../../../assets/img/loticon.png" height="40px" width="40px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="LotItemRepo()">
+                  <u>Click here to know the Lot Item Report!</u>
+                  <br>
+                  <p>
+                    <b>Lot Item Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/totalstock.png" height="40px" width="40px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="StockSize()">
+                  <u>Click here to know the Total Stock Size Report!</u>
+                  <br>
+                  <p>
+                    <b>Total Stock Size Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <!-- <div class="feedBox">
+                  <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%"> -->
+              <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+              <!-- <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                      <u>Click here to know the Total Stock Quality Report!</u><br>
+                      <p >
+                        <b>Total Stock Quality Report</b>
+                      </p>
+                    </button> -->
+
+              <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              <!-- </div><hr> -->
+              <!-- <div class="feedBox">
+                  <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%"> -->
+              <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+              <!-- <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                      <u>Click here to know the Receivable Export Report!</u><br>
+                      <p >
+                        <b>Receivable Export Invoice Report</b>
+                      </p>
+                    </button> -->
+
+              <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              <!-- </div> <hr> -->
+              <div class="feedBox">
+                <img src="../../../assets/img/purchaseorder.png" height="40px" width="40px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="LocPurYear()">
+                  <u>Click here to know the Local Purchase Yearly Report!</u>
+                  <br>
+                  <p>
+                    <b>Local Purchase Yearly Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <!-- <div class="feedBox">
+                  <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%"> -->
+              <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+              <!-- <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                      <u>Click here to know the Import Purchase Supplier Report!</u><br>
+                      <p >
+                        <b>Import Purchase Supplier Report</b>
+                      </p>
+                    </button> -->
+
+              <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              <!-- </div><hr> -->
+              <!-- <div class="feedBox">
+                  <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%"> -->
+              <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+              <!-- <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                      <u>Click here to know the Export Sales Customer Report!</u><br>
+                      <p >
+                        <b>Export Sales Customer or Supplier wise Report</b>
+                      </p>
+                    </button> -->
+
+              <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              <!-- </div><hr> -->
+              <!-- <div class="feedBox">
+                  <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%">
+                   <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+              <!-- <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                      <u>Click here to know the Ageing Summary Report!</u><br>
+                      <p >
+                        <b>Ageing Summary Report</b>
+                      </p>
+                    </button> -->
+
+              <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              <!-- </div><hr> -->
+              <div class="feedBox">
+                <img src="../../../assets/img/profit-icon.png" height="40px" width="40px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="Top25Volume()">
+                  <u>Click here to know about the Top 25 Items Report by Volume!</u>
+                  <br>
+                  <p>
+                    <b>Top 25 Items by Volume Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/topprofit.jpg" height="35px" width="35px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="Top25Profit()">
+                  <u>Click here to know about the Top 25 Items by Profit Report!</u>
+                  <br>
+                  <p>
+                    <b>Top 25 Items by Profit Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/revenue.png" height="35px" width="35px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                    <u>Click here to know the Stock Summary Report!</u><br>
+                  </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="Top25Rev()">
+                  <u>Click here to know about the Top 25 Items by Revenue Report!</u>
+                  <br>
+                  <p>
+                    <b>Top 25 Items by Revenue Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+            </div>
+            <!-- <div class="table-responsive-sm">
+            <table class="table table-sm" style="text-align: center">
+              <thead class="text-warning">
+                <th>Supplier</th>
+                <th>Amount($)</th>
+                <th>Amount(₹)</th>
+
+              </thead>
+              <tbody>
+                <tr *ngFor='let pay of top10Supplier'>
+                  <td style="text-align: left">{{ pay.supplierName }}</td>
+                  <td style="text-align: right">{{ pay.USD }}</td>
+                  <td style="text-align: right">{{ pay.INR }}</td>
+                </tr>
+                <a href="http://www.google.com">Hahaha!!! Catch me if you can!</a>
+              </tbody>
+            </table>
+          </div> -->
+            <!-- </marquee> -->
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <h4 class="card-title" style="text-align: center">Items for Balance sheet</h4>
+            </div>
+            <div class="table-responsive-lg">
+              <table class="table table-sm" style="text-align: center">
+                <thead class="text-danger">
+                  <th>Purchase Notional Profit</th>
+                  <th>Import Notional Profit</th>
+                  <th>Local Trading Profit</th>
+                  <th>Export Trading Profit</th>
+                  <th>Kati Difference Adjustment</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <!-- <tr >*ngFor='let pay of balanceSheet' -->
+                    <td style="text-align: center">{{ balanceSheet.LPI_Balance }}</td>
+                    <td style="text-align: center">{{ balanceSheet.IPI_Balance }}</td>
+                    <!--Sample Data-->
+                    <td style="text-align: center">{{ balanceSheet.LSI_Balance }}</td>
+                    <td style="text-align: center">{{ balanceSheet.ESI_Balance }}</td>
+                    <td style="text-align: center">{{ balanceSheet.KD_Balance }}</td>
+                  </tr>
+                  <tr>
+                    <!-- <tr >*ngFor='let pay of balanceSheet' -->
+                    <td style="text-align: center">
+                      <button class="btn" (click)="LPIC()">Local Purchase Notional Profit<br> Report</button>
+                    </td>
+                    <!--Sample Data-->
+                    <td style="text-align: center">
+                      <button class="btn" (click)="IPIC()">Import Purchase Notional Profit<br> Report</button>
+                    </td>
+                    <td style="text-align: center">
+                      <button class="btn" (click)="LSIC()">Local Sales Profit<br> Report</button>
+                    </td>
+                    <td style="text-align: center">
+                      <button class="btn" (click)="ESIC()">Export Sales Profit<br> Report</button>
+                    </td>
+                    <td style="text-align: center">
+                      <button class="btn" (click)="KDC()">Kati Difference Adjustment<br> Report</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+          </div>
+        </div>
+        <!--Manual feeds ends here-->
+        <!-- <div class="col-xlg-3 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+        <ba-card cardTitle="dashboard.feed" baCardClass="large-card with-scroll feed-panel">
+          <feed></feed>
+        </ba-card>
+      </div> -->
+
+      </div>
+    </div>
+  </div>
+  <!-- Div for 2nd Dashboard starts here! -->
+  <div class="main-content2" *ngIf="isDashboad1">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-icon card-header-icon">
+              <div class="card-icon">
+                <!-- <i class="material-icons">content_copy</i> -->
+                <!-- <i class="fa fa-diamond"></i> -->
+                <img src="../../../assets/img/sell-icon.png" height="50" width="50">
+              </div>
+              <p class="card-category" style="font-weight: bold">Open DC</p>
+              <h3 class="card-title">
+                <small></small>
+              </h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons"></i>
+                <h6> {{dcCount}}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-icon">
+                <!-- <i class="fa fa-dollar"></i> -->
+                <img src="../../../assets/img/consm-icon.png" height="50" width="50">
+              </div>
+              <p class="card-category" style="font-weight: bold">Open Consignment</p>
+              <h3 class="card-title"></h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons"></i>
+                <h6>{{consignmentCount}} </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+              <div class="card-icon">
+                <!-- <i class="material-icons">info_outline</i> -->
+                <!-- <i class="fa fa-rupee"></i> -->
+                <img src="../../../assets/img/receipt-icon.png" height="50" width="50">
+              </div>
+              <p class="card-category" style="font-weight: bold">Open Receipt</p>
+              <h3 class="card-title"></h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons"></i>
+                <h6 align="right">{{receiptCount}}
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+              <div class="card-icon">
+                <!-- <i class="fa fa-twitter"></i> -->
+                <!-- <i class="fa fa-money"></i> -->
+                <img src="../../../assets/img/curr-icon.png" height="50" width="50">
+              </div>
+              <p class="card-category" style="font-weight: bold">Active Exchange Rate</p>
+              <h3 class="card-title"></h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons"></i>
+                <h6>{{exchangeRate}}
+                </h6>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <h4 class="card-title" style="text-align: center">List of Payable Invoices</h4>
+              <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+            </div>
+            <div class="table-responsive-sm">
+              <table class="table table-sm" style="text-align: center">
+                <thead class="text-danger">
+                  <th>Invoice No</th>
+                  <th>Party</th>
+                  <th>Amount(₹)</th>
+                  <th>Due Date</th>
+                  <th>Invoice Type</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let pay of totalPayable'>
+                    <td style="width: 3%">{{ pay.invoiceId }}</td>
+                    <td style="width: 15%">{{ pay.party_name }}</td>
+                    <td style="width: 15%">₹ {{ pay.netAmount | number : '1.2-2'}}</td>
+                    <td style="width: 11%">{{ pay.dueDate }}</td>
+                    <td style="width: 5%">{{ pay.invoiceType }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <a href="http://google.com" class="btn">Generate Local Sales Invoice Report</a>
+            <a href="http://google.com" class="btn">Generate Export Sales Invoice Report</a> -->
+            <button class="btn" (click)="LPI()">Generate Local Purchase Invoice Report</button>
+            <button class="btn" (click)="IPI()">Generate Import Purchase Invoice Report</button>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <h4 class="card-title" style="text-align: center">List of Receivable Invoices</h4>
+              <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+            </div>
+            <div class="table-responsive-sm">
+              <table class="table table-sm" style="text-align: center">
+                <thead class="text-danger">
+                  <th>Invoice No</th>
+                  <th>Party</th>
+                  <th>Amount(₹)</th>
+                  <th>Due Date</th>
+                  <th>Invoice Type</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let pay of totalReceivables'>
+                    <td style="width: 3%">{{ pay.invoiceId }}</td>
+                    <td style="width: 15%">{{ pay.party_name }}</td>
+                    <td style="width: 15%">₹ {{ pay.netAmount | number : '1.2-2' }}</td>
+                    <td style="width: 11%">{{ pay.dueDate }}</td>
+                    <td style="width: 5%">{{ pay.invoiceType }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="btn" (click)="LSI()">Generate Local Sales Invoice Report</button>
+            <button class="btn" (click)="ESI()">Generate Export Sales Invoice Report</button>
+
+            <!-- <a href="http://google.com" class="btn">Generate Import Purchase Invoice Report</a>
+            <a href="http://google.com" class="btn">Generate Export Purchase Invoice Report</a> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-info">
+              <h4 class="card-title" style="text-align: center">DC Listing</h4>
+              <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+            </div>
+            <div class="table-responsive-sm">
+              <table class="table table-sm" style="text-align: center">
+                <thead class="text-warning">
+                  <th>Invoice No</th>
+                  <th>Party</th>
+                  <th>Due Date</th>
+                  <th>Stauts</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let pay of totalDC'>
+                    <td style="width: 1%">{{ pay.invoiceId }}</td>
+                    <td style="width: 25%">{{ pay.party_name }}</td>
+                    <td style="width: 25%">{{ pay.dueDate }}</td>
+                    <td style="width: 1%">{{ pay.status }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <a href="http://google.com" class="btn">Generate DC Listing Report</a> -->
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-info">
+              <h4 class="card-title" style="text-align: center">Consignment</h4>
+              <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+            </div>
+            <div class="table-responsive-sm">
+              <table class="table table-sm" style="text-align: center">
+                <thead class="text-warning">
+                  <th>Invoice No</th>
+                  <th>Party</th>
+                  <th>Due Date</th>
+                  <th>Stauts</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let pay of totalCon'>
+                    <td style="width: 1%">{{ pay.invoiceId }}</td>
+                    <td style="width: 25%">{{ pay.party_name }}</td>
+                    <td style="width: 25%">{{ pay.dueDate }}</td>
+                    <td style="width: 1%">{{ pay.status }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <a href="http://google.com" class="btn">Generate Consignment Report</a> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-success">
+            <h4 class="card-title" style="text-align: center">Action Items</h4>
+            <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
+          </div>
+          <!-- <marquee direction="up" scrolldelay="0.01" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();"> -->
+            <div class="feed" style="overflow-y: scroll">
+              <div class="feedBox">
+                <img src="../../../assets/img/cash-report.png" height="35px" width="35px" style="margin-left: 2%;">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the purchase invoices need to be paid!</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="PIRepo()">
+                  <u>Click here to know the the Purchase Invoices need to be paid!</u>
+                  <br>
+                  <p>
+                    <b>In next 10 days, the purchase invoices need to be paid.</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/sale-report.png" height="35px" width="35px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the sales invoices need to be realised.</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SIRepo()">
+                  <u>Click here to know the the Sales Invoices need to be realised!</u>
+                  <br>
+                  <p>
+                    <b>In next 10 days, the sales invoices need to be realised.</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/cons-icon.png" height="35px" width="35px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the open consignment.!</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="OCRepo()">
+                  <u>Click here to know the Open Consignments!</u>
+                  <br>
+                  <p>
+                    <b>In next 10 days, all the consignments pending to act upon.</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/del-icon.png" height="35px" width="35px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the open Delivery Challans!</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="ODCRepo()">
+                  <u>Click here to know the Open Delivery Challans!</u>
+                  <br>
+                  <p>
+                    <b>List of Open Delivery Challans in order of “Issue Date” ascending.</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                  <u>Click here to know the Stock Summary Report!</u>
+                  <br>
+                  <p>
+                    <b>Stock Summary Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <!-- New Reports -->
+              <div class="feedBox">
+                <img src="../../../assets/img/loticon.png" height="40px" width="40px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="LotItemRepo()">
+                  <u>Click here to know the Lot Item Report!</u>
+                  <br>
+                  <p>
+                    <b>Lot Item Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/totalstock.png" height="40px" width="40px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="StockSize()">
+                  <u>Click here to know the Total Stock Size Report!</u>
+                  <br>
+                  <p>
+                    <b>Total Stock Size Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <!-- <div class="feedBox">
+                <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%"> -->
+              <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+              <!-- <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                    <u>Click here to know the Total Stock Quality Report!</u><br>
+                    <p >
+                      <b>Total Stock Quality Report</b>
+                    </p>
+                  </button> -->
+
+              <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              <!-- </div><hr> -->
+              <!-- <div class="feedBox">
+                <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%"> -->
+              <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+              <!-- <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                    <u>Click here to know the Receivable Export Report!</u><br>
+                    <p >
+                      <b>Receivable Export Invoice Report</b>
+                    </p>
+                  </button> -->
+
+              <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              <!-- </div> <hr> -->
+              <div class="feedBox">
+                <img src="../../../assets/img/purchaseorder.png" height="40px" width="40px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="LocPurYear()">
+                  <u>Click here to know the Local Purchase Yearly Report!</u>
+                  <br>
+                  <p>
+                    <b>Local Purchase Yearly Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <!-- <div class="feedBox">
+                <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%"> -->
+              <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+              <!-- <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                    <u>Click here to know the Import Purchase Supplier Report!</u><br>
+                    <p >
+                      <b>Import Purchase Supplier Report</b>
+                    </p>
+                  </button> -->
+
+              <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              <!-- </div><hr> -->
+              <!-- <div class="feedBox">
+                <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%"> -->
+              <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+              <!-- <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                    <u>Click here to know the Export Sales Customer Report!</u><br>
+                    <p >
+                      <b>Export Sales Customer or Supplier wise Report</b>
+                    </p>
+                  </button> -->
+
+              <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              <!-- </div><hr> -->
+              <!-- <div class="feedBox">
+                <img src="../../../assets/img/sum-icon.png" height="35px" width="35px" style="margin-left: 2%">
+                 <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+              <!-- <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="SSummaryRepo()">
+                    <u>Click here to know the Ageing Summary Report!</u><br>
+                    <p >
+                      <b>Ageing Summary Report</b>
+                    </p>
+                  </button> -->
+
+              <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              <!-- </div><hr> -->
+              <div class="feedBox">
+                <img src="../../../assets/img/profit-icon.png" height="40px" width="40px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="Top25Volume()">
+                  <u>Click here to know about the Top 25 Items Report by Volume!</u>
+                  <br>
+                  <p>
+                    <b>Top 25 Items by Volume Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/topprofit.jpg" height="35px" width="35px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="Top25Profit()">
+                  <u>Click here to know about the Top 25 Items by Profit Report!</u>
+                  <br>
+                  <p>
+                    <b>Top 25 Items by Profit Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+              <div class="feedBox">
+                <img src="../../../assets/img/revenue.png" height="35px" width="35px" style="margin-left: 2%">
+                <!-- <a href="http://www.google.com" style="margin-left: 3%;">
+                  <u>Click here to know the Stock Summary Report!</u><br>
+                </a> -->
+                <button type="button" class="btn btn-link" style="margin-left: 2%" (click)="Top25Rev()">
+                  <u>Click here to know about the Top 25 Items by Revenue Report!</u>
+                  <br>
+                  <p>
+                    <b>Top 25 Items by Revenue Report</b>
+                  </p>
+                </button>
+
+                <!--Due days can be binded here along with the link of the purchase invoice-->
+
+              </div>
+              <hr>
+            </div>
+            <!-- <div class="table-responsive-sm">
+                        <table class="table table-sm" style="text-align: center">
+                          <thead class="text-warning">
+                            <th>Supplier</th>
+                            <th>Amount($)</th>
+                            <th>Amount(₹)</th>
+            
+                          </thead>
+                          <tbody>
+                            <tr *ngFor='let pay of top10Supplier'>
+                              <td style="text-align: left">{{ pay.supplierName }}</td>
+                              <td style="text-align: right">{{ pay.USD }}</td>
+                              <td style="text-align: right">{{ pay.INR }}</td>
+                            </tr>
+                            <a href="http://www.google.com">Hahaha!!! Catch me if you can!</a>
+                          </tbody>
+                        </table>
+                      </div> -->
+          <!-- </marquee> -->
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

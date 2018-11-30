@@ -1,0 +1,176 @@
+<div class="widgets">
+    <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>    
+    <form [formGroup]="createItemRateAnalyzerForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+  
+            <div class="row row">
+              <div class="form-group col-sm-4">
+                <label for="company">Company</label>
+                <select class="form-control" id="company">
+                      <option value="company 1">Company 1</option>
+                      <option value="company 2">Company 2</option>
+                      <option value="company 3">Company 3</option>
+                </select>
+              </div>
+             
+              <div class="form-group col-sm-4">
+                <label for="partyType">Party Type</label>
+                <select class="form-control" id="category">
+                      <option value="partyType 1">Party Type 1</option>
+                      <option value="partyType 2">Party Type 2</option>
+                      <option value="partyType 3">Party Type 3</option>
+                </select>
+              </div>
+  
+              <div class="form-group col-sm-4">
+                <label for="Party">Party</label>
+                <select class="form-control" id="Party">
+                    <option value="Party 1">Party 1</option>
+                    <option value="Party 2">Party 2</option>
+                    <option value="Party 3">Party 3</option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="row row">      
+              <div class="form-group col-sm-4">
+                <label for="searchMode">Search Mode </label>
+                <select class="form-control" id="searchMode">
+                    <option value="searchMode 1">Search Mode 1</option>
+                    <option value="searchMode 2">Search Mode 2</option>
+                    <option value="searchMode 3">Search Mode 3</option>
+                </select>
+            </div>
+  
+              <div class="form-group col-sm-4">
+                  <label for="zone">Zone</label>
+                  <select class="form-control" id="zone">
+                      <option value="zone 1">Zone 1</option>
+                      <option value="zone 2">Zone 2</option>
+                      <option value="zone 3">Zone 3</option>
+                  </select>
+              </div>
+
+              <div class="form-group col-sm-4">
+                <label for="country">Country</label>
+                <select class="form-control" id="country">
+                    <option value="country 1">Country 1</option>
+                    <option value="country 2">Country 2</option>
+                    <option value="country 3">Country 3</option>
+                </select>
+            </div>
+          </div>
+
+
+          <div class="row row">      
+            <div class="form-group col-sm-4">
+              <label for="currency">Currency</label>
+              <select class="form-control" id="currency">
+                  <option value="currency 1">Currency 1</option>
+                  <option value="currency 2">Currency 2</option>
+                  <option value="currency 3">Currency 3</option>
+              </select>
+          </div>
+                <div class="form-group col-sm-4">
+                  <label for="curFromDate">From Date</label>
+                  <input type="date" class="form-control" id="curFromDate">
+                </div>
+
+              <div class="form-group col-sm-4">
+                <label for="curToDate">To Date</label>
+                <input type="date" class="form-control" id="curToDate">
+              </div>  
+           </div>
+          
+
+           
+          <div class="row row">      
+            <div class="form-group col-sm-4">
+              <label for="terms">Terms</label>
+              <select class="form-control" id="terms">
+                  <option value="terms 1">Terms 1</option>
+                  <option value="terms 2">Terms 2</option>
+                  <option value="terms 3">Terms 3</option>
+              </select>
+          </div>
+                <div class="form-group col-sm-4">
+                  <label for="termsFromDate">From Date</label>
+                  <input type="date" class="form-control" id="termsFromDate">
+                </div>
+
+              <div class="form-group col-sm-4">
+                <label for="termToDate">To Date</label>
+                <input type="date" class="form-control" id="termToDate">
+              </div>  
+           </div>
+          
+          <div class="row row">
+          <div class="form-group col-sm-4">
+            <label for="category">Category</label>
+            <select class="form-control" id="category">
+                <option value="category 1">Category 1</option>
+                <option value="category 2">Category 2</option>
+                <option value="category 3">Category 3</option>
+            </select>
+          </div>
+
+          <div class="form-group col-sm-4">
+            <label for="item">Item</label>
+            <select class="form-control" id="item">
+                <option value="item 1">item 1</option>
+                <option value="item 2">item 2</option>
+                <option value="item 3">item 3</option>
+            </select>
+          </div>
+
+            <div class="form-group col-sm-4">
+                <label for="itemDesc">Item Desc</label>
+                <select class="form-control" id="itemDesc">
+                    <option value="itemDesc 1">Item Desc 1</option>
+                    <option value="itemDesc 2">Item Desc 2</option>
+                    <option value="itemDesc 3">Item Desc 3</option>
+                </select>
+              </div>
+        </div>
+ 
+              <div class="row">
+              <div class="col-md-12">
+                <ba-card formArrayName="parameters" baCardClass="with-scroll">
+
+                  <item-parameter [itemParameter]="itemParameters['controls'][i]" [odd]="odd" (remove)="removeParameter(i)" *ngFor="let param of itemParameters['controls']; let i=index; let odd=odd;"></item-parameter>
+                  <div class="mt-2">
+                    <button (click)="addParameter()" class="btn btn-success btn-icon" type="button"><i class="fa fa-plus-circle"></i> Add Parameter</button>
+                  </div>
+                  
+                </ba-card>
+              </div>
+            </div>    
+
+            
+                  <div class="form-group" style="max-width:100%">
+                    <button type="button" class="btn btn-default">Show</button>    
+                    <button type="button" class="btn btn-default">Clear</button>
+                    <button type="button" class="btn btn-default">Close</button>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="type">Details:</label>
+                       <textarea rows="10" cols="10" class="form-control" ></textarea>
+                    </div>
+
+          </ba-card>
+        </div> 
+
+          <div class="form-group">
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+              </div>
+            </div>
+      </div> 
+    </form>
+  </div>
+  

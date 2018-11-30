@@ -1,0 +1,7 @@
+input:read-only, input:disabled {
+    color: whitesmoke;
+}
+
+input:read-only:hover {
+    cursor: not-allowed;
+}

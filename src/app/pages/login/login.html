@@ -1,0 +1,68 @@
+<div class="auth-main">
+  <div class="auth-block">
+    <h1 translate>{{'login.title'}}</h1>
+    <!-- <a routerLink="/register" class="auth-link" translate>{{'login.signup_link'}}</a> -->
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="form-horizontal">
+      <div class="alert alert-danger" [hidden]="!error || isLoading">
+        Username or password incorrect.
+      </div>
+      <div class="form-group row" [ngClass]="{'has-error': (!username.valid && username.touched), 'has-success': (username.valid && username.touched)}">
+        <label for="inputUserName" class="col-sm-3 control-label" translate>{{'login.user_name'}}</label>
+
+        <div class="col-sm-9">
+          <input [formControl]="username" type="text" class="form-control" id="inputUserName" placeholder="{{'login.user_name' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+        <label for="inputPassword3" class="col-sm-3 control-label" translate>{{'login.password'}}</label>
+
+        <div class="col-sm-9">
+          <input [formControl]="password" type="password" class="form-control" id="inputPassword3" placeholder="{{'login.password' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row" [ngClass]="{'has-error': (!group.valid && group.touched), 'has-success': (group.valid && group.touched)}">
+        <label for="inputGroup" class="col-sm-3 control-label" translate>Group</label>
+        <div class="col-sm-9">
+          <select [formControl]="group" class="form-control" id="inputGroup" (change)="onGroupChange($event.target)">
+              <option *ngFor="let group of groups | async" [value]="group.hierId">{{group.hierName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row" [ngClass]="{'has-error': (!company.valid && company.touched), 'has-success': (company.valid && company.touched)}">
+        <label for="inputCompany" class="col-sm-3 control-label" translate>Company</label>
+
+        <div class="col-sm-9">
+          <select [formControl]="company" class="form-control" id="inputCompany">
+            <option *ngFor="let com of companies | async" [value]="com.hierRId">{{com.hierName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+          <label class="custom-control custom-checkbox">
+            <input type="checkbox" [formControl]="remember" class="custom-control-input">
+            <!-- <span class="custom-control-indicator"></span> -->
+            <span class="custom-control-description" translate>{{'login.remember_me'}}</span>
+          </label>
+          <a role="button" (click)="forgot_password()" class="forgot-pass" translate>{{'login.forgot_password'}}</a>
+          <!-- <ba-checkbox [formControl]="remember" [label]="'Remember me'"></ba-checkbox> -->
+        </div>
+        <a routerLink="change-password"></a>
+        <div class="offset-sm-3 col-sm-9 mt-2">
+          <button [disabled]="!loginForm.valid" type="submit" class="btn btn-default btn-auth" translate>{{'login.sign_in'}}</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- <div class="auth-sep"><span><span translate>{{'login.sign_from_app_text'}}</span></span></div>
+
+    <div class="al-share-auth">
+      <ul class="al-share clearfix">
+        <li><i class="socicon socicon-facebook" title="{{'login.share_on_facebook' | translate}}"></i></li>
+        <li><i class="socicon socicon-twitter" title="{{'login.share_on_twitter' | translate}}"></i></li>
+        <li><i class="socicon socicon-google" title="{{'login.share_on_google_plus' | translate}}"></i></li>
+      </ul>
+    </div> -->
+  </div>
+</div>

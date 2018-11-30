@@ -1,0 +1,16 @@
+
+    <div class="widgets horizontal-scroll card-deck">
+
+      <div class="row">
+        <!-- <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll" class="smart-table-container"> -->
+            <ag-grid-angular 
+            style="width: 1000px; height: 1000px;" 
+            class="ag-theme-balham,ag-grid-angular"
+            [columnDefs]="columnDefs"
+            [rowData]="rowData" 
+            ></ag-grid-angular>
+          <!-- <ng2-smart-table [settings]="settings" [source]="source" (create)="handleCreate()" (edit)="handleEdit($event)"></ng2-smart-table> -->
+        <!-- </ba-card> -->
+      </div>
+    
+    </div>

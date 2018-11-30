@@ -1,0 +1,110 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="form-group ">
+              <label for="exampleSelect1">Selected Division,Location,Department & Sub-Department</label>
+              <select class="form-control" id="exampleSelect1">
+                        <option value="divis1">Division</option>
+                        <option value="divis2">Subdivision</option>
+                        <option value="divis3">Location</option>
+               </select>
+            </div>
+            <div class="row row">
+             <div class="col-sm-6">
+              <label for="employee1">Select Employee</label>
+                      <select class="form-control" id="exampleSelect1">
+                        <option value="bank1">Emp 1</option>
+                        <option value="bank2">Emp 2</option>
+                        <option value="bank3">Emp 3</option>
+                      </select>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="branchName">Branch Name</label>
+              <input type="text" class="form-control" id="branchName">
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="branchCode">Branch Code</label>
+              <input type="text" class="form-control" id="branchCode">
+            </div>
+          </div>
+          <div class="row row">
+            <div class="col-sm-3">
+              <label for="date1">Issue Date</label>
+                  <input type="date"  class="form-control">
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="issueno">Issue NO</label>
+              <input type="text" class="form-control" id="IssueNo">
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="issuePiece">Total Issue Pieces</label>
+              <input type="text" class="form-control" id="IssuePiece">
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="IssueCarat">Total Issue Carat</label>
+              <input type="text" class="form-control" id="IssueCarat">
+            </div>
+          </div> 
+          <div class="form-group">
+              <label for="remerk">Remerk:</label>
+               <input type="text" class="form-control" id="remark">
+            </div>
+
+          <div class="row">
+             <button type="submit" class="btn btn-default">Add</button>
+              <button type="submit" class="btn btn-default">Remove</button>
+          </div>
+
+            <div class="row row">
+            <div class="form-group col-sm-4">
+              <label for="items">Select item</label>
+                      <select class="form-control" id="items">
+                        <option value="bank1">Item 1</option>
+                        <option value="bank2">Item 2</option>
+                        <option value="bank3">Item 3</option>
+                      </select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="piece">Issue Piece</label>
+              <input type="Number" class="form-control" id="piece">
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="carat">Issue Carats:</label>
+              <input type="Number" class="form-control" id="carat">
+            </div>
+            </div>
+
+            <div class="form-group">
+             <label for="AvalItem">Avaliable items:</label> 
+             <textarea rows="4" cols="50" class="form-control" id="AvalItem"></textarea>
+            </div>
+        
+         <!-- <div class="row row">
+            <div class="col-sm-2">
+          <button  type="submit" class="btn btn-default btn-auth" >New</button>
+        </div>
+        <div class="col-sm-2">
+          <button  type="submit" class="btn btn-default btn-auth" >Save</button>
+        </div>
+          <div class="col-sm-2">
+          <button  type="submit" class="btn btn-default btn-auth" >Edit</button>
+        </div>
+        <div class="col-sm-2">
+          <button  type="submit" class="btn btn-default btn-auth" >Delete</button>
+        </div>
+        <div class="col-sm-2">
+          <button  type="submit" class="btn btn-default btn-auth" >Preview</button>
+        </div>
+          <div class="col-sm-2">
+          <button  type="submit" class="btn btn-default btn-auth" >Close</button>
+        </div>
+      </div> -->
+
+        </ba-card>
+      </div>
+    </div>
+  </form>
+</div>

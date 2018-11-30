@@ -1,0 +1,12 @@
+<div class="widgets">
+
+  <div class="row">
+    <ba-card cardTitle="Lot Item Creation For Opening Stock" baCardClass="with-scroll" class="smart-table-container">
+      <ngb-alert *ngIf="errorMessage" type= danger (close)="errorMessage = null">{{ errorMessage }}</ngb-alert>
+      <ngb-alert *ngIf="successMessage" type= success (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+      <!-- <ng2-smart-table [settings]="settings" [source]="source" (create)="handleCreate()" (edit)="handleEdit($event)" (delete)="onDeleteConfirm($event)"></ng2-smart-table> -->
+      <ng2-smart-table [settings]="settings" [source]="source" (create)="handleCreate()" (delete)="onDeleteConfirm($event)"></ng2-smart-table>
+    </ba-card>
+  </div>
+
+</div>

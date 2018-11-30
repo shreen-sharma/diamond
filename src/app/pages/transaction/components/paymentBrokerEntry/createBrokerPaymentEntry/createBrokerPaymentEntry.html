@@ -1,0 +1,224 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack()">
+    <i class="ion-chevron-left"></i>&ensp;Back
+  </button>
+  <form [formGroup]="brokerPaymentForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+
+          <div class="row">
+            <div class="form-group col-sm-3">
+              <label for="invoiceType">Select Invoice</label>
+              <select class="form-control" id="invoiceType" [formControl]="invoiceType" (change)="invoiceTypeChanges()">
+                <option [selected]="true" disabled value="">-- Select Invoice Type --</option>
+                <option value="LPI" [disabled]="invoiceSelected">Local Purchase Invoice</option>
+                <option value="IPI" [disabled]="invoiceSelected">Import Purchase Invoice</option>
+                <option value="LSI" [disabled]="invoiceSelected">Local Sales Invoice</option>
+                <option value="ESI" [disabled]="invoiceSelected">Export Sales Invoice</option>
+              </select>
+            </div>
+
+            <div class="form-group col-sm-3">
+              <label for="broker">Select Broker</label>
+              <select class="form-control" id="broker" [formControl]="broker">
+                <option value="" selected disabled> -- Select Broker -- </option>
+                <option *ngFor="let broker of brokers" [disabled]="invoiceSelected" [ngValue]="broker.partyId">{{
+                  broker.partyName }}</option>
+                <option value="" disabled *ngIf="brokers.length <= 0">Brokers Not Available</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xs-offset-1 col-sm-2">
+              <button type="button" class="btn btn-success btn-block margin" [disabled]="broker.value=='' || invoiceType.value=='' || invoiceSelected"
+                (click)="selectModal()">
+                <span>Select Invoice</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="invoiceSelected">
+            <div class="form-group col-sm-2">
+              <label for="paymentDate">Document Date</label>
+              <input type="date" class="form-control" [formControl]="paymentDate" id="paymentDate">
+            </div>
+
+            <div class="form-group col-sm-3">
+              <label for="partyName">{{invoiceType.value=='IPI'||invoiceType.value=='LPI'?'Supplier':'Customer'}}</label>
+              <input type="text" class="form-control" [formControl]="partyName" id="partyName" readonly>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="invoiceId">Invoice No.</label>
+              <input type="text" class="form-control" [formControl]="invoiceId" id="invoiceId" readonly>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="currencyId">Invoice Currency</label>
+              <select [formControl]="currencyId" class="form-control" id="currencyId">
+                <option *ngFor="let curr of currencyList" [value]="curr?.currId" disabled>{{curr?.currName}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="invoiceDate">Invoice Date</label>
+              <input type="text" class="form-control" [formControl]="invoiceDate" id="invoiceDate" readonly>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="orderNo">Order No. / DC Ret. No.</label>
+              <input type="text" class="form-control" [formControl]="orderNo" id="orderNo" readonly>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="remarks">Remarks/Narration</label>
+              <input type="text" class="form-control" [formControl]="remarks" id="remarks" style="text-align: center;">
+            </div>
+
+            <div class="col-sm-2 form-inline">
+              <label class="checkbox-inline" for="provisional">
+                <input type="checkbox" [formControl]="provisional" id="provisional" disabled>&nbsp;&nbsp;Provisional
+              </label>
+            </div>
+          </div>
+
+          <div *ngIf="invoiceSelected">
+            <div class="row">
+              <div class="col-md-12">
+                <ba-card cardTitle="Payment Details" baCardClass="with-scroll">
+                  <div class="row">
+
+                    <div class="form-group col-sm-4" [ngClass]="{'has-error': (accountNo.invalid && accountNo.touched)}">
+                      <label for="accountNo">Account No.</label>
+                      <input type="number" class="form-control" [formControl]="accountNo" id="accountNo" required>
+                      <small *ngIf="(accountNo.invalid && accountNo.touched)" class="text-danger">
+                        Account No is required!
+                      </small>
+                    </div>
+
+                    <div class="form-group col-sm-4" [ngClass]="{'has-error': (paidAmount.invalid && paidAmount.touched)}">
+                      <label for="paidAmount">Amount</label>
+                      <input type="number" class="form-control" [formControl]="paidAmount" id="paidAmount" required>
+                      <small *ngIf="(paidAmount.invalid && paidAmount.touched)" class="text-danger">
+                        Amount is required!
+                      </small>
+                    </div>
+
+                    <div class="form-group col-sm-4" [ngClass]="{'has-error': (paymentMode.invalid && paymentMode.touched), 'has-success': (paymentMode.valid && paymentMode.touched)}">
+                      <label for="paymentMode">Payment Mode</label>
+                      <select class="form-control" [formControl]="paymentMode" id="paymentMode" (change)="onChangePaymentMode($event.target.value)"
+                        required>
+                        <option *ngFor="let payment of paymentModeList" [ngValue]="payment">{{payment.name}}</option>
+                      </select>
+                      <small *ngIf="(paymentMode.invalid && paymentMode.touched)" class="text-danger">
+                        Payment Mode is required!
+                      </small>
+                      <small *ngIf="paymentModeList.length <= 4" class="text-warning">
+                        Please Add Payment Mode(PM) in Common with Name &amp; Code as Bank-BNK &amp; Cheque-CHQ &amp;
+                        Cash-CSH &amp; Adjustment-ADJST
+                        &amp; Online-ONL
+                      </small>
+                    </div>
+                  </div>
+
+                  <div *ngIf="bankCtrlStatus" [ngClass]="{'has-error': (bankBranch.invalid && bankBranch.touched)}">
+                    <div class="row">
+                      <div class="form-group col-sm-12">
+                        <label for="bankBranch">Bank-Branch Name</label>
+                        <select class="form-control" id="bankBranch" [formControl]="bankBranch" [required]="bankCtrlStatus">
+                          <option *ngFor="let bankBranch of bankBranchList" [ngValue]="bankBranch">{{bankBranch.bankName}}
+                            -- {{bankBranch.bankBrName}}</option>
+                        </select>
+                        <small *ngIf="(bankBranch.invalid && bankBranch.touched)" class="text-danger">
+                          Bank Branch Name is required!
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="chequeCtrlStatus">
+                    <div class="row">
+                      <div class="form-group col-sm-6" [ngClass]="{'has-error': (chequeNo.invalid && chequeNo.touched)}">
+                        <label for="chequeNo">Cheque No.</label>
+                        <input type="number" class="form-control" [formControl]="chequeNo" id="chequeNo" [required]="chequeCtrlStatus">
+                        <small *ngIf="(chequeNo.invalid && chequeNo.touched)" class="text-danger">
+                          Cheque No is required!
+                        </small>
+                      </div>
+
+                      <div class="form-group col-sm-6" [ngClass]="{'has-error': (chequeDate.invalid && chequeDate.touched)}">
+                        <label for="chequeDate">Cheque Date</label>
+                        <input type="date" class="form-control" [formControl]="chequeDate" id="chequeDate" [required]="chequeCtrlStatus">
+                        <small *ngIf="(chequeDate.invalid && chequeDate.touched)" class="text-danger">
+                          Cheque Date is required!
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-sm-5">
+                      <label for="narration">Comment/Narration</label>
+                      <input type="text" class="form-control" [formControl]="narration" id="narration">
+                    </div>
+
+                    <div class="form-inline col-sm-2">
+                      <button type="button" [disabled]="(!paymentMode.value || !accountNo.value || !paidAmount.value 
+                      || accountNo.value < 0 || paidAmount.value < 0 )"
+                        (click)="handleAdd()" class="btn btn-warning">&emsp;&emsp;Add&emsp;&emsp;</button>
+                    </div>
+
+                    <div class="form-inline col-sm-3 text-right">
+                      <button type="button" class="btn btn-info" *ngIf="showPreviewHistory" (click)="onPreviewHistory()">Preview
+                        History</button>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-sm-12">
+                      <ba-card cardTitle="Broker Payment Details List" baCardClass="with-scroll" class="smart-table-container">
+                        <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+                      </ba-card>
+                    </div>
+                  </div>
+
+                </ba-card>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="invoiceSelected">
+            <div class="form-group col-sm-3">
+              <label for="totalAmount" style="color:blue;">Total Amount</label>
+              <input type="number" class="form-control" [formControl]="totalAmount" id="totalAmount" readonly>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="totalPaidAmount" style="color:gold;">Total Paid Amount</label>
+              <input type="number" class="form-control" [formControl]="totalPaidAmount" id="totalPaidAmount" readonly>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="currentPaidAmount">Paying Amount</label>
+              <input type="number" class="form-control" [formControl]="currentPaidAmount" id="currentPaidAmount"
+                readonly>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="outStandingAmount" style="color:firebrick;">Outstanding Amount</label>
+              <input type="number" class="form-control" [formControl]="outStandingAmount" id="outStandingAmount"
+                readonly>
+            </div>
+          </div>
+
+        </ba-card>
+      </div>
+
+      <div class="form-group" *ngIf="invoiceSelected">
+        <div class="col-sm-12">
+          <button type="submit" *ngIf="invoiceSelected && showSubmitButton" [disabled]="paymentDetailList.length == 0"
+            class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

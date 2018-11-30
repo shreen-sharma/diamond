@@ -1,0 +1,97 @@
+<div class="col-md-12">
+  <form [formGroup]="detailsForm">
+    <div class="row">
+
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!cityMasterByOriginCountryId.valid && cityMasterByOriginCountryId.touched)), 'has-success': (cityMasterByOriginCountryId.valid && cityMasterByOriginCountryId.touched)}">
+        <label for="cityMasterByOriginCountryId">Select Country of Origin</label>
+        <select class="form-control" id="cityMasterByOriginCountryId" [formControl]="cityMasterByOriginCountryId" disabled>
+          <option *ngFor="let country of countryOriginList" [value]="country.geoId">{{country.code}}-{{country.name}}</option>
+        </select>
+        <!-- <small *ngIf="(!cityMasterByOriginCountryId.valid && cityMasterByOriginCountryId.touched)" class="text-danger">
+            Country of Origin is required
+        </small> -->
+      </div>
+
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!cityMasterByFinalDestId.valid && cityMasterByFinalDestId.touched)), 'has-success': (cityMasterByFinalDestId.valid && cityMasterByFinalDestId.touched)}">
+        <label for="cityMasterByFinalDestId">Final Destination Country</label>
+        <select class="form-control" id="cityMasterByFinalDestId" [formControl]="cityMasterByFinalDestId" (change)="onChangeDest($event.target.value)">
+          <option *ngFor="let country of countryOriginList" [value]="country.geoId">{{country.code}}-{{country.name}}</option>
+        </select>
+        <small *ngIf="(!cityMasterByFinalDestId.valid && cityMasterByFinalDestId.touched)" class="text-danger">
+          Final Destination Country is required
+        </small>
+      </div>
+
+      <!-- <div class="form-group col-md-4">
+        <label for="cityMasterByFinalDestId">Final Destination Country</label>
+        <input type="text" class="form-control" [formControl]="cityMasterByFinalDestId" id="cityMasterByFinalDestId">
+      </div> -->
+
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!partyMasterByCnfAgentId.valid && partyMasterByCnfAgentId.touched)), 'has-success': (partyMasterByCnfAgentId.valid && partyMasterByCnfAgentId.touched)}">
+        <label for="partyMasterByCnfAgentId">Select C &amp; F Agent</label>
+        <select class="form-control" id="partyMasterByCnfAgentId" [formControl]="partyMasterByCnfAgentId">
+          <option *ngFor="let party of cnFList" [value]="party.partyId">{{party.partyName}}</option>
+        </select>
+        <small *ngIf="(!partyMasterByCnfAgentId.valid && partyMasterByCnfAgentId.touched)" class="text-danger">
+            C &amp; F Agent is required
+        </small>
+      </div>
+
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!partyMasterByReassortPartyId.valid && partyMasterByReassortPartyId.touched)), 'has-success': (partyMasterByReassortPartyId.valid && partyMasterByReassortPartyId.touched)}">
+        <label for="partyMasterByReassortPartyId">Select Re-Assort Party</label>
+        <select class="form-control" id="partyMasterByReassortPartyId" [formControl]="partyMasterByReassortPartyId">
+          <option *ngFor="let party of reAssortList" [value]="party.partyId">{{party.partyName}}</option>
+        </select>
+        <small *ngIf="(!partyMasterByReassortPartyId.valid && partyMasterByReassortPartyId.touched)" class="text-danger">
+          Re-Assort Party is required
+        </small>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="reassortPerc">Re-Assort %</label>
+        <input type="number" class="form-control" [formControl]="reassortPerc" id="reassortPerc">
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="reassortCharge">Re-Assort Charges</label>
+        <input type="number" class="form-control" [formControl]="reassortCharge" id="reassortCharge">
+      </div>
+
+      <!-- <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!netHead.valid && netHead.touched)), 'has-success': (netHead.valid && netHead.touched)}">
+        <label for="netHead">Select Net Head</label>
+        <select class="form-control" id="netHead" [formControl]="netHead">
+          <option></option>
+        </select>
+        <small *ngIf="(!netHead.valid && netHead.touched)" class="text-danger">
+            Net Head is required
+        </small>
+      </div> -->
+
+      <!-- <div class="form-group col-sm-4">
+        <label for="headDesc">Head Description</label>
+        <input type="text" class="form-control" id="headDesc" [formControl]="headDesc" readonly>        
+      </div> -->
+
+      <div class="form-group col-md-4">
+        <label for="orderAmountFC">Order Amount FC ({{soCurrCode}})</label>
+        <input type="number" class="form-control" [value]="orderAmountFC ? orderAmountFC : 0" id="orderAmountFC" readonly>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="orderAmountSTK">Order Amount Stock ({{stockCurrCode}})</label>
+        <input type="number" class="form-control" [value]="orderAmountSTK ? orderAmountSTK : 0" id="orderAmountSTK" readonly>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="orderAmountBase">Order Amount Base ({{baseCurrCode}})</label>
+        <input type="number" class="form-control" [value]="orderAmountBase ? orderAmountBase : 0" id="orderAmountBase" readonly>
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="remark">Remark</label>
+        <input type="text" class="form-control" [formControl]="remark" id="remark">
+      </div>
+
+    </div>
+  </form>
+</div>

@@ -1,0 +1,27 @@
+<div class="widgets">
+ <ngb-alert *ngIf="successMessage" [type]= status (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+    <ngb-tabset  (tabChange)="onTabChange($event)">
+      <ngb-tab id="division" title="Division">
+        <ng-template ngbTabContent>
+          <hierarchy-division (message)= "onMessage($event)" (err) = "onError($event)" [data]="hierRelData"></hierarchy-division>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="location" title="Location">
+        <ng-template ngbTabContent>
+          <hierarchy-location (message)= "onMessage($event)" (err) = "onError($event)" [data]="hierRelData"></hierarchy-location>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="department" title="Department">
+        <ng-template ngbTabContent>
+          <hierarchy-department (message)= "onMessage($event)" (err) = "onError($event)" [data]="hierRelData"></hierarchy-department>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="subDepartment" title="Sub Department">
+        <ng-template ngbTabContent>
+          <hierarchy-sub-department (message)= "onMessage($event)" (err) = "onError($event)" [data]="hierRelData"></hierarchy-sub-department>
+        </ng-template>
+      </ngb-tab>
+
+    </ngb-tabset>
+</div>
+

@@ -1,0 +1,18 @@
+
+<div class="widgets">
+    <div class="row" *ngIf="errorMsg">
+        <div class="alert alert-danger alert-dismissable col-12">
+          <a class="close" aria-label="close" (click)="errorMsg=''">&times;</a>
+          <strong>Danger!</strong> {{errorMsg}}
+        </div>
+      </div>
+
+  <div class="row">
+    <ba-card cardTitle="Exchange Rate" baCardClass="with-scroll" class="smart-table-container">
+      <ng2-smart-table [settings]="settings" [source]="source" (createConfirm)="onCreateConfirm($event,true)" 
+      (editConfirm)="onCreateConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+      
+    </ba-card>
+  </div>
+
+</div>

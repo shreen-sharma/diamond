@@ -1,0 +1,20 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title">{{modalHeader}}</h4>
+    <select class="form-control parameter-select col-sm-2" (change)="onParamChange($event.target.value)">
+      <option value= "3" >Both</option>
+      <option value= "1" >Lot</option>
+      <option value= "2" >Item</option>
+    </select>    <!-- <button class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button> -->
+  </div>
+  <div class="modal-body">
+    <div class="widgets">
+          <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary confirm-btn" (click)="closeModal()">Close</button>
+  </div>
+</div>

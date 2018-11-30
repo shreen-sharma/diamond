@@ -1,0 +1,123 @@
+<div class="widgets">
+  <form (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="form-group ">
+             <div class="col-sm-12">
+              <label for="cmpName">Company Name</label>
+             <select class="form-control" id="cmpName">
+                        <option value="cmpName1">cmpName 1</option>
+                        <option value="cmpName2">cmpName 2</option>
+                        <option value="cmpName3">cmpName 3</option>
+                      </select>
+            </div>
+          </div>
+            <div class="form-group">
+             <div class="col-sm-12">
+              <label for="address">Company Address</label>
+                 <textarea rows="4" cols="50" class="form-control" id="address"></textarea>   
+            </div>
+          </div>
+
+
+          <div class="row">
+      <div class="col-md-6">
+        <ba-card cardTitle="" baCardClass="with-scroll">
+         
+          <div class="form-group">
+              <label for="eastDate">Eastiblishment Date</label>
+              <input type="date" class="form-control" id="eastDate">
+            </div>  
+          <div class="form-group">
+              <label for="bin">BIN NO.</label>
+              <input type="number" min=0 class="form-control" id="bin">
+            </div>
+            <div class="form-group">
+              <label for="DefaultCurrency">Default Currency</label>
+              <select class="form-control" id="DefaultCurrency">
+                        <option value="currency1">INR</option>
+                        <option value="currency2">DOllar</option>
+                        <option value="currency3">Dihram</option>
+                      </select>
+            </div>
+            <div class="form-group">
+              <label for="stockCurrency">Stock Currency</label>
+              <select class="form-control" id="stockCurrency">
+                  <option value="currency1">INR</option>
+                  <option value="currency2">DOllar</option>
+                  <option value="currency3">Dihram</option>
+                </select>
+            </div>
+               <div class="form-group">
+              <label for="natureCurrency">Nature Of Business</label>
+              <select class="form-control" id="natureCurrency">
+                  <option value="naturebusiness1">IT</option>
+                  <option value="naturebusiness2">Mech</option>
+                  <option value="naturebusiness3">Jeans</option>
+                </select>
+            </div>
+              <div class="form-group">
+              <label for="businessType">Type Of Business</label>
+              <select class="form-control" id="businessType">
+                  <option value="typebusiness1">IT</option>
+                  <option value="typebusiness2">Mech</option>
+                  <option value="typebusiness3">Jeans</option>
+                </select>
+            </div>
+            <div class="form-group">
+              <label for="firm">Type Of Firm</label>
+              <select class="form-control" id="firm">
+                  <option value="firm1">IT</option>
+                  <option value="firm2">Mech</option>
+                  <option value="firm3">Jeans</option>
+                </select>
+            </div>
+         
+        </ba-card>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group col-sm-12">
+          <label for="exampleSelect1">Select Bank</label>
+              <select class="form-control" id="exampleSelect1">
+                <option value="bank1">Bank 1</option>
+                <option value="bank2">Bank 2</option>
+                <option value="bank3">Bank 3</option>
+              </select>
+        </div>
+        <ba-card cardTitle="Trading House Certificate" baCardClass="with-scroll">
+            <div class="form-group">
+              <label for="type">THC NO</label>
+              <input type="number" min=0 class="form-control" id="type">
+            </div>
+            <div class="form-group">
+              <label for="nature">Date Of Issue:</label>
+              <input type="date" class="form-control" id="nature">
+            </div>
+            <div class="form-group">
+              <label for="nature">Valid From</label>
+              <input type="date" class="form-control" id="nature">
+            </div>
+         <div class="form-group">
+              <label for="nature">Valid To</label>
+              <input type="date" class="form-control" id="nature">
+            </div>
+            <div class="form-group">
+              <label for="nature">Issuing Authority</label>
+              <input type="text" class="form-control" id="nature">
+            </div>
+        </ba-card>
+           <div class="form-group col-sm-3">
+          <label for="decPlace">Decimal Place</label>
+               <input type="number" min=0 class="form-control" id="decPlace">
+        </div>
+      </div>
+    </div>
+        <button type="submit" class="btn btn-default">Submit</button>&nbsp;&nbsp;
+        <button type="submit" class="btn btn-default">Preview</button>&nbsp;&nbsp;
+       <button type="submit" class="btn btn-default">Close</button>  
+        </ba-card>
+      </div>
+    </div>
+  </form>
+</div>

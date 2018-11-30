@@ -1,0 +1,223 @@
+<div class="widgets">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+    <button type="button" class="btn btn-default mb-2" (click)="handleBack()"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+    <form [formGroup]="jangadConsignmentIssueForm" #formDir="ngForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+  
+            <div class="row">
+                
+                <div class="form-group col-sm-3" [ngClass]="{'has-error': (!partyId.valid && partyId.touched)  || (partyId.untouched && formDir.submitted), 'has-success': (partyId.valid && partyId.touched)}">
+                  <label for="partyId">Select Party</label>
+                    <select [formControl]="partyId" class="form-control" id="partyId" (change)="onChangeParty($event.target.value)">            
+                        <option *ngFor="let party of partyList" [value]="party.partyId">{{party.partyName}}</option>             
+                    </select>
+                    <small *ngIf="(!partyId.valid && partyId.touched) || (partyId.untouched && formDir.submitted)" class="text-danger">
+                        Party Name is required
+                    </small>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="broker">Broker</label>
+                    <select [formControl]="broker" class="form-control" id="broker">               
+                        <option *ngFor="let broker of brokerList" [value]="broker.partyId">{{broker.partyName}}</option>             
+                    </select>
+                  </div> 
+            
+                <div class="form-group col-sm-3" [ngClass]="{'has-error': (!processTypeId.valid && processTypeId.touched)  || (processTypeId.untouched && formDir.submitted), 'has-success': (processTypeId.valid && processTypeId.touched)}">
+                  <label for="processTypeId">Process</label>
+                    <select [formControl]="processTypeId" class="form-control" id="processTypeId">               
+                        <option *ngFor="let pro of processTypeList" [value]="pro.processTypeId">{{pro.processName}}</option>             
+                    </select>
+                    <small *ngIf="(!processTypeId.valid && processTypeId.touched) || (processTypeId.untouched && formDir.submitted)" class="text-danger">
+                        Process is required
+                    </small>
+                </div>
+                <div class="form-group col-sm-3">
+                  <label for="issueDate">Issue Date</label>
+                  <input type="date" class="form-control" id="issueDate" [formControl]="issueDate">
+                </div>
+                <div class="form-group col-sm-3" [ngClass]="{'has-error': (!department.valid && department.touched) || (department.untouched && formDir.submitted), 'has-success': (department.valid && department.touched)}">
+                    <label for="department"> Department</label>
+                    <select [formControl]="department" class="form-control" id="department">
+                        <option *ngFor="let dept of departmentList" [value]="dept.hierId">{{dept.hierName}}</option>                    
+                    </select>
+                    <small *ngIf="(!department.valid && department.touched) || (department.untouched && formDir.submitted)" class="text-danger">
+                        Department is required
+                    </small>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="instruction">Instruction</label>
+                    <input type="text" class="form-control" [formControl]="instruction" id="instruction">
+                </div>   
+                <div class="form-group col-sm-2">
+                  <label for="carryPerson">Carry Person</label>
+                  <input type="text" class="form-control" [formControl]="carryPerson" id="carryPerson">
+              </div> 
+                <div class="form-inline col-sm-2">
+                    <label class="checkbox-inline" for="isConsignment">
+                        <input type="checkbox" [formControl]="isConsignment" id="isConsignment">Consignment
+                        </label>           
+                </div>
+                <div class="form-inline col-sm-2">
+                    <label class="checkbox-inline" for="provisional">
+                        <input type="checkbox" [formControl]="provisional" id="provisional">Provisional DC
+                        </label>           
+                </div>
+            </div>
+            <div *ngIf="successMessage">
+                <div class="form-group alert alert-success alert-dismissable col-md-12">
+                <a class="close" aria-label="close" (click)="successMessage = null">&times;</a>
+                <strong>Success!&nbsp;</strong> {{ successMessage }}
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-12">
+                      <ngb-tabset>
+                        <ngb-tab id="itemDetails" title="Issue Item Details">
+                          <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="form-group col-sm-4" [ngClass]="{'has-error': (!lotMaster.valid && lotMaster.touched) || (lotMaster.untouched && formDir.submitted), 'has-success': (lotMaster.valid && lotMaster.touched)}">
+                                    <label for="lotMaster"> Lot</label>
+                                    <select [formControl]="lotMaster" class="form-control" id="lotMaster" (change)="onChangeLot($event.target.value)">
+                                        <option *ngFor="let lot of lotList" [value]="lot.lotId">{{lot.lotName}}</option>                    
+                                    </select>
+                                    <small *ngIf="(!lotMaster.valid && lotMaster.touched) || (lotMaster.untouched && formDir.submitted)" class="text-danger">
+                                        Lot is required
+                                    </small>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                  <label for="itemNameSearch">Select Item: </label>
+                                  <input id="test" type="text" class="form-control" [formControl]="itemNameSearch" id="itemNameSearch" [ngbTypeahead]="search"/>
+                                  
+                                </div>
+                                  <input type="hidden" [formControl]="issItem" class="form-control" id="itemMaster">
+                                <div class="form-group col-sm-4">
+                                    <label for="carats">Issued Carats</label>
+                                    <input type="number" class="form-control" [formControl]="carats" id="carats">
+                                    <small *ngIf="issItem.value" class="">
+                                        Total Carats Available: {{caratsCtrl}}
+                                    </small>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="avgRate">Selling Price Rate</label>
+                                    <input type="number" class="form-control" [formControl]="avgRate" id="avgRate" disabled>
+                                </div>
+                
+                                 <div class="form-group col-sm-4">
+                                    <label for="stockRate">Stock Rate</label>
+                                    <input type="text" class="form-control" [formControl]="stockRate" id="stockRate" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="dcRate">DC Rate</label>
+                                    <input type="number" class="form-control" [formControl]="dcRate" id="dcRate">
+                                </div>
+                                       <div class="form-group col-sm-4">
+                                        <label for="totalPcs">Pieces</label>
+                                        <input type="text" class="form-control" [formControl]="totalPcs" id="totalPcs">
+                                           </div>
+                                        <div class="form-group col-sm-4">
+                                        <label for="remark">Description</label>
+                                        <input type="text" class="form-control" [formControl]="remark" id="remark">
+                                            </div>
+                                    <div class="form-group col-sm-2">             
+                                       <p> </p>
+                                        <button type="button" *ngIf="showSbmtBtn" class="btn btn-primary btn-raised" (click)="onUpdate()">Add Issue</button>
+                                    </div>
+                             </div>
+                             <div class="row">
+                                <div class="col-2">
+                                  <label for="amount">Avg. Selling Amount: </label>
+                                  <span class="pt-2">{{avgSellAmt? avgSellAmt:0}}</span>
+                                </div>
+                                <div class="col-2">
+                                  <label for="profit">Total Selling Amount: </label>
+                                  <span class="pt-2">{{totSellAmt? totSellAmt:0}}</span> 
+                                </div>
+                                <div class="col-2">
+                                  <label for="amount">Avg. Stock Amount:</label>
+                                  <span class="pt-2">{{avgStockAmount? avgStockAmount:0}}</span>
+                                </div>
+                                <div class="col-2">
+                                  <label for="profit">Total Stock Amount:</label>
+                                  <span class="pt-2">{{totStockAmount? totStockAmount:0}}</span> 
+                                </div>
+                                <div class="col-2">
+                                  <label for="profit">Avg. DC Amount:</label>
+                                  <span class="pt-2">{{avgDcAmount? avgDcAmount:0}}</span> 
+                                </div>
+                                <div class="col-2">
+                                  <label for="profit">Total DC Amount:</label>
+                                  <span class="pt-2">{{totDcAmount? totDcAmount:0}}</span> 
+                                </div>
+                              </div>
+                             <div class="form-group">
+                                <ba-card cardTitle="Issued Item Details Under Selected Lot" baCardClass="with-scroll" class="smart-table-container">
+                                <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)"></ng2-smart-table>
+                                </ba-card>
+                            </div>
+                            <div class="row">
+                             <div class="form-group col-sm-9">
+                             </div>   
+                             <div class="form-group col-sm-3">
+                                <label for="totalCarets">Total Issued Carats</label>
+                                <input type="number" class="form-control" [formControl]="totalCarets" id="totalCarets" disabled>
+                             </div>  
+                            </div>
+                          </ng-template>
+                        </ngb-tab>
+                        <ngb-tab id="general" title="General Details">
+                          <ng-template ngbTabContent>
+                    <div class="row">
+                      <div class="form-group col-sm-4">
+                        <label for="bankId">Select Customer Bank</label>
+                        <select class="form-control" id="bankId" [formControl]="bankId">
+                          <option *ngFor="let bank of bankNameList" [value]="bank.value">{{bank.title}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-sm-4">
+                        <label for="bank">Select Our Bank</label>
+                        <select class="form-control" id="bank" [formControl]="bank">
+                          <option *ngFor="let bank of bankList" [value]="bank.id">{{bank.name}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-sm-4">
+                        <label for="bankTnc">T&amp;C</label>
+                        <select class="form-control" id="bankTnC" [formControl]="bankTnC">
+                          <option *ngFor="let terms of termsList" [value]="terms.id">{{terms.name}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-sm-4">
+                        <label for="dueDate">Bank Due Date</label>
+                        <input type="text" class="form-control" id="dueDate" [formControl]="dueDate" readonly>
+                      </div>
+                      <div class="form-group col-sm-4">
+                        <label for="creditDays">Credit Days</label>
+                        <input type="number" class="form-control" id="creditDays" [formControl]="creditDays">
+                      </div>
+                      <div class="form-group col-sm-4">
+                        <label for="localCurrency">Local Currency</label>
+                        <input class="form-control" id="localCurrency" [formControl]="localCurrency" hidden>
+                        <select class="form-control" id="localCurrency" [formControl]="localCurrency">
+                                <option *ngFor="let curr of currencyList" [value]="curr.currId">{{curr.currName}}</option>
+                              </select>  
+                    </div>
+                    </div>
+                          </ng-template>
+                        </ngb-tab>
+                      </ngb-tabset>
+                    </div>
+                  </div>
+     </ba-card>
+  </div>
+</div> 
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button type="submit" *ngIf="showSbmtBtn" [disabled]="!jangadConsignmentIssueForm.valid && formDir.submitted" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-default" (click)="handleBack()">Cancel</button>  
+            <button type="button" class="btn btn-success btn-raised" [disabled]="totalCarets.value <= 0" (click)="print()" style="float:right!important;margin-right: 5em!important;">Print</button> 
+          
+          </div>
+        </div>
+    </form>
+  </div>

@@ -1,0 +1,442 @@
+<div class="widgets">
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack()">
+    <i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="salesInvoiceForm" (ngSubmit)="submit()">
+    <input hidden id="OSI" name="OSI" [value]="openingStockInvoice">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="row">
+            <input hidden id="osi" name="osi" [value]="openingStockInvoice">
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!prefix.valid && prefix.touched), 'has-success': (prefix.valid && prefix.touched)}">
+              <label for="prefix">Select Prefix</label>
+              <select [formControl]="prefix" class="form-control" id="prefix">
+                <option *ngFor="let prefix of invoicePrefixList" [value]="prefix?.id" [selected]="prefix?.name">{{prefix?.name}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!suffix.valid && suffix.touched), 'has-success': (suffix.valid && suffix.touched)}">
+              <label for="suffix">Select Suffix</label>
+              <select [formControl]="suffix" class="form-control" id="suffix">
+                <option *ngFor="let suffix of invoiceSuffixList" [value]="suffix?.id" [selected]="suffix?.name">{{suffix?.name}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!invoiceDate.valid && invoiceDate.touched ), 'has-success': (invoiceDate.valid)}">
+              <label for="invoiceDate">Invoice Date</label>
+              <input type="date" [formControl]="invoiceDate" class="form-control" id="invoiceDate">
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!category.valid && category.touched), 'has-success': (category.valid && category.touched)}">
+              <label for="category">Category</label>
+              <select [formControl]="category" class="form-control" id="category">
+                <option *ngFor="let category of catMasterList" [value]="category.catId">{{category.catName}}</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!customer.valid && customer.touched), 'has-success': (customer.valid && customer.touched)}">
+              <label for="customer">Customer</label>
+              <select [formControl]="customer" class="form-control" id="customer">
+                <option *ngFor="let cus of customerList" [value]="cus.partyId">{{cus.partyName}}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-2" [ngClass]="{'has-error': (!cusBillDate.valid && cusBillDate.touched), 'has-success': (cusBillDate.valid && cusBillDate.touched)}">
+              <label for="cusBillDate">Customer Bill Date</label>
+              <input type="date" [formControl]="cusBillDate" class="form-control" id="cusBillDate">
+            </div>
+            <div class="form-group col-sm-2" [ngClass]="{'has-error': (!soId.valid && soId.touched ), 'has-success': (soId.valid)}">
+              <label for="cusOrderNo">Customer Order No.</label>
+              <input type="text" [formControl]="soId" class="form-control" id="soId" readonly>
+            </div>
+            <div class="form-group col-sm-2" [ngClass]="{'has-error': (!cusBankBranchId.valid && cusBankBranchId.touched), 'has-success': (cusBankBranchId.valid && cusBankBranchId.touched)}">
+              <label for="cusBankBranchId">Select Customer Bank</label>
+              <select [formControl]="cusBankBranchId" class="form-control" id="cusBankBranchId">
+                <option *ngFor="let branch of partyBankBranches" [value]="branch.id">{{branch.bankBranch.bankBrName}}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-3" *ngIf="!openingStockInvoice">
+              <button type="button" class="btn btn-success margin" [disabled]="btnDisable" (click)="lgModalShow()">Select Local Sales Order</button>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="form-group col-sm-3">
+              <label for="bankId">Select our Bank</label>
+              <select [formControl]="bankId" class="form-control" id="bankId">
+                <option *ngFor="let bank of bankList" [value]="bank?.id">{{bank?.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!bankTrCo.valid && bankTrCo.touched), 'has-success': (bankTrCo.valid && bankTrCo.touched)}">
+              <label for="bankTrCo">Terms &amp; Condition</label>
+              <select [formControl]="bankTrCo" class="form-control" id="bankTrCo">
+                <option *ngFor="let ts of trco" [value]="ts?.id">{{ts?.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!bCreditDays.valid && bCreditDays.touched), 'has-success': (bCreditDays.valid && bCreditDays.touched)}">
+              <label for="bCreditDays">Bank Credit Days</label>
+              <input type="number" [formControl]="bCreditDays" [value]="bankCrDays" class="form-control" id="bCreditDays">
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!bDueDate.valid && bDueDate.touched), 'has-success': (bDueDate.valid && bDueDate.touched)}">
+              <label for="bDueDate">Bank Due Date</label>
+              <input type="text" [formControl]="bDueDate" value="{{bankDueDate}}" class="form-control" id="bDueDate" readonly>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!cCreditDays.valid && cCreditDays.touched), 'has-success': (cCreditDays.valid && cCreditDays.touched)}">
+              <label for="cCreditDays">Customer Credit Days</label>
+              <input type="number" [formControl]="cCreditDays" class="form-control" id="cCreditDays">
+            </div>
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!cDueDate.valid && cDueDate.touched), 'has-success': (cDueDate.valid && cDueDate.touched)}">
+              <label for="cDueDate">Customer Due Date</label>
+              <input type="text" [formControl]="cDueDate" class="form-control" id="cDueDate" readonly>
+            </div>
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!brokerId.valid && brokerId.touched), 'has-success': (brokerId.valid && brokerId.touched)}">
+              <label for="brokerId">Broker</label>
+              <select [formControl]="brokerId" class="form-control" id="brokerId">
+                <option *ngFor="let broker of brokerList" [value]="broker?.partyId">{{broker?.partyName}}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="baseCurr">Base Currency</label>
+              <input type="text" [value]="baseCurrName? baseCurrName : ''" class="form-control" id="baseCurr" readonly>
+              <input type="text" [formControl]="baseCurr" class="form-control" id="baseCurr" hidden>
+            </div>
+
+
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!currencyId.valid && currencyId.touched ), 'has-success': (currencyId.valid )}">
+              <label for="currencyId">Invoice Currency</label>
+              <select [formControl]="currencyId" class="form-control" id="currencyId">
+                <option *ngFor="let curr of currList" [value]="curr?.currId">{{curr?.currName}}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!invExchRate.valid && invExchRate.touched), 'has-success': (invExchRate.valid && invExchRate.touched)}">
+              <label for="invExchRate">Inv To Base Exch Rate ({{invCurrCode}} -> {{baseCurrCode}})</label>
+              <input type="number" [formControl]="invExchRate" class="form-control" id="invExchRate" (change)="onInvExchRateChange($event.target.value)">
+              <input type="number" [formControl]="prevInvExchRate" class="form-control" id="prevInvExchRate" hidden>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!stockCurr.valid && stockCurr.touched), 'has-success': (stockCurr.valid && stockCurr.touched)}">
+              <label for="stockCurr">Stock Currency</label>
+              <input type="text" [value]="stockCurrName? stockCurrName : ''" class="form-control" id="stockCurr" readonly>
+              <input type="text" [formControl]="stockCurr" class="form-control" id="stockCurr" hidden>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!stockExchRate.valid && stockExchRate.touched), 'has-success': (stockExchRate.valid && stockExchRate.touched)}">
+              <label for="stockExchRate">Stock To Base Exch Rate ({{stockCurrCode}} -> {{baseCurrCode}})</label>
+              <input type="number" [formControl]="stockExchRate" class="form-control" id="stockExchRate" readonly>
+            </div>
+            <div class="col-sm-2 form-inline" *ngIf="!openingStockInvoice">
+              <label class="checkbox-inline" for="isCompleted">
+                <input type="checkbox" [formControl]="isCompleted" id="isCompleted">&nbsp;&nbsp;Mark Completed
+              </label>
+            </div>
+            <div class="col-sm-2 form-inline">
+              <label class="checkbox-inline" for="provisional" *ngIf="!openingStockInvoice">
+                <input type="checkbox" [formControl]="provisional" id="provisional">&nbsp;&nbsp;Provisional
+              </label>
+            </div>
+            <div class="form-group col-sm-2" *ngIf="!openingStockInvoice">
+              <button type="button" class="btn btn-success margin" [disabled]="btnDisable" (click)="directSale()">Direct Sale</button>
+            </div>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+    <ngb-tabset>
+      <ngb-tab title="Item Details">
+        <ng-template ngbTabContent>
+          <div class="col-md-12" *ngIf="!openingStockInvoice">
+            <div class="row">
+              <div class="form-group col-sm-4" [ngClass]="{'has-error': (!lot.valid && lot.touched), 'has-success': (lot.valid && lot.touched)}">
+                <label for="lot">Select Lot: </label>
+                <select [formControl]="lot" class="form-control" id="lot">
+                  <option *ngFor="let lot of lotMasterList | async" [ngValue]="lot">{{lot.lotName}}</option>
+                </select>
+                <small *ngIf="(!lot.valid && lot.touched)" class="text-danger">
+                  Lot is required
+                </small>
+              </div>
+              <div class="form-group col-sm-4">
+                <label for="itemName">Select Item: </label>
+                <input id="test" type="text" class="form-control" [formControl]="itemName" id="itemName" [ngbTypeahead]="search" />
+                <small *ngIf="(item.valid)" class="">
+                  Avg Rate: {{item.value.avgRate}}, Carats Available: {{item.value.totalCarets}}
+                </small>
+                <small *ngIf="(!item.valid && item.touched)" class="text-danger">
+                  Item is required
+                </small>
+              </div>
+              <input type="hidden" [formControl]="item" class="form-control" id="itemMaster">
+              <div class="form-group col-sm-4">
+                <label for="rate">Rate: </label>
+                <input type="text" [formControl]="rate" class="form-control" id="rate">
+                <small *ngIf="(!rate.valid  && rate.touched)" class="text-danger">
+                  Rate is required
+                </small>
+                <small *ngIf="(item.valid)" class="">
+                  Selling Price: {{salePrice}}
+                </small>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-2">
+                <label for="pieces">Pieces: </label>
+                <input type="number" [formControl]="pieces" class="form-control" id="pieces">
+              </div>
+              <div class="form-group col-sm-2" [ngClass]="{'has-error': (!carats.valid && carats.touched), 'has-success': (carats.valid && carats.touched)}">
+                <label for="carats">Total Carats: </label>
+                <input type="number" [formControl]="carats" class="form-control" id="carats">
+                <small *ngIf="(!carats.valid && carats.touched)" class="text-danger">
+                  Carats is required
+                </small>
+              </div>
+              <div class="form-group col-sm-4" [ngClass]="{'has-error': (!desc.valid && desc.touched), 'has-success': (desc.valid && desc.touched)}">
+                <label for="desc">Description: </label>
+                <input type="text" [formControl]="desc" class="form-control" id="desc" placeholder=" ">
+                <small *ngIf="(!desc.valid && desc.touched)" class="text-danger">
+                  Description is required
+                </small>
+              </div>
+              <div class="col-sm-4" style="padding-top:1.5em; padding-left:6em;">
+                <button type="button" (click)="handleAdd()" [disabled]="( !carats.value || !rate.value || !item.value || !lot.value)" class="btn btn-success">Add</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-2">
+                <label for="amount">Avg. Rate ({{stockCurrCode}}): </label>
+                <span class="pt-2"> {{avgRate? avgRate: 0| currency:stockCurrCode:'1.0-2'}}</span>
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="amount">Total Carats: </label>
+                <span class="pt-2">{{totalCarats? totalCarats:0}}</span>
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="amount">Order Amount ({{stockCurrCode}}): </label>
+                <span class="pt-2">{{orderAmount.value? orderAmount.value:0| currency:stockCurrCode:'1.0-2'}}</span>
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="amount">Order Amount ({{baseCurrCode}}): </label>
+                <span class="pt-2">{{orderAmountBase.value? orderAmountBase.value:0| currency:baseCurrCode:'1.0-2'}}</span>
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="amount">Selling Amount ({{stockCurrCode}}): </label>
+                <span class="pt-2">{{sellingAmount? sellingAmount:0| currency:stockCurrCode:'1.0-2' }}</span>
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="amount">Avg. Selling Amount ({{stockCurrCode}}): </label>
+                <span class="pt-2">{{totSellingAmt? totSellingAmt:0| currency:stockCurrCode:'1.0-2'}}</span>
+              </div>
+              <!-- <div class="col-2">
+                  <label for="amount">Stock Amount {{stockCurrCode}}:</label>
+                  <span class="pt-2">{{stockAmount? stockAmount:0| currency:stockCurrCode:'1.0-2'}}</span>
+                  </div> -->
+              <div class="col-2">
+                <label for="profit">TP in ({{stockCurrCode}}):</label>
+                <span class="pt-2">{{notional? notional:0| currency:stockCurrCode:'1.0-2'}}</span>
+              </div>
+              <div class="col-2">
+                <label for="profit">TP in ({{baseCurrCode}}):</label>
+                <span class="pt-2">{{baseNotional? baseNotional:0| currency:baseCurrCode:'1.0-2'}}</span>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <ba-card cardTitle="Sales Item Details" baCardClass="with-scroll">
+                <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)"></ng2-smart-table>
+              </ba-card>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="General Information/Tax Details({{baseCurrCode}})">
+        <ng-template ngbTabContent>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <ba-card cardTitle="Here all fields can be + or - . For Example -1 or 1 as per requirement." baCardClass="with-scroll">
+                  <div class="row">
+                    <!-- <div class="col-sm-2 form-inline">
+                    <label class="checkbox-inline" for="addOrSubs">
+                      <input type="checkbox" [formControl]="addOrSubs" id="addOrSubs">&nbsp;&nbsp;Add or Subs. 
+                    </label>
+                  </div>                   -->
+                    <div class="form-group col-md-2">
+                      <label for="commission">Commission (%)</label>
+                      <input type="number" [formControl]="commission" class="form-control" id="commission">
+                      <!-- <small *ngIf="(commission.valid)" class="">
+                        Commission Amt: {{comm.value|number:'1.0-2'}}
+                    </small> -->
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="discount">Discount (%)</label>
+                      <input type="number" [formControl]="discount" class="form-control" id="discount">
+                      <!-- <small *ngIf="(discount.valid)">
+                        Discount Amt: {{dsc.value|number:'1.0-2'}}
+                    </small> -->
+                    </div>
+                    <div class="form-group col-md-2" style="border-right: 1px dotted rgb(251, 253, 253);">
+                      <label for="oded">Other Deduction (%)</label>
+                      <input type="number" [formControl]="oded" class="form-control" id="oded">
+                      <!-- <small *ngIf="(oded.valid)">
+                      Other Deduction Amt: {{otherDed.value|number:'1.0-2'}}
+                    </small> -->
+                    </div>
+                    <div class="form-group col-sm-3" style="border-right: 1px dotted rgb(251, 253, 253);">
+                      <label for="totFICDO">Total COD Amt</label>
+                      <input type="number" class="form-control" [formControl]="totFICDO" id="totFICDO" readonly>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="brokerage">Brokerage (%)</label>
+                      <input type="number" [formControl]="brokerage" class="form-control" id="brokerage">
+                      <!-- <small *ngIf="(oded.valid)">
+                      Other Deduction Amt: {{otherDed.value|number:'1.0-2'}}
+                    </small> -->
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <!-- <div class="form-group col-sm-2">
+                     <label for="frit">+ Freight</label>
+                      <input type="number" class="form-control" [formControl]="frit" id="frit" readonly>
+                  </div> -->
+                    <div class="form-group col-sm-2">
+                      <label for="comm">Commission</label>
+                      <input type="number" class="form-control" [formControl]="comm" id="comm" readonly>
+                    </div>
+                    <div class="form-group col-sm-2">
+                      <label for="dsc">Discount</label>
+                      <input type="number" class="form-control" [formControl]="dsc" id="dsc" readonly>
+                    </div>
+                    <div class="form-group col-sm-2" style="border-right: 1px dotted rgb(251, 253, 253);">
+                      <label for="otherDed">Other Deduction</label>
+                      <input type="number" class="form-control" [formControl]="otherDed" id="otherDed" readonly>
+                    </div>
+                    <div class="form-group col-sm-3" style="border-right: 1px dotted rgb(251, 253, 253);">
+                      <label for="totTax"> = Calculated COD Amt </label>
+                      <input type="number" class="form-control" id="totTax" [value]="totTax" readonly>
+                    </div>
+                    <div class="form-group col-sm-3">
+                      <label for="brokerageAmt">Brokerage Amount</label>
+                      <input type="number" class="form-control" [formControl]="brokerageAmt" id="brokerageAmt" readonly>
+                    </div>
+                  </div>
+                </ba-card>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <ba-card cardTitle="" baCardClass="with-scroll">
+                  <div class="row">
+                    <div class="form-group col-sm-3">
+                      <label for="igst">IGST %</label>
+                      <input type="number" [formControl]="igst" class="form-control" id="igst">
+                    </div>
+                    <div class="form-group col-sm-3">
+                      <label for="cgst">CGST %</label>
+                      <input type="number" [formControl]="cgst" class="form-control" id="cgst">
+                    </div>
+                    <div class="form-group col-sm-3">
+                      <label for="sgst">SGST %</label>
+                      <input type="number" [formControl]="sgst" class="form-control" id="sgst">
+                    </div>
+                    <div class="form-group col-sm-3">
+                      <label for="tot">TOT %</label>
+                      <input type="number" [formControl]="tot" class="form-control" id="tot" readonly>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-sm-2">
+                      <label for="igstAmount">IGST Total Amount</label>
+                      <input type="number" [formControl]="igstAmount" class="form-control" id="igstAmount" readonly>
+                    </div>
+                    <div class="form-group col-sm-2">
+                      <label for="cgstAmount">CGST Total Amount</label>
+                      <input type="number" [formControl]="cgstAmount" class="form-control" id="cgstAmount" readonly>
+                    </div>
+                    <div class="form-group col-sm-2">
+                      <label for="sgstAmount">SGST Total Amount</label>
+                      <input type="number" [formControl]="sgstAmount" class="form-control" id="sgstAmount" readonly>
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="freight"> Freight Amt</label>
+                      <input type="number" [formControl]="freight" class="form-control" id="freight">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="insurance"> Insurance Amt</label>
+                      <input type="number" [formControl]="insurance" class="form-control" id="insurance">
+                    </div>
+                    <div class="form-group col-sm-2">
+                      <label for="totAmount">TOT Amount</label>
+                      <input type="number" [formControl]="totAmount" class="form-control" id="totAmount" readonly>
+                    </div>
+                  </div>
+                </ba-card>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <ba-card cardTitle="" baCardClass="with-scroll">
+      <div class="row">
+        <div class="form-group col-sm-3" *ngIf="!openingStockInvoice">
+          <label for="orderAmount">Order Amount ({{stockCurrCode}})</label>
+          <input type="number" class="form-control" [formControl]="orderAmount" id="orderAmount" readonly>
+        </div>
+        <div class="form-group col-sm-3" *ngIf="openingStockInvoice">
+          <label for="orderAmount">Order Amount ({{stockCurrCode}})</label>
+          <input type="number" class="form-control" [formControl]="orderAmount" id="orderAmount">
+        </div>
+        <div class="form-group col-sm-3">
+          <label for="orderAmountBase">Order Amount ({{baseCurrCode}})</label>
+          <input type="number" class="form-control" [formControl]="orderAmountBase" id="orderAmountBase" readonly>
+        </div>
+        <div class="form-group col-sm-3">
+          <label for="payableAmount">Total Receiveable Amount ({{stockCurrCode}})</label>
+          <input type="number" class="form-control" [formControl]="payableAmount" id="payableAmount" readonly>
+        </div>
+        <div class="form-group col-sm-3">
+          <label for="payableAmountBase">Total Receiveable Amount ({{baseCurrCode}})</label>
+          <input type="number" class="form-control" [formControl]="payableAmountBase" id="payableAmountBase" readonly>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-2">
+          <label for="totalWgtCts">Net Wgt. Cts</label>
+          <input type="number" class="form-control" [formControl]="totalWgtCts" id="totalWgtCts">
+        </div>
+        <div class="form-group col-sm-2">
+          <label for="netWgtKg">Net Wgt. Kg</label>
+          <input type="number" class="form-control" [formControl]="netWgtKg" id="netWgtKg">
+        </div>
+        <div class="form-group col-sm-2">
+          <label for="boxWgt">Box Wgt(Kg)</label>
+          <input type="number" class="form-control" [formControl]="boxWgt" id="boxWgt">
+        </div>
+        <div class="form-group col-sm-2">
+          <label for="grossWgt">Gross Wgt Kg</label>
+          <input type="number" class="form-control" [formControl]="grossWgt" id="grossWgt">
+        </div>
+        <div class="form-group col-sm-4">
+          <label for="remark">Remark</label>
+          <input type="text" class="form-control" [formControl]="remark" id="remark">
+        </div>
+      </div>
+    </ba-card>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <button type="button" (click)="submit()" class="btn btn-primary btn-raised" *ngIf="showSbmtBtn">Submit</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default" (click)="handleBack()">Cancel</button>
+        <button type="button" class="btn btn-success btn-raised" [disabled]="itemDetails.length == 0" (click)="validP()" style="float:right!important;margin-right: 5em!important;">Print</button>
+
+      </div>
+    </div>
+  </form>
+</div>

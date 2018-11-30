@@ -1,0 +1,131 @@
+<div class="widgets">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="orderForm" #formDir="ngForm">
+
+  <div class="row">
+    <div class="col-md-12">
+      <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="row">
+            <!-- <div class="form-group col-sm-3">
+              <label for="poNo">Purchase Order No.</label>
+              <input type="text" formControlName="poNo" class="form-control" id="poNo" readonly>
+             </div> -->
+            <div class="form-group col-sm-2">
+              <label for="poDate">Order Date</label>
+              <input type="date" formControlName="poDate" class="form-control" id="poDate" >
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!categoryMaster.valid && categoryMaster.touched)), 'has-success': (categoryMaster.valid && categoryMaster.touched)}">
+              <label for="categoryMaster">Select Category</label>
+              <select formControlName="categoryMaster" class="form-control" id="categoryMaster" (change)="onChangeCat($event.target.value)">
+                <option *ngFor="let category of catMasterList | async" [value]="category.catId">{{category.catName}}</option>
+              </select>
+              <small *ngIf="(!categoryMaster.valid && categoryMaster.touched)" class="text-danger">
+                Item Category is required
+              </small>
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!party.valid && party.touched)), 'has-success': (party.valid && party.touched)}">
+              <label for="party">Select Supplier</label>
+              <select formControlName="party" class="form-control" id="party" #selectParty>
+                <option *ngFor="let party of partyTypeList | async" [ngValue]="party">{{party.partyName}}</option>
+              </select>
+              <small *ngIf="(!party.valid && party.touched) || (party.untouched && formDir.submitted)" class="text-danger">
+                Supplier is required
+              </small>
+            </div>
+          <!-- </div>
+          <div class="row"> -->
+            
+            <div class="form-group col-sm-2">
+                <label for= "stockCurrency">Stock Currency</label>
+                <input [value]="stockCurrName" class="form-control" id="stockCurrency" readonly>
+                <input type="text" [formControl]="stockCurrency" class="form-control" id="stockCurrency" hidden>
+              </div>
+            <div class="form-group col-sm-2">
+              <label for= "exchangeRate">Stock To Base Exch Rate ({{stockCurrName}} -> {{baseCurrName}})</label>
+              <input formControlName = "exchangeRate" class="form-control" id="exchangeRate" readonly>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!poCurrency.valid && poCurrency.touched) || (poCurrency.untouched && formDir.submitted)), 'has-success': (poCurrency.valid && poCurrency.touched)}">
+                <label for= "poCurrency">PO Currency</label>
+                <select formControlName = "poCurrency" class="form-control" id="poCurrency">
+                    <option *ngFor="let curr of currList" [value]="curr.currId">{{curr.currName}}</option>
+                  </select>
+                  <small *ngIf="(!poCurrency.valid && poCurrency.touched) || (poCurrency.untouched && formDir.submitted)" class="text-danger">
+                      Order Currency is required
+                  </small>
+              </div>
+
+              <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!exchangeRate.valid && exchangeRate.touched) || (exchangeRate.untouched && formDir.submitted)), 'has-success': (poCurrency.valid && poCurrency.touched)}">
+                <label for= "baseExchangeRate">PO To Base Exch Rate ({{poCurrName}} -> {{baseCurrName}})</label>
+                <input formControlName = "baseExchangeRate" class="form-control" id="baseExchangeRate">
+                  <small *ngIf="(!baseExchangeRate.valid && baseExchangeRate.touched) || (baseExchangeRate.untouched && formDir.submitted)" class="text-danger">
+                      Provide Exchange Rate 
+                  </small>
+              </div>
+
+              <div class="form-group col-sm-2">
+                <label for= "baseCurr">Base Currency</label>
+                <input [value]="baseCurrName" class="form-control" id="baseCurr" readonly>
+                <input type="text" [formControl]="baseCurr" class="form-control" id="baseCurr" hidden>
+              </div>
+
+              <div class="form-inline col-sm-4">
+                <div class="row">
+                  <div class="col-sm-4 form-inline">
+                    <label class="checkbox-inline" for="draftStatus">
+                      <input type="checkbox" [formControl]="draftStatus" id="draftStatus">&nbsp;&nbsp;Draft
+                    </label>
+                  </div>
+    
+                </div>
+              </div>
+             
+              <div class="col-sm-2 form-inline">
+                <button type="button" class="btn btn-warning btn-icon" (click)="estimatedCarats()">Estimated Carats</button>
+              </div>
+              <div class="col-sm-2 form-inline">
+                <button type="button" class="btn btn-warning btn-icon" (click)="estimatedSize()">Estimated Size</button>
+              </div>
+              
+          </div>
+      </ba-card>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage">
+    <div class="form-group alert alert-danger alert-dismissable col-md-12">
+      <a class="close" aria-label="close" (click)="errorMessage = null">&times;</a>
+      <strong></strong> {{ errorMessage }}
+    </div>
+  </div>
+
+  <div class="row" *ngIf="partyStatus">
+    <div class="col-md-12">
+      <ngb-tabset (tabChange)="beforeChange($event)">
+        <ngb-tab id="order" title="Purchase Order Item List">
+          <ng-template ngbTabContent>
+            <order-item-list [parentForm]="orderForm" [stockCurrencyCode]="stockCurrencyCode" [baseCurrencyCode]="baseCurrencyCode" [poCurrencyCode]="poCurrencyCode" [isViewMode]="isViewMode" [data]="purchOrderData.purchaseOrderItems"></order-item-list>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab id="stock" title="Stock Effects">
+          <ng-template ngbTabContent>
+            <stock-effect [parentForm]="orderForm" [stockCurrencyCode]="stockCurrencyCode" [baseCurrencyCode]="baseCurrencyCode" [poCurrencyCode]="poCurrencyCode" [isViewMode]="isViewMode" [lotMasterList]="lotMasterList" [categoryId]="categoryMaster.value" [data]="purchOrderData.orderItems"></stock-effect>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab id="general" title="General Details">
+          <ng-template ngbTabContent>
+            <order-general-details [parentForm]="orderForm" [isViewMode]="isViewMode" [termsList]="termsList" [bankBranches]="partyBankBranches" [bankNameList]="bankNameList" [data]="purchOrderData.generalDetails"></order-general-details>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <button type="button" class="btn btn-primary btn-raised" *ngIf="showSbmtBtn" (click)="submit()">Submit</button>&nbsp;&nbsp;
+      <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+    </div>
+  </div>
+</form>
+</div>

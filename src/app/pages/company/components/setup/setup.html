@@ -1,0 +1,17 @@
+
+<div class="widgets">
+    <div class="row" *ngIf="message">
+        <div class="alert alert-green alert-dismissable col-12">
+          <a class="close" aria-label="close" (click)="message=''">&times;</a>
+          <strong>Success!</strong> {{message}}
+        </div>
+      </div>
+
+  <div class="row">
+    <ba-card cardTitle="Setup" baCardClass="with-scroll" class="smart-table-container">
+      <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+      (editConfirm)="onCreateConfirm($event)" (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+    </ba-card>
+  </div>
+
+</div>

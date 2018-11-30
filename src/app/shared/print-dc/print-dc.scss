@@ -1,0 +1,117 @@
+@import "../../theme/sass/conf/conf";
+
+.modal-buttons .btn {
+  margin-right: 20px;
+  padding: 0 0 0 1em;
+}
+.table{
+  text-align: center; 
+  width: 100%;float:center!important;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+}
+table td, table th {
+  border: solid 1px black !important;
+}
+//Add a comment to this line
+
+.modal-content {
+  color: black;
+  background-color: rgb(250, 253, 255);
+}
+.modal-header{
+  text-align: center!important;
+  border-bottom: 1px dotted #818181;
+}
+// .modal-footer{
+//   border-top: 1px dotted #818181;
+//   text-align: center;
+// }
+.modal-header .topName2{
+  font-size: .8em!important; 
+  text-align: center!important;
+}
+.modal-body .top6{
+  font-size: .9em!important;
+  font-weight: normal!important;
+}
+.modal-body .topName{
+  text-align: center;
+  margin-bottom: .5em!important;
+}
+.modal-body .top{
+  font-size: .8em;
+  font-weight: none;
+  margin-bottom: .5em!important;
+}
+.modal-body .topName1{
+  text-align: center!important;
+}
+.modal-body .top1{
+  text-align: center!important;
+}
+.modal-body .top2{
+  text-align: center!important;
+  margin-top: -2em;
+}
+.modal-body .top3{
+  margin-top: 0em!important;
+  font-weight: normal!important;
+  font-size: .8em!important;
+}
+.modal-body .top4{
+  margin-bottom: 0em!important;
+}
+.modal-body .top5{
+  margin-bottom: 0em!important;
+}
+.modal-body .top7{
+  font-size: .8em!important;
+  font-weight: normal!important;
+}
+.modal-header .top6{
+  font-size: .8em!important;
+  font-weight: normal!important;
+  margin: 0 3em 0 3em!important;
+  padding: 0 2em 0 2em!important;
+}
+.modal-body .top8{
+  font-size: .8em!important;
+  font-weight: normal!important;
+}
+.modal-body .topName4{
+  margin-top: 1em!important; 
+  font-size: 1em!important;
+  text-align: center!important;
+}
+.form-control{
+  color: black;
+  border: 1px solid black;
+  margin-bottom: .5em;
+}
+.labelText{
+  color: black;
+  margin: 0 1em 0 1em;
+}
+:-moz-placeholder{
+  color: black;
+}
+:-ms-input-placeholder{
+  color: black;
+}
+::-moz-placeholder{
+  color: black;
+}
+::-webkit-input-placeholder{
+  color: black;
+}
+.row{
+  margin: 1em 1em 1em 1em;
+}
+.email{
+  font-size: .8em!important; 
+  text-align: center!important;
+}
+.topTitle{
+  margin-top: 1em!important;
+}

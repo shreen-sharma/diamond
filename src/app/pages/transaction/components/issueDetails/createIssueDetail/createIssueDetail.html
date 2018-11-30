@@ -1,0 +1,179 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="empIssueDetailForm" #formDir="ngForm"  (ngSubmit)="submit()">
+    
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+
+          <div class="row">
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!hierarchyRelationByDivIdDTO.valid && hierarchyRelationByDivIdDTO.touched), 'has-success': (hierarchyRelationByDivIdDTO.valid && hierarchyRelationByDivIdDTO.touched)}">
+              <label for="hierarchyRelationByDivIdDTO">Select Division</label>
+                  <select [formControl]="hierarchyRelationByDivIdDTO" class="form-control" id="hierarchyRelationByDivIdDTO" (change)="onDivChange($event.target.value)">                
+                    <option *ngFor="let div of divList" [value]="div.hierId">{{div.hierName}}</option>             
+                </select>
+                <small *ngIf="(!hierarchyRelationByDivIdDTO.valid && hierarchyRelationByDivIdDTO.touched)" class="text-danger">
+                    Division is required
+                </small>
+            </div>
+
+            <div class="form-group col-sm-2" [ngClass]="{'has-error': (!hierarchyRelationByLocIdDTO.valid && hierarchyRelationByLocIdDTO.touched), 'has-success': (hierarchyRelationByLocIdDTO.valid && hierarchyRelationByLocIdDTO.touched)}">
+              <label for="hierarchyRelationByLocIdDTO">Select Location</label>
+                  <select [formControl]="hierarchyRelationByLocIdDTO" class="form-control" id="hierarchyRelationByLocIdDTO" (change)="onLocChange($event.target.value)">                
+                    <option *ngFor="let loc of locList" [value]="loc.hierId">{{loc.hierName}}</option>             
+                </select>
+                <small *ngIf="(!hierarchyRelationByLocIdDTO.valid && hierarchyRelationByLocIdDTO.touched)" class="text-danger">
+                    Location is required
+                </small>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!hierarchyRelationByDeptIdDTO.valid && hierarchyRelationByDeptIdDTO.touched), 'has-success': (hierarchyRelationByDeptIdDTO.valid && hierarchyRelationByDeptIdDTO.touched)}">
+              <label for="hierarchyRelationByDeptIdDTO">Select Department</label>
+                  <select [formControl]="hierarchyRelationByDeptIdDTO" class="form-control" id="hierarchyRelationByDeptIdDTO" (change)="onDeptChange($event.target.value)">                
+                    <option *ngFor="let dept of deptList" [value]="dept.hierId">{{dept.hierName}}</option>             
+                </select>
+                <small *ngIf="(!hierarchyRelationByDeptIdDTO.valid && hierarchyRelationByDeptIdDTO.touched)" class="text-danger">
+                    Department is required
+                </small>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!hierarchyRelationBySdeptIdDTO.valid && hierarchyRelationBySdeptIdDTO.touched), 'has-success': (hierarchyRelationBySdeptIdDTO.valid && hierarchyRelationBySdeptIdDTO.touched)}">
+              <label for="hierarchyRelationBySdeptIdDTO">Select Sub-Department</label>
+                  <select [formControl]="hierarchyRelationBySdeptIdDTO" class="form-control" id="hierarchyRelationBySdeptIdDTO" (change)="onSDeptChange($event.target.value)">                
+                    <option *ngFor="let sdept of subDeptList" [value]="sdept.hierId">{{sdept.hierName}}</option>             
+                </select>
+                <small *ngIf="(!hierarchyRelationBySdeptIdDTO.valid && hierarchyRelationBySdeptIdDTO.touched)" class="text-danger">
+                    Sub-Department is required
+                </small>
+            </div>
+            <div class="form-group col-sm-1 reset">
+              <p></p>
+              <button type="button" class="btn btn-warning" [disabled]="employeeMasterDTO.invalid" (click)="onResetBtnClick()">Reset</button>
+            </div>
+          </div>
+
+          <ba-card cardTitle="Issue Details" baCardClass="with-scroll">
+            <div class="row">
+                <div class="form-group col-sm-6" [ngClass]="{'has-error': (!employeeMasterDTO.valid && employeeMasterDTO.touched)  || (employeeMasterDTO.untouched && formDir.submitted), 'has-success': (employeeMasterDTO.valid && employeeMasterDTO.touched)}">
+                  <label for="employeeMasterDTO">Select Employee</label>
+                      <select [formControl]="employeeMasterDTO" class="form-control" id="employeeMasterDTO" (change)="onEmpChange($event.target.value)">                
+                        <option *ngFor="let emp of empHierList" [value]="emp.empId">{{emp.empName}}</option>             
+                    </select>
+                    <small *ngIf="(!employeeMasterDTO.valid && employeeMasterDTO.touched) || (employeeMasterDTO.untouched && formDir.submitted)" class="text-danger">
+                        Employee is required
+                    </small>
+                </div>
+                <div class="form-group col-sm-3" [ngClass]="{'has-error': (!processMasterDTO.valid && processMasterDTO.touched)  || (processMasterDTO.untouched && formDir.submitted), 'has-success': (processMasterDTO.valid && processMasterDTO.touched)}">
+                  <label for="processMasterDTO">Select Process</label>
+                      <select [formControl]="processMasterDTO" class="form-control" id="processMasterDTO">                
+                        <option *ngFor="let pro of processList" [value]="pro.processTypeId">{{pro.processName}}</option>             
+                    </select>
+                    <small *ngIf="(!processMasterDTO.valid && processMasterDTO.touched) || (processMasterDTO.untouched && formDir.submitted)" class="text-danger">
+                        Process is required
+                    </small>
+                </div>
+                <div class="form-group col-sm-3" [ngClass]="{'has-error': (!lotMasterDTO.valid && lotMasterDTO.touched)  || (lotMasterDTO.untouched && formDir.submitted), 'has-success': (lotMasterDTO.valid && lotMasterDTO.touched)}">
+                  <label for="lotMasterDTO">Select Lot</label>
+                      <select [formControl]="lotMasterDTO" class="form-control" id="lotMasterDTO" (change)="onChangeLot($event.target.value)">                
+                        <option *ngFor="let lot of lotList" [value]="lot.lotId">{{lot.lotName}}</option>             
+                    </select>
+                    <small *ngIf="(!lotMasterDTO.valid && lotMasterDTO.touched) || (lotMasterDTO.untouched && formDir.submitted)" class="text-danger">
+                        Lot is required
+                    </small>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-3">
+                <label for="issueDate">Issue Date</label>
+                <input type="text" class="form-control" [value]="todayDate" id="issueDate" disabled>
+              </div>
+              <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!issueNo.valid && issueNo.touched) || (issueNo.untouched && formDir.submitted)), 'has-success': (issueNo.valid && issueNo.touched)}">
+                <label for="issueNo">Issue No.</label>
+                <input type="text" [formControl]="issueNo" class="form-control" id="issueNo">
+                <div *ngIf="((!issueNo.valid && issueNo.touched) || (issueNo.untouched && formDir.submitted)) && issueNo.errors != null" class="text-danger">  
+                  <small *ngIf= "issueNo.errors.required">
+                      Issue No. is required.
+                  </small>
+                  <small *ngIf="issueNo.errors.maxlength">
+                      Issue No. must not be greater than 50.
+                  </small>
+                </div>
+              </div>
+              <div class="form-group col-sm-3">
+                <label for="totalPcs">Total Issued Pieces</label>
+                <input type="number" [formControl]="totalPcs" class="form-control" id="totalPcs" disabled>
+              </div>
+              <div class="form-group col-sm-3">
+                <label for="totalCarats">Total Issued Carats</label>
+                <input type="number" [formControl]="totalCarats" class="form-control" id="totalCarats" disabled>
+              </div>
+              <div class="form-group col-sm-12" [ngClass]="{'has-error': ((!remark.valid && remark.touched) || (remark.untouched && formDir.submitted)), 'has-success': (remark.valid && remark.touched)}">
+                <label for="remark">Remark</label>
+                <input type="text" [formControl]="remark" class="form-control" id="remark">
+                <div *ngIf="((!remark.valid && remark.touched) || (remark.untouched && formDir.submitted)) && remark.errors != null" class="text-danger">  
+                  <small *ngIf= "remark.errors.required">
+                      Remark is required.
+                  </small>
+                  <small *ngIf="remark.errors.maxlength">
+                      Remark must not be greater than 255.
+                  </small>
+                </div>
+              </div>
+            </div>
+
+          </ba-card>
+        </ba-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card cardTitle="Item Issue Details" baCardClass="with-scroll">
+            <div class="row">
+              <div class="form-group col-sm-5">
+                <label for="item">Select Item</label>
+                <select [formControl]="item" class="form-control" id="item" (change)="onChangeItem($event.target.value)">                
+                  <option *ngFor="let item of itemLotList" [value]="item.lotItemId">{{item.itemMaster.itemName}}</option>             
+                </select>
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="totcarats">Total Carats</label>
+                <input type="text" [formControl]="totcarats" class="form-control" id="totcarats" disabled>
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="issuedPcs">Issued Pieces</label>
+                <input type="number" [formControl]="issuedPcs" class="form-control" id="issuedPcs">
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="issuedCarats">Issued Carats</label>
+                <input type="number" [formControl]="issuedCarats" class="form-control" id="issuedCarats">
+              </div>  
+              <div class="form-group add col-sm-1">
+                <p></p>
+                <button type="button" class="btn btn-primary" (click)="onAdd()">Add</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-12">
+                  <ba-card cardTitle="Issued Item Details" baCardClass="with-scroll">
+                    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+                  </ba-card>
+              </div>
+            </div>
+
+        </ba-card>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <button type="submit" [disabled]="!empIssueDetailForm.valid && formDir.submitted" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+        <button type="button" class="btn btn-success rght" (click)="onPrintVchrClick()">Print Voucher</button>
+      </div>
+    </div>
+    
+  </form>
+</div>

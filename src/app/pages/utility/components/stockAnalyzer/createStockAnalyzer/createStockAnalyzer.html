@@ -1,0 +1,176 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="stockAnalyzerForm" (ngSubmit)="submit()">
+
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+
+          <div class="row row">
+             <div class="form-group col-sm-4">
+              <label for="Company">Company</label>
+              <select class="form-control" id="Company">
+                    <option value="cmbCompany">cmbCompany</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="Category">Category</label>
+              <select class="form-control" id="Category">
+                    <option value="cmbCat">cmbcat</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="Lot">Lot</label>
+              <select class="form-control" id="Lot">
+                    <option value="cmbLot">cmbLot</option>
+              </select>
+            </div>
+              <div class="form-group col-sm-12">
+              <label for="Item">Item</label>
+              <select class="form-control" id="Item">
+                    <option value="cmbItem">cmbItem</option>
+              </select>
+            </div>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+
+    <ngb-tabset>
+      
+      <ngb-tab title="Available with Company">
+        <ng-template ngbTabContent>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <input type="checkbox" id="stockOfImports">
+              <label for="invoiceno">Include Stock Of Imports </label>
+            </div>
+            <div class="form-group col-sm-6">
+              <input type="checkbox" id="stckOfLocalPurchase">
+              <label for="invoiceno">Include Stock Of Local Purchases</label>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      
+      <ngb-tab title="Available with Employee">
+        <ng-template ngbTabContent>
+          <div class="row">
+            <div class="form-group col-sm-2">
+              <label for="Division">Division</label>
+              <select class="form-control" id="Division">
+                <option value="cmbDiv">cmbDiv</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-2">
+              <label for="Location">Location</label>
+              <select class="form-control" id="Location">
+                <option value="cmbDiv">cmbLocation</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-2">
+              <label for="Dept">Dept.</label>
+              <select class="form-control" id="Dept">
+                <option value="cmbSDept">cmbSDept</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-2">
+              <label for="Dept">Dept.</label>
+              <select class="form-control" id="Dept">
+                <option value="cmbSDept">cmbDept</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-2">
+              <label for="Emp">Employee</label>
+              <select class="form-control" id="Emp">
+                <option value="cmbEmp">cmbEmp</option>
+              </select>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab title="Available With Party">
+        <ng-template ngbTabContent>
+          <div class="row row">
+            <div class="form-group col-sm-4">
+              <label for="item">Party</label>
+              <select class="form-control" id="cmbParty">
+                    <option value="cmbParty">cmbParty</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="item">Process Type</label>
+              <select class="form-control" id="cmbProcessType">
+                    <option value="cmbProcessType">cmbProcessType</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="item">Process</label>
+              <select class="form-control" id="cmbProcess">
+                    <option value="cmbProcess">cmbProcess</option>
+              </select>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab title="Available With Party(Bulk)">
+        <ng-template ngbTabContent>
+          <div class="row row">
+            <div class="form-group col-sm-12">
+              <label for="item">Bulk Party</label>
+              <select class="form-control" id="cmbBParty">
+                <option value="cmbBParty">cmbBParty</option>
+              </select>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+  <div class="row">
+      <div class="col-md-12">
+        <ba-card formArrayName="parameters" baCardClass="with-scroll">
+            <item-parameter [itemParameter]="itemParameters['controls'][i]" [odd]="odd" (remove)="removeParameter(i)"
+             *ngFor="let param of itemParameters['controls']; let i=index; let odd=odd;"></item-parameter>
+          <div class="mt-2">
+            <button (click)="addParameter()" class="btn btn-success btn-icon" type="button"><i class="fa fa-plus-circle"></i> Add Parameter</button>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card cardTitle="Total Carats" baCardClass="with-scroll">
+          <div class="row">
+
+            <div class="form-group col-sm-12">
+              <button (click)="onGoToMovementAnalyzer($event)" type="submit" class="btn btn-default">Item Movement Analyzer</button>&nbsp;&nbsp;
+              <button (click)="onGoToAvgRateAnalyzer($event)" type="button" class="btn btn-default">Item Average Rate Analyzer</button>&nbsp;&nbsp;
+              <button type="submit" class="btn btn-default">Show</button>&nbsp;&nbsp;
+              <button type="submit" class="btn btn-default">Preview All</button>&nbsp;&nbsp;
+              <button type="submit" class="btn btn-default">Preview</button>&nbsp;&nbsp;
+              <button type="submit" class="btn btn-default">Clear</button>&nbsp;&nbsp;
+            </div>
+
+            <div class="form-group col-sm-12">
+              <textarea rows="10" cols="200" class="form-control" id="totalCarats">ivwItem
+              </textarea>
+            </div>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-12">
+          <button type="submit" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+        </div>
+      </div>
+
+  </form>
+</div>

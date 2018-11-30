@@ -1,0 +1,33 @@
+@import "../../../../../../theme/sass/conf/conf";
+@import '../../../../../../theme/sass/smartTables';
+
+.modal-buttons .btn {
+  margin-right: 20px;
+}
+
+.modal-content {
+  color: whitesmoke;
+  $blurredBgUrl: '/assets/img/blue-bg.jpg';
+  background: url($blurredBgUrl);
+}
+
+.confirm-btn {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+// :host /deep/ {
+//   ng2-smart-table {
+  
+//     tbody {
+//       tr {
+//         color: $default-text;
+//       }
+//       tr:hover {
+//         background: rgba(0, 0, 0, 0.205);
+//         cursor: pointer;
+//       }
+//     }
+
+//   }
+// }

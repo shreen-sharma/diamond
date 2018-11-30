@@ -1,0 +1,83 @@
+<form [formGroup]="countryForm" #f="ngForm" (ngSubmit)="submit()">
+    
+    <div class="row">
+        <div class="form-group col-sm-4" [ngClass]="{'has-error': (!code.valid && code.touched), 'has-success': (code.valid && code.touched)}">
+          <label for="code">Country Code</label>
+          <input type="text" [formControl]="code" class="form-control" id="code">
+          <div *ngIf="(!code.valid && code.touched) && code.errors != null" class="text-danger">
+              <small *ngIf= "code.errors.required">
+                Country Code is required.
+              </small>
+              <small *ngIf="code.errors.minlength">
+                Country Code must be at least 2.
+              </small>
+                <small *ngIf="code.errors.maxlength">
+                Country Code must not be greater than 5.
+              </small>
+        </div>
+        </div>
+        <div class="form-group col-sm-4" [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}">
+          <label for="name">Country Name</label>
+          <input type="text" [formControl]="name" class="form-control" id="name">
+          <div *ngIf="(!name.valid && name.touched) && name.errors != null" class="text-danger">
+              <small *ngIf= "name.errors.required">
+                Country Name is required.
+              </small>
+              <small *ngIf="name.errors.minlength">
+                Country Name must be at least 4.
+              </small>
+                <small *ngIf="name.errors.maxlength">
+                Country Name must not be greater than 100.
+              </small>
+        </div>
+        </div>
+        <div class="form-group col-sm-4" [ngClass]="{'has-error': (!telCode.valid && telCode.touched), 'has-success': (telCode.valid && telCode.touched)}">
+          <label for="isd">ISD Code</label>
+          <input type="text" [formControl]="telCode" class="form-control" id="isd" required>
+          <div *ngIf="(!telCode.valid && telCode.touched) && telCode.errors != null" class="text-danger">
+                  <small *ngIf= "telCode.errors.required">
+                    ISD Code is required.
+                  </small>
+                  <small *ngIf="telCode.errors.minlength">
+                    ISD Code must be at least 2.
+                  </small>
+                  <small *ngIf="telCode.errors.maxlength">
+                    ISD Code must not be greater than 10.
+                  </small>
+            </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-sm-6" [ngClass]="{'has-error': (!parent.valid && parent.touched), 'has-success': (parent.valid && parent.touched)}">
+          <label for="parent">Zone</label>
+          <!-- <select [formControl]="parent" class="form-control" id="parent" (change)="onZoneChange($event.target.value)">                 -->
+              <select [formControl]="parent" class="form-control" id="parent">                
+            <option *ngFor="let zone of zoneList" [value]="zone.geoId">{{zone.name}}</option>             
+            <!-- <option value="asia">Asia</option>
+            <option value="europe">Europe</option> -->
+          </select>
+          <small *ngIf= "(!parent.valid && parent.touched)" class="text-danger">
+                  Zone is required.
+          </small>
+        </div>
+        <div class="form-group col-sm-6" [ngClass]="{'has-error': (!currId.valid && currId.touched), 'has-success': (currId.valid && currId.touched)}">
+          <label for="currId">Currency</label>
+          <select [formControl]="currId" class="form-control" id="currId" >                
+            <option *ngFor="let currency of currencyList" [value]="currency.currId">{{currency.currName}}</option>             
+            <!-- <option value="asia">Asia</option>
+            <option value="europe">Europe</option> -->
+          </select>
+          <small *ngIf= "(!currId.valid && currId.touched)" class="text-danger">
+                  Currency is required.
+           </small>
+        </div>
+      </div>
+         
+       <div class="row">
+       <div class="form-group col-sm-12">
+           <button type="submit" class="btn btn-primary btn-raised" [disabled]="!f.form.valid">Save</button>&nbsp;&nbsp;
+           <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+         </div>
+       </div>
+   </form>

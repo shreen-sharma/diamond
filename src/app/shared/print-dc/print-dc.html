@@ -1,0 +1,213 @@
+<div class="col-md-12">
+    <a class="close" aria-label="close" (click)="cancel()">&times;</a>
+</div>
+<!-- <div class="row">
+    <div class="col-md-3">
+            <input placeholder="DC Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="printDate" (change)="onPrintDateChange($event.target.value)">
+        </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control" id="carryPerson" (change)="onNameChange($event.target.value)" placeholder="Carry Person">
+        </div>
+    <div class="col-md-3"> 
+            <input type="text" class="form-control" id="refNo" (change)="onRefNoChange($event.target.value)" placeholder="Reference No.">
+        </div>
+    <div class="col-md-3"> 
+            <select class="form-control" id="selectCategory" (change)="onCategoryChange($event.target.value)">
+                <option value="" hidden>Select Category</option>
+                <option *ngFor="let category of catMasterList" [value]="category.catName">{{category.catName}}</option>
+            </select>
+    </div>
+    <div class="col-md-3">    
+        <select class="form-control" id="selectBroker" (change)="onBrokerChange($event.target.value)">
+            <option value="" hidden>Select Broker</option>
+            <option *ngFor="let broker of brokerList" [value]="broker.partyName">{{broker.partyName}}</option>
+        </select>
+        </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control"  id="cgst" placeholder="CGST" (change)="onCgstChange($event.target.value)">
+    </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control" id="sgst" placeholder="SGST" (change)="onSgstChange($event.target.value)">
+    </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control" id="igst" placeholder="IGST" (change)="onIgstChange($event.target.value)">
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary confirm-btn" (click)="submit()" >Submit</button><br>
+    </div>
+ </div> -->
+<div class="modal-content" id="modal-content" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header" style="border-bottom: 1px dotted #818181; padding: 1em 1em 1em 1em!important;">
+        <img src="{{companyImage}}" class="rounded mx-auto d-block" style="height:60px; width:60px; float:left!important;margin-top:-.5em!important;">
+        <h4 class="topName" style="text-align: center!important;"> {{companyName}}</h4>
+        <h6 class="topName2">{{add11}}, {{add12}}, {{city}}-{{pinCode}}</h6>
+        <h6 class="email">Email: {{email}} Tel: {{tel}} Tel. Fax: {{fax}} QBC: {{qbc}}</h6>
+        <h6 class="top6">
+            <b>GST/PAN No.- </b> {{gstNo}}
+            <b>CIN No.- </b> {{cinNo}}
+            <b>State Code- </b> {{stateCode}}</h6>
+        <!-- <button class="close" aria-label="Close" (click)="cancelModal()">
+        <span aria-hidden="true">&times;</span>
+      </button> -->
+    </div>
+    <div class="modal-body">
+        <h4 class="topName" style="margin-top: 1em!important; margin-bottom: 0em!important;">DELIVERY CHALLAN</h4>
+        <div class="col-md-12">
+            <div class="row topTitle" style="margin-top: -1.5em;">
+                <div class="col-md-6">
+                    <h6 class="top4">
+                        <b>MESSRS/MR.</b> {{cusName}}</h6>
+                    <h6 class="top3">{{cusAddress}} &nbsp;&nbsp;
+                        <br>{{cusCity}}, &nbsp;&nbsp;{{cusState}} </h6>
+                    <h6 class="top5">Place Of Supply:&nbsp;&nbsp; {{supState}} </h6>
+                    <h6 class="sCode">STATE CODE:&nbsp;&nbsp; {{stateCode}} </h6>
+                    <h6 class="top8" style="margin-top: 1.5em!important;font-weight: normal!important;">
+                        <b>GST/PAN No.-</b> {{cusGst}}
+                        <br>
+                        <b>CIN No.-</b> {{cusCin}}
+                        <br>
+                    </h6>
+
+                </div>
+                <div class="col-md-6" style="text-align: right!important;">
+                    <p class="right">
+                         Challan No.- 18/19 {{challanNo}}
+                        <br> Date: {{printDate}}
+                        <br> Carry Person: {{carryPerson}}
+                        <br> Broker: {{selectBroker}}
+                </div>
+            </div>
+        </div>
+        <!-- <h6 class="topName1"><u>ACKNOWLEDGMENT OF ENTRUSTMENT</u></h6>
+    <h6 class="top1">Stock Transfer Memo on Approval Basis</h6><br>
+    <h6 class="top2">HSN Code: {{hsnNo}}</h6>
+    <p style="font-size: .8em!important; margin-bottom:-.5em!important; margin-left: 1em!important;">We hereby entrust to you the goods mentioned below for inspection on approval basis with the following condition:</p>
+    <ol style="font-size: .8em!important; margin-bottom: -1em!important;">
+        <li>The goods you have been entrusted for the sole purpose of being inspecting/being shown to intending purchasers.</li>
+        <li>The diamonds herein on memo are exclusively of natural origin and untreated based on personal knowledge and/or written guarantees provided by the supplier of these diamonds.</li>
+        <li>The goods remain our property and are to be returned to us forthwith whenever demanded back.</li>
+        <li>You will not sell or mortgage the said goods or otherwise deal them in any manner which is prejudicial to our rights.</li>
+        <li>The goods will be held at your risk in all respect while in your custody.</li>
+        <li>You will be responsible for the return of the said goods on demand in the same condition in which it was given to you.</li>
+        <li>The acceptance of goods herein on memo will be as per the WFDB guidelines.</li>
+        <li>Subject to Mumbai Jurisdiction.</li>
+    </ol>  -->
+        <h6 class="topName4">Particulars of goods entrusted to me/us as foresaid:</h6>
+        <table class="table table-hover" align="center">
+            <thead>
+                <tr>
+                    <td>SI</td>
+                    <td>Description</td>
+                    <td>HSN</td>
+                    <td>Pcs</td>
+                    <td>Carats</td>
+                    <td>Rate</td>
+                    <td>Amt.</td>
+                    <td>Remarks</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let list of items">
+                    <td>{{list.si}}</td>
+                    <td style="text-align:left!important;">{{list.description}}</td>
+                    <td style="text-align:right!important;">{{list.hsnCode}}</td>
+                    <td style="text-align:right!important;">{{list.pcs}}</td>
+                    <td style="text-align:right!important;">{{list.carats}} </td>
+                    <td style="text-align:right!important;">{{list.rate}} </td>
+                    <td style="text-align:right!important;">{{list.amount}}</td>
+                    <td></td>
+                </tr>
+               
+                <tr>
+                    <td></td>
+                    <td>
+                        <b>Total</b>
+                    </td>
+                    <td style="text-align:right!important;">
+                        <b></b>
+                    </td>
+                    <td style="text-align:right!important;">
+                        <b>{{totalPcs}}</b>
+                    </td>
+                    <td style="text-align:right!important;">
+                        <b>{{totalCarats}}</b>
+                    </td>
+                    <td style="text-align:right!important;">
+                        <b>{{avgRate}}</b>
+                    </td>
+                    <td style="text-align:right!important;">
+                        <b>{{tAmount}}</b>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <b>CGST</b>
+                    </td>
+                    <td style="text-align:right!important;">
+                        <b>{{cgst?cgst: 0}}%</b>
+                    </td>
+                    <td style="text-align:right!important;">{{cgstAmt}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <b>SGST</b>
+                    </td>
+                    <td style="text-align:right!important;">
+                        <b>{{sgst?sgst: 0}}%</b>
+                    </td>
+                    <td style="text-align:right!important;">{{sgstAmt}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <b>IGST</b>
+                    </td>
+                    <td style="text-align:right!important;">
+                        <b>{{igst?igst: 0}}%</b>
+                    </td>
+                    <td style="text-align:right!important;">{{igstAmt}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <b>GR. TOTAL</b>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right!important;">
+                        <b>{{gTotal?gTotal:tAmount}}</b>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <h6 style="margin-top: 0em!important; margin-bottom: 1em;">(Amount in Words: {{amtInWords}})</h6>
+        <p style="text-align: justify!important; font-size: .7em;">Note: No E-way bill is required to be generated as the Goods covered under this Delivery Challan are exempted as
+            per Serial No. 4/5 to the Annexure to Rule 138(14) of the CGST Rules 2017.</p>
+        <h6 class="bottom" style="text-align: right;font-size: .8em;font-weight: normal;">{{companyName}}</h6>
+        <br>
+        <br>
+        <h6 class="bottom">Receiver's Signature</h6>
+        <h6 class="bottom" style="text-align: right;margin-top:-1em!important;">Authorised Signatory</h6>
+    </div>
+</div>
+<button class="btn btn-primary confirm-btn" (click)="print()" *ngIf="showPrint == true" style="margin: 3em 0 1em 2em;">Print</button>
+<button class="btn btn-danger confirm-btn" (click)="cancel()" style="float:right!important;margin: 3em 2em 1em 0;">Close</button>
+<br>

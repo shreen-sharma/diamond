@@ -1,0 +1,124 @@
+
+<div class="col-md-12">
+  <form [formGroup]="cusDetailsForm">
+    <div class="row">
+
+      <div class="form-group col-sm-12">
+        <label for="partyNote">Customer/Associates Note</label>
+        <input type="text" class="form-control" id="partyNote" [formControl]="partyNote">
+      </div>
+
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!custbank.valid && custbank.touched)), 'has-success': (custbank.valid && custbank.touched)}">
+        <label for="custbank">Select Customer's Bank</label>
+        <select class="form-control" id="custbank" [formControl]="custbank">
+          <option *ngFor="let bank of bankNameList" [value]="bank.value">{{bank.title}}</option>
+        </select>
+        <small *ngIf="(!custbank.valid && custbank.touched)" class="text-danger">
+         Customer's Bank is required
+        </small>
+      </div>
+
+      <div class="form-group col-sm-8">
+        <label for="bankerNote">Customer's Banker Note</label>
+        <input type="text" class="form-control" id="bankerNote" [formControl]="bankerNote">
+      </div>
+
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!notifier.valid && notifier.touched)), 'has-success': (notifier.valid && notifier.touched)}">
+        <label for="notifier">Select Notifier</label>
+        <select class="form-control" id="notifier" [formControl]="notifier" (change)="onNotifierChange($event.target.value)">
+          <option *ngFor="let party of notifierList" [value]="party.partyId">{{party.partyName}}</option>
+        </select>
+        <small *ngIf="(!notifier.valid && notifier.touched)" class="text-danger">
+            Notifier is required
+        </small>
+      </div>
+
+      <div class="form-group col-sm-8">
+        <label for="notifierNote">Notifier Note</label>
+        <input type="text" class="form-control" id="notifierNote" [formControl]="notifierNote">
+      </div>
+
+      <!-- <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!vessel.valid && vessel.touched)), 'has-success': (vessel.valid && vessel.touched)}">
+        <label for="vessel">Select Vessel</label>
+        <select class="form-control" id="vessel" [formControl]="vessel">
+          <option></option>
+        </select>
+        <small *ngIf="(!vessel.valid && vessel.touched)" class="text-danger">
+            Vessel is required
+        </small>
+      </div> -->
+
+      <!-- <div class="form-group col-sm-8">
+        <label for="vesselRmk">Vessel Remark</label>
+        <input type="text" class="form-control" id="vesselRmk" [formControl]="vesselRmk">
+      </div> -->
+
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!ourBank.valid && ourBank.touched)), 'has-success': (ourBank.valid && ourBank.touched)}">
+        <label for="ourBank">Select Our Bank</label>
+        <select class="form-control" id="ourBank" [formControl]="ourBank">
+          <option *ngFor="let bank of bankList" [value]="bank.id">{{bank.name}}</option>
+        </select>
+        <small *ngIf="(!ourBank.valid && ourBank.touched)" class="text-danger">
+          Bank is required
+        </small>
+      </div>
+
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!bankTnC.valid && bankTnC.touched)), 'has-success': (bankTnC.valid && bankTnC.touched)}">
+        <label for="bankTnC">Bank Terms Description</label>
+        <select class="form-control" id="bankTnC" [formControl]="bankTnC">
+          <option *ngFor="let bankTnC of termsList" [value]="bankTnC.id">{{bankTnC.name}}</option>
+        </select>
+        <small *ngIf="(!bankTnC.valid && bankTnC.touched)" class="text-danger">
+          Bank Terms Description is required
+        </small>
+      </div>
+
+      <div class="form-group col-sm-2" [ngClass]="{'has-error': ((!bcreditDays.valid && bcreditDays.touched)), 'has-success': (bcreditDays.valid && bcreditDays.touched)}">
+        <label for="bcreditDays">Bank Credit Days</label>
+        <input type="number" class="form-control" id="bcreditDays" [formControl]="bcreditDays">
+        <small *ngIf="(!bcreditDays.valid && bcreditDays.touched)" class="text-danger">
+          Bank Credit Days is required
+        </small>
+      </div>
+
+      <div class="form-group col-sm-2">
+        <label for="bdueDate">Bank Due Date</label>
+        <input type="text" class="form-control" id="bdueDate" [formControl]="bdueDate" readonly>
+      </div>
+
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!cCreditDays.valid && cCreditDays.touched)), 'has-success': (cCreditDays.valid && cCreditDays.touched)}">
+        <label for="cCreditDays">Customer Credit Days</label>
+        <input type="number" class="form-control" id="cCreditDays" [formControl]="cCreditDays">
+        <small *ngIf="(!cCreditDays.valid && cCreditDays.touched)" class="text-danger">
+          Customer Credit Days is required
+        </small>
+      </div>
+
+      <div class="form-group col-sm-2">
+        <label for="cbbDueDate">Customer Due Date</label>
+        <input type="text" class="form-control" id="cbbDueDate" [formControl]="cbbDueDate" readonly>
+      </div>    
+
+      <!-- <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!portDischarge.valid && portDischarge.touched)), 'has-success': (portDischarge.valid && portDischarge.touched)}">
+        <label for="portDischarge">Select Port of Discharge</label>
+        <select class="form-control" id="portDischarge" [formControl]="portDischarge">
+          <option></option>
+        </select>
+        <small *ngIf="(!portDischarge.valid && portDischarge.touched)" class="text-danger">
+            Port of Discharge is required
+        </small>
+      </div> -->
+
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!localCurrency.valid && localCurrency.touched)), 'has-success': (localCurrency.valid && localCurrency.touched)}">
+        <label for="localCurrency">Local Currency</label>
+        <select class="form-control" id="localCurrency" [formControl]="localCurrency">
+          <option *ngFor="let curr of currencyMasterList" [value]="curr.currId">{{curr.currName}}</option>
+        </select>
+        <small *ngIf="(!localCurrency.valid && localCurrency.touched)" class="text-danger">
+          Currency is required
+        </small>
+      </div>
+
+    </div>
+  </form>
+</div>

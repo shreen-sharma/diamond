@@ -1,0 +1,279 @@
+<div class="col-md-12">
+        <a class="close" aria-label="close" (click)="cancel()">&times;</a>
+</div>
+<div class="row">
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="invoiceNo" placeholder="Invoice No." (change)="onInvoiceChange($event.target.value)">
+        </div>
+        <div class="col-md-3">
+            <input placeholder="Invoice Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="printDate" (change)="onPrintDateChange($event.target.value)">
+        </div>
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="deliveryNote" placeholder="Delivery Note" (change)="onDeliveryNoteChange($event.target.value)">
+        </div>  
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="paymentMode" placeholder="Mode Of Payment" (change)="onPaymentModeChange($event.target.value)">
+        </div>
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="suppRef" placeholder="Supplier's Ref." (change)="onSuppRefChange($event.target.value)">
+        </div> 
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="otherRef" placeholder="Other Reference(s)" (change)="onOtherRefChange($event.target.value)">
+        </div> 
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="buyOrdNo" placeholder="Buyer's Order No." (change)="onBuyOrdNoChange($event.target.value)">
+        </div>
+        <div class="col-md-3">
+                <input placeholder="Buyer's Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="dateBuy" (change)="onDateBuyChange($event.target.value)">
+            </div>
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="despatchDocNo" placeholder="Despatch Doc. No." (change)="onDespatchDocNoChange($event.target.value)">
+        </div>       
+        <div class="col-md-3">
+                <input placeholder="Delivery Note Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="deliveryNoteDate" (change)="onDeliveryNoteDateChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="despatchedThrough" placeholder="Despatch Through" (change)="onDespatchedThroughChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="destination" placeholder="Destination" (change)="onDestinationChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="vesselNo" placeholder="Vessel/Flight No." (change)="onVesselNoChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="placeOfReceipt" placeholder="Place Of Receipt By Shipper" (change)="onPlaceOfReceiptChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="portOfLoad" placeholder="Port Of Load" (change)="onPortOfLoadChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="portOfDischarge" placeholder="Port Of Discharge" (change)="onPortOfDischargeChange($event.target.value)">
+            </div>           
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="term" placeholder="Term Of Delivery" (change)="onTermChange($event.target.value)">
+            </div>
+    <!-- <div class="col-md-3"> 
+            <select class="form-control" id="selectCategory" (change)="onCategoryChange($event.target.value)">
+                <option value="" hidden>Select Category</option>
+                <option *ngFor="let category of catMasterList" [value]="category.catName">{{category.catName}}</option>
+            </select>
+    </div> -->
+    <div class="col-md-3">    
+            <input type="text" class="form-control"  id="cgst" placeholder="CGST" (change)="onCgstChange($event.target.value)">
+    </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control" id="sgst" placeholder="SGST" (change)="onSgstChange($event.target.value)">
+    </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control" id="roundOff" placeholder="Round Off" (change)="onRoundOffChange($event.target.value)">
+    </div>
+    <div class="col-md-4">    
+            <input type="text" class="form-control" id="companyBankName" placeholder="Company Bank Name" (change)="onBankNameChange($event.target.value)">
+    </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control" id="companyAccNo" placeholder="Company Acc No." (change)="onAccNoChange($event.target.value)">
+    </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control" id="bankIfscCode" placeholder="Bank IFS Code" (change)="onIfsChange($event.target.value)">
+    </div>
+    <!-- <div class="col-md-12">
+            <input type="text" class="form-control" id="amtInWords" placeholder="Amount In Words" (change)="onAmtInWordsChange($event.target.value)">
+    </div>
+    <div class="col-md-12">
+            <input type="text" class="form-control" id="taxAmtInWords" placeholder="Tax Amount In Words" (change)="onTaxAmtInWordsChange($event.target.value)">
+    </div> -->
+    <div class="col-md-2">    
+        <button class="btn btn-primary confirm-btn" (click)="submit()">Submit</button><br>
+    </div>
+ </div>
+<div class="modal-content" id="modal-content" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header">
+      <h4 class="topName3" style="text-align: center!important;">Tax Invoice</h4>
+    </div>
+    <div class="modal-body">
+    <table style="width:100%; border-collapse: collapse;font-size: .7em!important;text-align: left!important;">
+        <tr>
+            <th rowspan="3">
+                <b>{{companyName}}</b><br>{{add11}} {{add12}}<br>{{city}} - {{pinCode}}<br>
+                PAN No: {{panNo}}<br>State: {{state}}, Code: {{stateCode}}<br>
+                GSTIN/UIN: {{gstNo}}<br>State Name: {{state}}, Code: {{stateCode}}<br>
+                Contact: {{tel}}, {{mobile}}<br>Fax: {{fax}}<br>Email: {{email}}</th>
+            <td>Invoice No:<br><b>{{invoiceNo}}</b></td>
+            <td>Dated:<br><b>{{printDate}}</b></td>
+          </tr>
+          <tr>
+            <td>Delivery Note:<br><b> {{deliveryNote}}</b></td>
+            <td>Mode/Terms Of Payment:<br><b>{{paymentMode}}</b></td>
+          </tr>
+          <tr>
+            <td>Supplier's Ref: <br><b>{{suppRef}}</b></td>
+            <td>Other Reference(s):<br><b>{{otherRef}}</b></td>
+          </tr>
+            <tr>
+                <th rowspan="6">
+                    Buyer<br>
+                    <b>{{cusName}}</b><br>{{cusAddress}}<br>{{cusCity}}<br>
+                    PAN/IT No: {{cusPan}}<br>
+                    GSTIN/UIN: {{cusGst}}<br>State Name: {{cusState}}, Code: {{cusStateCode}}<br>
+                    Place Of Supply: {{supState}}</th>
+                <td>Buyer's Order No.<br><b>{{buyOrdNo}}</b></td>
+                <td>Dated<br><b>{{dateBuy}}</b></td>
+                </tr>
+                <tr>
+                <td>Despatch Document No.<br><b>{{despatchDocNo}}</b></td>
+                <td>Delivery Note Date<br><b>{{deliveryNoteDate}}</b></td>
+                </tr>
+                <tr>
+                <td>Despatched Through<br><b>{{despatchedThrough}}</b></td>
+                <td>Destination<br><b>{{destination}}</b></td>
+                </tr>
+                <tr>
+                <td>Vessel/Flight No.<br><b>{{vesselNo}}</b></td>
+                <td>Place Of Receipt By Shipper<br><b>{{placeOfReceipt}}</b></td>
+                </tr>
+                <tr>
+                <td>City/Port Of Loading<br><b>{{portOfLoad}}</b></td>
+                <td>City/Port Of Discharge<br><b>{{portOfDischarge}}</b></td>
+                </tr>
+                <tr><td style="border-right:none!important">Terms Of Delivery<br><b>{{term}}</b></td>
+                    <td style="border-left:none!important"></td>
+                </tr>        
+            </table>          
+    <table class="table table-hover" align="center" style="margin-bottom:0em!important; font-size: .65em!important;">
+        <thead>
+            <tr>
+                <td>SI</td>
+                <td>Description Of Goods</td>
+                <td>HSN/SAC</td>
+                <td>Quantity</td>
+                <td>Rate</td>
+                <td>Amt.</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of items">
+                <td style="border-top: none!important; border-bottom: none!important; ">{{list.si}}</td>
+                <td style="border-top: none!important; border-bottom: none!important;text-align:left!important; "><b>{{list.description}}</b></td>
+                <td style="border-top: none!important; border-bottom: none!important;text-align:center!important; ">{{list.hsn}}</td>
+                <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; "><b>{{list.carats}}Cts</b> </td>
+                <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; ">{{list.rate}} </td>
+                <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; "><b>{{list.amount}}</b></td>
+            </tr>
+            <!-- <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="border-top: none!important; border-bottom: none!important; "></td>
+            </tr> -->
+                <tr>
+                        <td style=" border-bottom: none!important; "></td>
+                        <td style=" border-bottom: none!important;text-align:right!important; "><b>CGST</b></td>
+                        <td style=" border-bottom: none!important; "></td>
+                        <td style=" border-bottom: none!important; "></td>
+                        <td style=" border-bottom: none!important;text-align:right!important; "><b>{{cgst}}%</b></td>
+                        <td style=" border-bottom: none!important;text-align:right!important; ">{{cgstAmt}}</td>
+                    </tr>
+                    <tr>
+                            <td style="border-top: none!important; border-bottom: none!important; "></td>
+                            <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; "><b>SGST</b></td>
+                            <td style="border-top: none!important; border-bottom: none!important; "></td>
+                            <td style="border-top: none!important; border-bottom: none!important; "></td>
+                            <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; "><b>{{sgst}}%</b></td>
+                            <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; ">{{sgstAmt}}</td>
+                        </tr>
+                        <tr>
+                                <td style="border-top: none!important; border-bottom: none!important; "></td>
+                                <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; "><b>Round Off</b></td>
+                                <td style="border-top: none!important; border-bottom: none!important; "></td>
+                                <td style="border-top: none!important; border-bottom: none!important; "></td>
+                                <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; "><b>{{roundOff}}%</b></td>
+                                <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; ">{{roundOffAmt}}</td>
+                            </tr>
+                            <tr>
+                                    <td></td>
+                                    <td style="text-align:right!important;"><b>G. TOTAL</b></td>
+                                    <td></td>
+                                    <td style="text-align:right!important;"><b>{{totalCarats}}Cts</b></td>
+                                    <td></td>
+                                    <td style="text-align:right!important;"><b>{{gTotal}}</b></td>
+                                </tr>
+        </tbody>
+    </table> 
+    <table style="width:100%; border-collapse: collapse;font-size: .7em!important;text-align: left!important;margin-top:0em!important;">
+        <tr>
+            <th>
+                Amount Chargeable (in Words)<br>
+                <b>{{amtInWords}}</b>
+            </th>
+        </tr>
+    </table> 
+    <table style="width:100%; border-collapse: collapse;font-size: .7em!important;text-align: center!important;margin-top:0em!important;">  
+    <tr>
+            <td style="border-bottom: none!important;">HSN/SAC</td>
+            <td style="border-bottom: none!important;">Taxable Value</td>
+            <td colspan="2">Central Tax</td>
+            <td colspan="2">State Tax</td>
+            <td style="border-bottom: none!important;">Total Tax Amount</td>
+        </tr>
+        <tr>
+            <td style="border-top: none!important;"></td>
+            <td style="border-top: none!important;"></td>
+            <td style="text-align:Center!important;">Rate</td>
+            <td style="text-align:Center!important;">Amount</td>
+            <td style="text-align:Center!important;">Rate</td>
+            <td style="text-align:Center!important;">Amount</td>
+            <td style="border-top: none!important;"></td>
+        </tr> 
+        <tr>
+                <td>{{hsnNo}}</td>
+                <td style="text-align:right!important;">{{tAmount}}</td>
+                <td style="text-align:right!important;">{{cgst}}%</td>
+                <td style="text-align:right!important;">{{cgstAmt}}</td>
+                <td style="text-align:right!important;">{{sgst}}%</td>
+                <td style="text-align:right!important;">{{sgstAmt}}</td>
+                <td style="text-align:right!important;">{{cgstAmt + sgstAmt}}</td>
+            </tr>
+            <tr>
+                    <td style="text-align:right!important;">Total</td>
+                    <td style="text-align:right!important;">{{tAmount}}</td>
+                    <td></td>
+                    <td style="text-align:right!important;">{{cgstAmt}}</td>
+                    <td></td>
+                    <td style="text-align:right!important;">{{sgstAmt}}</td>
+                    <td style="text-align:right!important;">{{cgstAmt + sgstAmt}}</td>
+                </tr>
+    </table>
+    <table style="width:100%; border-collapse: collapse;font-size: .7em!important;text-align: left!important;margin-top:0em!important;">
+            <tr>
+                <th>
+                   Tax Amount (in Words): 
+                    <b>{{taxAmtInWords}}</b>
+                </th>
+            </tr>
+        </table>
+    <table style="width:100%; border-collapse: collapse;font-size: .7em!important;text-align: left!important;margin-top:0em!important;">
+            <tr>
+                <td style="width:62%; text-align: justify; padding: 0 1em 0 1em!important">
+                    Company's PAN: <b>{{panNo}}</b><br>
+                    Declaration<br>
+                        """The diamonds herein invoiced are natural diamonds and not synthetic unless otherwise stated in writing. This statement is based on personal knowledge and/or written assurances provided to us by thesuppliers of the diamonds and does not exclude any required disclosure regarding treated diamonds.""
+                        The Diamonds herein in invoiced have been purchased from legitimate sources not involved in funding conflict and in compliance with United Nations Resoliutions. The seller hereby guarantees that these diamonds are conflict free, based on personal knowledge and/or written guarantees provided by the supplier of these diamonds.
+                        To the best of our knowledge and/or written assurance from our suppliers, we state that ""Diamonds herein invoiced have not been obtained in violation of application National laws and/or sanctions by the U.S.Department of Treasury's office of Foreign Assets Control(OFAC) and have not originated from the Mbada and Marange Resources of Zimbabwe."		
+                </td>
+                <td>
+                    Company's Bank Details<br>
+                    Bank Name: <b>{{companyBankName}}</b><br>
+                    A/C No.: <b>{{companyAccNo}}</b><br>
+                    Branch 	&amp; IFS Code: <b>{{bankIfscCode}}</b><br>
+                    for <b>{{companyName}}</b>
+                </td>
+            </tr>
+        </table>
+        <p>Customer's Seal and Signature</p>
+    </div>
+  </div>
+  <button class="btn btn-primary confirm-btn" (click)="print()" *ngIf="showPrint == true" style="margin: 3em 0 1em 2em;">Print</button>
+  <button class="btn btn-danger confirm-btn" (click)="cancel()" style="float:right!important;margin: 3em 2em 1em 0;">Close</button><br>

@@ -1,0 +1,179 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)">
+    <i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="itemMergingForm" (ngSubmit)="submit()" #formDir="ngForm">
+
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+
+          <div class="row">
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!category.valid && category.touched) || (category.untouched && formDir.submitted)), 'has-success': (category.valid && category.touched)}">
+              <label for="category">Category</label>
+              <select [formControl]="category" class="form-control" id="category" (change)="onChangeCat($event.target.value)">
+                <option *ngFor="let category of catList" [value]="category.catId">{{category.catName}}</option>
+              </select>
+              <small *ngIf="(!category.valid && category.touched) || (category.untouched && formDir.submitted)" class="text-danger">
+                Category is required
+              </small>
+            </div>
+
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!srcLotId.valid && srcLotId.touched) || (srcLotId.untouched && formDir.submitted)), 'has-success': (srcLotId.valid && srcLotId.touched)}">
+              <label for="srcLotId">Source Lot</label>
+              <select [formControl]="srcLotId" class="form-control" id="srcLotId" (change)="onChangeSLot($event.target.value)">
+                <option *ngFor="let lot of lotList" [value]="lot.lotId">{{lot.lotName}}</option>
+              </select>
+              <small *ngIf="(!srcLotId.valid && srcLotId.touched) || (srcLotId.untouched && formDir.submitted)" class="text-danger">
+                Source Lot is required
+              </small>
+            </div>
+
+            <div class="form-group col-sm-4">
+              <label for="transDate">Merging Date</label>
+              <input type="date" class="form-control" [formControl]="transDate" id="transDate" disabled>
+              <!-- <input type="date" [formControl]="transDate" class="form-control" id="transDate"> -->
+            </div>
+
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!destLotId.valid && destLotId.touched) || (destLotId.untouched && formDir.submitted)), 'has-success': (destLotId.valid && destLotId.touched)}">
+              <label for="destLotId">Destination Lot</label>
+              <select [formControl]="destLotId" class="form-control" id="destLotId" (change)="onChangeDLot($event.target.value)">
+                <option *ngFor="let lot of lotList" [value]="lot.lotId">{{lot.lotName}}</option>
+              </select>
+              <small *ngIf="(!destLotId.valid && destLotId.touched) || (destLotId.untouched && formDir.submitted)" class="text-danger">
+                Destination Lot is required
+              </small>
+            </div>
+
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!destLotItemId.valid && destLotItemId.touched) || (destLotItemId.untouched && formDir.submitted)), 'has-success': (destLotItemId.valid && destLotItemId.touched)}">
+              <label for="destLotItemId">Merge To Item</label>
+              <!-- <select [formControl]="destLotItemId" class="form-control" id="destLotItemId" (change)="onChangeDItem($event.target.value)">
+                <option *ngFor="let it of itemDList" [value]="it.lotItemId">{{it.itemMaster.itemName}}</option>
+              </select> -->
+              <input type="text" class="form-control" [formControl]="destLotItemName" id="destLotItemName" 
+               placeholder="Enter Source Item" [ngbTypeahead]="search" />
+              <small *ngIf="(!destLotItemName.valid && destLotItemName.touched) || (destLotItemName.untouched && formDir.submitted)" class="text-danger">
+                Merge To Item is required
+              </small>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="destSalePrice">Destination Sale Price</label>
+              <input type="number" [formControl]="destSalePrice" class="form-control" id="destSalePrice" readonly>
+            </div>
+
+          </div>
+
+        </ba-card>
+      </div>
+    </div>
+
+
+            <div *ngIf="errorMessage">
+              <div class="form-group alert alert-danger alert-dismissable col-md-12">
+                <a class="close" aria-label="close" (click)="errorMessage = null">&times;</a>
+                <strong>Danger!&nbsp;</strong> {{ errorMessage }}
+              </div>
+            </div>
+            <div *ngIf="successMessage">
+              <div class="form-group alert alert-success alert-dismissable col-md-12">
+                <a class="close" aria-label="close" (click)="successMessage = null">&times;</a>
+                <strong>Success!&nbsp;</strong> {{ successMessage }}
+              </div>
+            </div>
+            
+            <div *ngIf="addedItemList.length > 0 && destLotItemId.valid">           
+            <div class="row">
+            <div class="col-sm-12">
+            <div class="form-group">
+                    <ba-card cardTitle="Selected Source Item Details " baCardClass="with-scroll" class="smart-table-container">
+                      <div class="row">
+                        <div class="form-group col-sm-3">
+                          <label for="item">Source Item</label>
+                          <input type="text" [formControl]="item" class="form-control" id="item" readonly>
+                        </div>
+                        
+                        <div class="form-group col-sm-2">
+                          <label for="selectedCarats">Carats</label>
+                          <input type="number" [formControl]=selectedCarats  class="form-control" id="selectedCarats">
+                        </div>
+            
+                        <div class="form-group col-sm-2">
+                          <label for="selectedRate">Rate</label>
+                          <input type="number" [formControl]="selectedRate" class="form-control" id="selectedRate">
+                        </div>
+
+                        <div class="form-group col-sm-2">
+                          <label for="salePrice">Sale Price</label>
+                          <input type="number" [formControl]="salePrice" class="form-control" id="salePrice" readonly>
+                        </div>
+            
+                        <div class="form-group col-sm-3">
+                          <div class="row">
+                            <div class="form-group col-sm-4">
+                              <p></p>
+                              <button type="button" class="btn btn-primary" (click)="onUpdate()">Update</button>
+                            </div>
+                            <div class="form-group col-sm-8">
+                              <p></p>
+                              <button type="button" class="btn btn-success btn-raised" (click)="onPreviewClick()">Preview Merged Items</button>
+                            </div>
+                          </div>                                              
+                        </div>
+                      </div>
+
+                      <ba-card cardTitle="Available Item Under Selected Source Lot" baCardClass="with-scroll" class="smart-table-container">                        
+                        <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
+                      </ba-card>
+                    </ba-card>
+                  <!-- </div> -->
+                </div>
+            
+             
+
+            </div>
+          </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <ba-card baCardClass="with-scroll">
+                    <div class="row">
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (!remarks.valid && remarks.touched) || (remarks.untouched && formDir.submitted), 'has-success': (remarks.valid && remarks.touched)}">
+              <label for="remarks">Remark</label>
+              <input type="text" [formControl]="remarks" class="form-control" id="remarks">
+              <div *ngIf="((!remarks.valid && remarks.touched) || (remarks.untouched && formDir.submitted)) && remarks.errors != null" class="text-danger">
+                <small *ngIf= "remarks.errors.required">
+                  Remarks is required.
+                </small>
+                <small *ngIf="remarks.errors.maxlength">
+                  Remark must not be greater than 255
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-3 input-container input-container1">
+              <label for="totalCarets">Total Transfered Carats</label>
+              <input type="number" [formControl]="totalCarets" class="form-control" id="totalCarets" readonly>
+            </div>
+
+            <div class="form-group col-sm-3 input-container input-container2">
+              <label for="avgRate">Average Rate</label>
+              <input type="number" [formControl]="avgRate" class="form-control" id="avgRate" readonly>
+            </div>
+          </div>
+          </ba-card>
+          </div>
+
+       
+      </div>
+    </div>
+  
+
+    <div class="form-group">
+      <div class="col-sm-12">          
+        <button  type="submit" [disabled]="!itemMergingForm.valid && formDir.submitted" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+      </div>
+    </div>
+
+  </form>
+</div>

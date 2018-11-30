@@ -1,0 +1,156 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="processDetailsForm" #formDir="ngForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+           <!-- <div class="row">  -->
+          <div class="row">
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!processType.valid && processType.touched)  || (processType.untouched && formDir.submitted), 'has-success': (processType.valid && processType.touched)}">
+              <label for="processType">Process Type</label>
+                <select [formControl]="processType" class="form-control" id="processType"(change)="onChangeType($event.target.value)"> 
+                    <option *ngFor="let processType of proType | async" [value]="processType.processTypeId">{{processType.processName}}</option>
+                </select>
+                <small *ngIf="(!processType.valid && processType.touched) || (processType.untouched && formDir.submitted)" class="text-danger">
+                    Process Type is required
+                </small>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!code.valid && code.touched)|| (code.untouched && formDir.submitted)), 'has-success': (code.valid && code.touched)}">
+              <label for="code">Process Code</label>
+              <input type="text" [formControl]="code" class="form-control" id="code">
+               <div *ngIf="((!code.valid && code.touched) || (code.untouched && formDir.submitted))  && code.errors != null" class="text-danger">  
+                  <small *ngIf= "code.errors.required">
+                      Process Code is required.
+                  </small>
+                  <small *ngIf="code.errors.minlength">
+                    Process Name must be at least 2.
+                  </small>
+                  <small *ngIf="code.errors.maxlength">
+                      Process Code must not be greater than 5.
+                  </small>
+                </div>
+              </div>
+
+            <div class="form-group col-sm-4"[ngClass]="{'has-error': ((!name.valid && name.touched) || (name.untouched && formDir.submitted)), 'has-success': (name.valid && name.touched)}">
+              <label for="name">Process Name</label>
+              <input type="text" [formControl]="name" class="form-control" id="name">
+               <div *ngIf="(!name.valid && name.touched) || (name.untouched && formDir.submitted) && name.errors != null" class="text-danger">
+                   <small *ngIf= "name.errors.required">
+                      Process Name is required.
+                  </small>
+                  <small *ngIf="name.errors.minlength">
+                       Process Name must be at least 4.
+                  </small>
+                  <small *ngIf="name.errors.maxlength">
+                      Process Name must not be greater than 100.
+                  </small>
+                </div>
+              </div>
+            
+            <div class="col-sm-2 form-inline">
+              <label class="checkbox-inline" for="chargeRequired">
+                <input type="checkbox" [formControl]="chargeRequired" id="chargeRequired">Chargeable
+              </label>              
+            </div>
+          </div>
+
+            
+          <!-- </div> -->
+        </ba-card>
+      </div>
+    </div>
+   <div *ngIf="successMessage">
+        <div class="form-group alert alert-success alert-dismissable col-md-12">
+          <a class="close" aria-label="close" (click)="successMessage = null">&times;</a>
+          <strong>Success!&nbsp;</strong> {{ successMessage }}
+        </div>
+      </div>
+      <div class="row">
+      <div class="col-md-12">
+        <ba-card cardTitle="Issue/Return Details" baCardClass="with-scroll">
+          <div class="row">
+
+            <div class="col-md-10">
+              <div class="row">
+
+                <div class="form-group col-sm-6">
+                  <label for="issueCat">Issue Category</label>
+                  <select [formControl]="issueCat" class="form-control" id="issueCat" (change)="onChangeICat($event.target.value)">           
+                    <option *ngFor="let category of catList" [value]="category.catId">{{category.catName}}</option>             
+                  </select>
+                </div>
+
+                <div class="form-group col-sm-6">
+                  <label for="issueItem">Issue Item</label>
+                  <select [formControl]="issueItem" class="form-control" id="issueItem">
+                    <option *ngFor="let item of itemIList" [value]="item.itemId">{{item.itemName}}</option>                    
+                </select>
+                </div>
+
+              </div>
+              
+              <div class="row">
+
+               <div class="form-group col-sm-6">
+                  <label for="returnCat">Return Category</label>
+                  <select [formControl]="returnCat" class="form-control" id="returnCat"(change)="onChangeRCat($event.target.value)">        
+                    <option *ngFor="let category of catList" [value]="category.catId">{{category.catName}}</option>             
+                  </select>
+                </div>
+
+                <div class="form-group col-sm-6" >
+                  <label for="returnItem">Return Item</label>
+                  <select [formControl]="returnItem" class="form-control" id="returnItem">
+                    <option *ngFor="let item of itemRList" [value]="item.itemId">{{item.itemName}}</option>                    
+                </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-inline">
+              <div class="form-group">
+              <button type="button" class="btn btn-primary" (click)="onAdd()"> Add to List</button>
+              </div>
+
+              <!-- <div class="form-group">
+                <button type="submit" class="btn btn-default btn-auth" >Remove</button>
+              </div> -->
+            </div>
+
+          </div>    
+        </ba-card>
+      </div>
+    </div> 
+ 
+
+    <!-- <div class="row">
+      <div class="col-md-12">
+        <ba-card cardTitle="Issue/Return Details" formArrayName="parameters" baCardClass="with-scroll">
+          <issue-return [issueReturn]="issueReturnValue['controls'][i]" [odd]="odd" (remove)="removeParameter(i)" *ngFor="let param of issueReturnValue['controls']; let i=index; let odd=odd;"></issue-return>
+          <div class="mt-2">
+            <button (click)="addParameter()" class="btn btn-success btn-icon" type="button"><i class="fa fa-plus-circle"></i> Add Issue/Return</button>
+          </div>
+        </ba-card>
+      </div>
+    </div> -->
+
+    <div class="row">
+      <div class="form-group col-sm-12">
+          <ba-card cardTitle="Available Issue/Return Item Details" baCardClass="with-scroll">
+            <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+          </ba-card>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button *ngIf="!upDateAccess" type="submit" [disabled]="!processDetailsForm.valid && formDir.submitted" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+      </div>
+    </div>
+
+  </form>
+</div>

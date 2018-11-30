@@ -1,0 +1,11 @@
+<div class="widgets">
+    
+  <div class="row">
+      <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+    <ba-card cardTitle="Import Purchase Order" baCardClass="with-scroll" class="smart-table-container">
+      <ngb-alert *ngIf="successMessage" type= danger (close)="successMessage = null">{{ successMessage }}</ngb-alert>      
+      <ng2-smart-table [settings]="settings" [source]="source" (create)="handleCreate()" (edit)="handleEdit($event)" (delete)="onDeleteConfirm($event)"></ng2-smart-table>
+    </ba-card>
+  </div>
+
+</div>

@@ -1,0 +1,46 @@
+<div class="widgets">
+    <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+    
+    <!-- <div class="row">
+      <div class="col-md-12"> -->
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+         
+            <ngb-alert *ngIf="successMessage" [type]= status (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+
+          <ngb-tabset  (tabChange)="onTabChange($event)">
+            
+            <ngb-tab id="zone" [disabled]="editStatus" title="Zone">
+              <ng-template ngbTabContent>
+                
+                <zoneEntry-zone (message)= "onMessage($event)" (err) = "onError($event)" [data]="geoEditData"></zoneEntry-zone>
+
+              </ng-template>  
+            </ngb-tab>
+            
+            <ngb-tab id="country" [disabled]="editStatus" title="Country">
+              <ng-template ngbTabContent>
+                
+                <zoneEntry-country (message)= "onMessage($event)" (err) = "onError($event)" [data]="geoEditData"></zoneEntry-country>
+
+              </ng-template>
+            </ngb-tab>
+      
+            <ngb-tab id="state" [disabled]="editStatus" title="State">
+              <ng-template ngbTabContent>
+                  
+              <zoneEntry-state (message)= "onMessage($event)" (err) = "onError($event)" [data]="geoEditData"></zoneEntry-state>                 
+
+              </ng-template>
+            </ngb-tab>
+      
+            <ngb-tab id="city" [disabled]="editStatus" title="City">
+              <ng-template ngbTabContent>
+                <zoneEntry-city (message)= "onMessage($event)" (err) = "onError($event)" [data]="geoEditData"></zoneEntry-city>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+
+         </ba-card>
+     <!-- </div>
+    </div> -->
+</div>

@@ -1,0 +1,326 @@
+<div class="widgets">
+    <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+    <form [formGroup]="contactPersonForm" #formDir="ngForm" (ngSubmit)="submit()">
+        <div class="row">
+            <div class="col-md-12">
+                <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+                    <div class="row">
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!refType.valid && refType.touched) || (refType.untouched && formDir.submitted)), 'has-success': (refType.valid && refType.touched)}">
+                            <label for="refType">Type</label>
+                            <select [formControl]="refType" class="form-control" id="refType" (change)="onrefTypeChange($event.target.value)"> 
+                    <option value="CO">Company</option>
+                    <option value="PA">Party</option>
+                    <option value="BA">Bank</option>
+                  </select>
+                            <small *ngIf="(!refType.valid && refType.touched) || (refType.untouched && formDir.submitted)" class="text-danger">
+                   Type is required
+                  </small>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="refId">Name</label>
+                            <select class="form-control" [formControl]="refId" id="refId">
+                    <option *ngFor="let name of availableitemList" [value]="name.value">{{name.text}}</option>
+                    </select>
+                        </div>
+
+
+                        <!-- <div class="form-group col-sm-6">
+                <label for="refId">Name</label>
+                <select class="form-control" [formControl]="refId" id="refId">
+                    <option *ngFor="let name of availableitemList" [value]="name.id">{{name.name}}</option>
+                    </select>
+              </div> -->
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!personCode.valid && personCode.touched) || (personCode.untouched && formDir.submitted)), 'has-success': (personCode.valid && personCode.touched)}">
+                            <label for="personCode">Contact Person Code</label>
+                            <input type="text" [formControl]="personCode" class="form-control" id="personCode">
+                            <div *ngIf="((!personCode.valid && personCode.touched) || (personCode.untouched && formDir.submitted))  && personCode.errors != null" class="text-danger">
+                                <small *ngIf="personCode.errors.required">
+                        Contact Person Code is required.
+                    </small>
+                                <small *ngIf="personCode.errors.minlength">
+                         Contact Person Code must be at least 2.
+                    </small>
+                                <small *ngIf="personCode.errors.maxlength">
+                        Contact Person Code must not be greater than 20.
+                    </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!commonMasterBySalutationId.valid && commonMasterBySalutationId.touched) || (commonMasterBySalutationId.untouched && formDir.submitted)), 'has-success': (commonMasterBySalutationId.valid && commonMasterBySalutationId.touched)}">
+                            <label for="commonMasterBySalutationId">Salutation</label>
+                            <select class="form-control" [formControl]="commonMasterBySalutationId" id="commonMasterBySalutationId">
+                  <option *ngFor="let common of salutationList" [value]="common.id">{{common.name}}</option>
+                  </select>
+                            <small *ngIf="(!commonMasterBySalutationId.valid && commonMasterBySalutationId.touched) || (commonMasterBySalutationId.untouched && formDir.submitted)" class="text-danger">
+                    Salutation is required
+                  </small>
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!personName.valid && personName.touched)|| (personName.untouched && formDir.submitted)), 'has-success': (personName.valid && personName.touched)}">
+                            <label for="personName">Contact Person Name</label>
+                            <input type="text" [formControl]="personName" class="form-control" id="personName">
+                            <div *ngIf="(!personName.valid && personName.touched) || (personName.untouched && formDir.submitted) && personName.errors != null" class="text-danger">
+                                <small *ngIf="personName.errors.required">
+                          Name is required.
+                      </small>
+                                <small *ngIf="personName.errors.minlength">
+                          Name must be at least 4 characters.
+                      </small>
+                                <small *ngIf="personName.errors.maxlength">
+                          Name must not be greater than 100 characters.
+                      </small>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!personName.valid && personName.touched)|| (personName.untouched && formDir.submitted)), 'has-success': (personName.valid && personName.touched)}">
+                <label for="personName">Contact Person Name</label>
+                 <input type="text" [formControl]="personName" class="form-control" id="personName">
+                  <div *ngIf="(!personName.valid && personName.touched) || (personName.untouched && formDir.submitted) && personName.errors != null" class="text-danger">
+                      <small *ngIf= "personName.errors.required">
+                          Name is required.
+                      </small>
+                      <small *ngIf="personName.errors.minlength">
+                          Name must be at least 4.
+                      </small>
+                      <small *ngIf="personName.errors.maxlength">
+                          Name must not be greater than 100.
+                      </small>
+                  </div>         
+              </div> -->
+
+                    </div>
+                </ba-card>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <ba-card cardTitle="Personal Info" baCardClass="with-scroll">
+                    <div class="row">
+                        <div class="form-group col-sm-6" [ngClass]="{'has-success': gender.valid && gender.touched}">
+                            <label for="gender">Gender</label>
+                            <select class="form-control" [formControl]="gender" id="gender">
+                  <option value="M" selected>Male</option>
+                  <option value="F">Female</option>
+              </select>
+                            <small *ngIf="(!gender.valid && gender.touched)" class="text-danger">
+              Gender is required
+              </small>
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-success': marritalStatus.valid && marritalStatus.touched}">
+                            <label for="marritalStatus">Marital Status</label>
+                            <select class="form-control" [formControl]="marritalStatus" id="marritalStatus">
+                    <option value="M">Married</option>
+                    <option value="U">Unmarried</option>
+                </select>
+                            <small *ngIf="(!marritalStatus.valid && marritalStatus.touched)" class="text-danger">
+                  Marital Status is required
+                </small>
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!dob.valid && dob.touched) || (dob.untouched && formDir.submitted)), 'has-success': (dob.valid && dob.touched)}">
+                            <label for="dob">Date Of Birth</label>
+                            <input type="date" [formControl]="dob" class="form-control" id="dob">
+                            <small *ngIf="(!dob.valid && dob.touched) || (dob.untouched && formDir.submitted)" class="text-danger">
+                    Date Of Birth is required
+              </small>
+                        </div>
+                        <div class="form-group col-sm-6" [ngClass]="{'has-success': (anniversaryDate.valid && anniversaryDate.touched)}">
+                            <label for="anniversaryDate">Anniversary Date</label>
+                            <input type="date" [formControl]="anniversaryDate" disabled class="form-control" id="anniversaryDate">
+                            <!-- <small *ngIf="(!anniversaryDate.valid && anniversaryDate.touched) || (anniversaryDate.untouched && formDir.submitted)" class="text-danger">
+                   Anniversary Date is required
+              </small> -->
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!nationality.valid && nationality.touched) || (nationality.untouched && formDir.submitted)), 'has-success': (nationality.valid && nationality.touched)}">
+                            <label for="nationality">Nationality</label>
+                            <input type="text" [formControl]="nationality" class="form-control" id="nationality">
+                            <div *ngIf="(!nationality.valid && nationality.touched) || (nationality.untouched && formDir.submitted) && nationality.errors != null" class="text-danger">
+                                <small *ngIf="nationality.errors.required">
+                            Nationality is required.
+                        </small>
+                                <small *ngIf="nationality.errors.maxlength">
+                            Nationality must not be greater than 50.
+                        </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!commonMasterByDesignationId.valid && commonMasterByDesignationId.touched) || (commonMasterByDesignationId.untouched && formDir.submitted)), 'has-success': (commonMasterByDesignationId.valid && commonMasterByDesignationId.touched)}">
+                            <label for="commonMasterByDesignationId">Designation</label>
+                            <select class="form-control" [formControl]="commonMasterByDesignationId" id="commonMasterByDesignationId">
+                    <option *ngFor="let common of designationList" [value]="common.id">{{common.name}}</option>
+                  </select>
+                            <small *ngIf="(!commonMasterByDesignationId.valid && commonMasterByDesignationId.touched) || (commonMasterByDesignationId.untouched && formDir.submitted)" class="text-danger">
+                    Designation is required
+                  </small>
+                        </div>
+
+                        <div class="form-group col-sm-12" [ngClass]="{'has-error': (!qualification.valid && qualification.touched), 'has-success': (qualification.valid && qualification.touched)}">
+                            <label for="qualification">Qualification</label>
+                            <input type="text" [formControl]="qualification" class="form-control" id="qualification">
+                            <small *ngIf="!qualification.valid && qualification.touched" class="text-danger">
+                      Qualification must not be greater than 50.
+                </small>
+                        </div>
+
+                        <div class="form-group col-sm-12" [ngClass]="{'has-error': (!remark.valid && remark.touched), 'has-success': (remark.valid && remark.touched)}">
+                            <label for="remark">Remark</label>
+                            <textarea [formControl]="remark" class="form-control" id="remark"></textarea>
+                            <small *ngIf="!remark.valid && remark.touched" class="text-danger">
+                        Note must not be greater than 255.
+                    </small>
+                        </div>
+
+                    </div>
+                </ba-card>
+            </div>
+
+            <div class="col-md-6">
+                <ba-card cardTitle="Address" baCardClass="with-scroll">
+                    <div class="row" formGroupName="addressMaster">
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!add11.valid && add11.touched) || (add11.untouched && formDir.submitted)), 'has-success': (add11.valid && add11.touched)}">
+                            <label for="add11">Address1</label>
+                            <input type="text" formControlName="add11" class="form-control" id="add11">
+                            <div *ngIf="((!add11.valid && add11.touched) || (add11.untouched && formDir.submitted)) && add11.errors != null" class="text-danger">
+                                <small *ngIf="add11.errors.required">
+                          Address1 is required.
+                        </small>
+                                <small *ngIf="add11.errors.maxlength">
+                          Address1 must not be greater than 50.
+                        </small>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!add12.valid && add12.touched) || (add12.untouched && formDir.submitted)), 'has-success': (add12.valid && add12.touched)}">
+                            <label for="add12">Address2</label>
+                            <input type="text" formControlName="add12" class="form-control" id="add12">
+                            <div *ngIf="((!add12.valid && add12.touched) || (add12.untouched && formDir.submitted)) && add12.errors != null" class="text-danger">
+                                <small *ngIf="add12.errors.required">
+                          Address2 is required.
+                        </small>
+                                <small *ngIf="add12.errors.maxlength">
+                          Address2 must not be greater than 50.
+                        </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!country.valid && country.touched) || (country.untouched && formDir.submitted)), 'has-success': (country.valid && country.touched)}">
+                            <label for="country">Country</label>
+                            <select formControlName="country" class="form-control" id="country" (change)="onCountryChange($event.target.value)">
+                          <option *ngFor="let country of countryList" [value]="country.geoId">{{country.name}}</option>
+                        </select>
+                            <small *ngIf="(!country.valid && country.touched) || (country.untouched && formDir.submitted)" class="text-danger">
+                        Country is required
+                       </small>
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!state.valid && state.touched) || (state.untouched && formDir.submitted)), 'has-success': (state.valid && state.touched)}">
+                            <label for="state">State</label>
+                            <select formControlName="state" class="form-control" id="state" (change)="onStateChange($event.target.value)">
+                          <option *ngFor="let state of stateList" [value]="state.geoId">{{state.name}}</option>
+                        </select>
+                            <small *ngIf="(!state.valid && state.touched) || (state.untouched && formDir.submitted)" class="text-danger">
+                        State is required
+                        </small>
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!city.valid && city.touched) || (city.untouched && formDir.submitted)), 'has-success': (city.valid && city.touched)}">
+                            <label for="city">City</label>
+                            <select formControlName="city" class="form-control" id="city">
+                        <option *ngFor="let city of cityList" [value]="city.geoId">{{city.name}}</option>
+                      </select>
+                            <small *ngIf="(!city.valid && city.touched) || (city.untouched && formDir.submitted)" class="text-danger">
+                      City is required
+                      </small>
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!pinCode.valid && pinCode.touched) || (pinCode.untouched && formDir.submitted)), 'has-success': (pinCode.valid && pinCode.touched)}">
+                            <label for="pinCode">Pin Code</label>
+                            <input type="text" formControlName="pinCode" class="form-control" id="pinCode">
+                            <div *ngIf="((!pinCode.valid && pinCode.touched) || (pinCode.untouched && formDir.submitted)) && pinCode.errors != null" class="text-danger">
+                                <small *ngIf="pinCode.errors.required">
+                       PinCode is required.
+                    </small>
+                                <small *ngIf="pinCode.errors.pattern">
+                       PinCode must be a number.
+                    </small>
+                                <small *ngIf="pinCode.errors.minlength || pinCode.errors.maxlength">
+                       PinCode should be 6 digits.
+                    </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': (!phoneR.valid && phoneR.touched), 'has-success': (phoneR.valid && phoneR.touched)}">
+                            <label for="phoneR">Phone(R)</label>
+                            <input type="text" formControlName="phoneR" class="form-control" id="phoneR">
+                            <div *ngIf="(!phoneR.valid && phoneR.touched) && phoneR.errors != null" class="text-danger">
+                                <small *ngIf="phoneR.errors.pattern">
+                       phone(R) must be a number.
+                    </small>
+                                <small *ngIf="phoneR.errors.maxlength">
+                        phone(R) must not be greater than 15.
+                    </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6" [ngClass]="{'has-error': (!phoneO.valid && phoneO.touched), 'has-success': (phoneO.valid && phoneO.touched)}">
+                            <label for="phoneO">Phone(O)</label>
+                            <input type="text" formControlName="phoneO" class="form-control" id="phoneO">
+                            <div *ngIf="(!phoneO.valid && phoneO.touched) && phoneO.errors != null" class="text-danger">
+                                <small *ngIf="phoneO.errors.pattern">
+                       phone(O) must be a number.
+                    </small>
+                                <small *ngIf="phoneO.errors.maxlength">
+                        Phone(O) must not be greater than 15.
+                    </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12" [ngClass]="{'has-error': (!mobile.valid && mobile.touched) || (mobile.untouched && formDir.submitted), 'has-success': (mobile.valid && mobile.touched)}">
+                            <label for="mobile">Mobile</label>
+                            <input type="text" formControlName="mobile" class="form-control" id="mobile">
+                            <div *ngIf="((!mobile.valid && mobile.touched) || (mobile.untouched && formDir.submitted)) && mobile.errors != null" class="text-danger">
+                                <small *ngIf="mobile.errors.required">
+                       Mobile Number is required.
+                    </small>
+                                <small *ngIf="mobile.errors.pattern">
+                       Mobile Number must be a number.
+                    </small>
+                                <small *ngIf="mobile.errors.minlength || mobile.errors.maxlength">
+                       Mobile Number should be 10 digits.
+                    </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12" [ngClass]="{'has-error': (!email.valid && email.touched) || (email.untouched && formDir.submitted), 'has-success': (email.valid && email.touched)}">
+                            <label for="email">Email ID</label>
+                            <input type="email" id="email" formControlName="email" class="form-control">
+                            <div *ngIf="((!email.valid && email.touched) || (email.untouched && formDir.submitted)) && email.errors != null" class="text-danger">
+                                <small *ngIf="email.errors.required">
+                          Email is required.
+                        </small>
+                                <small *ngIf="email.errors.email">
+                          Invalid Email!
+                        </small>
+                            </div>
+                        </div>
+
+                    </div>
+                </ba-card>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" *ngIf="!upDateAccess" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+            </div>
+        </div>
+
+    </form>
+</div>

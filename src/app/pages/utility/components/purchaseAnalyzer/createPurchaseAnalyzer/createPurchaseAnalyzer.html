@@ -1,0 +1,239 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="createPurchaseAnalyzerForm" (ngSubmit)="submit()">
+    
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+  
+              <div class="row">
+                <div class="form-group col-sm-4">
+                  <label for="company">Company</label>
+                   <select [formControl]="company" class="form-control" id="company"> 
+                        <option value="company 1">Company 1</option>
+                        <option value="company 2">Company 2</option>
+                        <option value="company 3">Company 3</option>
+                  </select>
+                </div>
+                
+                <div class="form-group col-sm-4">
+                  <label for="searchMode">Search Mode</label>
+                  <select [formControl]="searchMode" class="form-control" id="searchMode">
+                        <option value="searchMode 1">Search 1</option>
+                        <option value="searchMode 2">Search 2</option>
+                        <option value="searchMode 3">Search 3</option>
+                  </select>
+                </div>
+    
+                <div class="form-group col-sm-4">
+                  <label for="category">Category</label>
+                  <select [formControl]="category" class="form-control" id="category">
+                      <option value="category 1">Category 1</option>
+                      <option value="category 2">Category 2</option>
+                      <option value="category 3">Category 3</option>
+                  </select>
+                </div>
+              </div> 
+
+
+              <div class="row">
+                <div class="form-group col-sm-4">
+                  <label for="dateOption">Date Option</label>
+                  <select [formControl]="dateOption" class="form-control" id="dateOption">
+                        <option value="dateOption 1">Date Option 1</option>
+                        <option value="dateOption 2">Date Option 2</option>
+                        <option value="dateOption 3">Date Option 3</option>
+                  </select>
+                </div>
+                
+                <div class="form-group col-sm-4">
+                 <label for="fromDate">From Date</label>
+                 <input [formControl]="fromDate" type="date" class="form-control" id="fromDate">
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label for="toDate">To Date</label>
+                  <input [formControl]="toDate" type="date" class="form-control" id="toDate">
+                </div>
+              </div> 
+
+              <div class="row">
+                <div class="form-group col-sm-4">
+                  <label for="partyType">Party Type</label>
+                  <select [formControl]="partyType" class="form-control" id="partyType">
+                        <option value="partyType 1">Party Type 1</option>
+                        <option value="partyType 2">Party Type 2</option>
+                        <option value="partyType 3">Party Type 3</option>
+                  </select>
+                </div>
+                
+                <div class="form-group col-sm-4">
+                  <label for="party">Party</label>
+                  <select [formControl]="party" class="form-control" id="party">
+                        <option value="party 1">Party 1</option>
+                        <option value="party 2">Party 2</option>
+                        <option value="party 3">Party 3</option>
+                  </select>
+                </div>
+    
+                <div class="form-group col-sm-4">
+                  <label for="mode">Mode</label>
+                  <select [formControl]="mode" class="form-control" id="mode">
+                      <option value="mode 1">Mode 1</option>
+                      <option value="mode 2">Mode 2</option>
+                      <option value="mode 3">Mode 3</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-sm-4">
+                  <label for="bank">Bank</label>
+                  <select [formControl]="bank" class="form-control" id="bank">
+                        <option value="bank 1">Bank 1</option>
+                        <option value="bank 2">Bank 2</option>
+                        <option value="bank 3">Bank 3</option>
+                  </select>
+                </div>
+                
+                <div class="form-group col-sm-4">
+                  <label for="terms">Terms</label>
+                  <select [formControl]="terms" class="form-control" id="terms">
+                        <option value="terms 1">Terms 1</option>
+                        <option value="terms 2">Terms 2</option>
+                        <option value="terms 3">Terms 3</option>
+                  </select>
+                </div>
+    
+                <div class="form-group col-sm-4">
+                  <label for="zone">Zone</label>
+                  <select [formControl]="zone" class="form-control" id="zone">
+                      <option value="zone 1">Zone 1</option>
+                      <option value="zone 2">Zone 2</option>
+                      <option value="zone 3">Zone 3</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-sm-4">
+                  <label for="country">Country</label>
+                  <select [formControl]="country" class="form-control" id="country">
+                      <option value="country 1">Country 1</option>
+                      <option value="country 2">Country 2</option>
+                      <option value="country 3">Country 3</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label for="vessel">Vessel</label>
+                  <select [formControl]="vessel" class="form-control" id="vessel">
+                        <option value="Vessel 1">Vessel 1</option>
+                        <option value="Vessel 2">Vessel 2</option>
+                        <option value="Vessel 3">Vessel 3</option>
+                  </select>
+                </div>
+                
+                <div class="form-group col-sm-4">
+                  <label for="paymentMode">Payment Mode</label>
+                  <select [formControl]="paymentMode" class="form-control" id="paymentMode">
+                        <option value="paymentMode 1">Payment Mode 1</option>
+                        <option value="paymentMode 2">Payment Mode 2</option>
+                        <option value="paymentMode 3">Payment Mode 3</option>
+                  </select>
+                </div>  
+              </div>
+
+               <div class="row">
+                <div class="form-group col-sm-4">
+                  <label for="remark">Remark</label>
+                  <select [formControl]="remark" class="form-control" id="remark">
+                      <option value="remark 1">Remark 1</option>
+                      <option value="remark 2">Remark 2</option>
+                      <option value="remark 3">Remark 3</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label for="currency">Currency</label>
+                  <select [formControl]="currency" class="form-control" id="currency">
+                        <option value="currency 1">Currency 1</option>
+                        <option value="currency 2">Currency 2</option>
+                        <option value="currency 3">Currency 3</option>
+                  </select>
+                </div> 
+
+                <div class="form-group col-sm-4">
+                  <p><p>
+                  <label class="radio-inline">
+                    <input type="radio" name="radioInvoiceNo" value="rangeOfInvoice">Range of Invoice No
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="radioInvoiceNo" value="multiInvoice">Multi InVoice No
+                  </label>
+                </div>
+
+                <div class="form-group col-sm-4">
+                  <label for="invoiceNo">Invoice No</label>
+                  <input type="text" class="form-control" id="invoiceNo">
+                </div> 
+
+                <div class="form-group col-sm-8">
+                  <p></p>
+                  <p> Add " , "(comma) for Multiple invoice Search (eg 1,2,3..n) </p>
+                </div> 
+
+              </div>
+            </ba-card>
+        </div>
+      </div>
+      
+
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card baCardClass="with-scroll">
+            <div class="row">
+            <div class="form-group col-sm-2">
+                <label for="carats">Carats</label>
+                <input type="text" class="form-control" id="carats">
+            </div> 
+            <div class="form-group col-sm-2">
+                <label for="transAmt">Transaction Amount</label>
+                <input type="text" class="form-control" id="transAmt">
+            </div>
+              <div class="form-group col-sm-2">
+                <label for="amount">Amount</label>
+                <input type="text" class="form-control" id="amount">
+            </div> 
+            <div class="form-group col-sm-2">
+                <label for="osAmount">OS Amount</label>
+                <input type="text" class="form-control" id="osAmount">
+            </div>  
+            <div class="form-group col-sm-1">
+            </div>
+              <div class="form-group">
+                  <p></p>
+                  <button type="button" class="btn btn-default">Show</button>&nbsp;&nbsp;
+                  <button type="button" class="btn btn-default">Clear</button>&nbsp;&nbsp;
+                  <button type="button" class="btn btn-default">Close</button>&nbsp;&nbsp;
+             </div>
+            </div>
+
+             <div class="form-group">
+              <label for="type"></label>
+                <textarea rows="10" cols="10" class="form-control" ></textarea>
+            </div>
+          </ba-card>
+        </div>
+            
+    
+      <div class="form-group">
+        <div class="col-sm-12">
+          <button type="submit" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+        </div>
+      </div>
+     
+      </div>
+  </form>
+</div>

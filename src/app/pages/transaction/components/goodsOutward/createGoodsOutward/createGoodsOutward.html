@@ -1,0 +1,193 @@
+<div class="widgets">
+    <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+    <form [formGroup]="goodsOutwardForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+  
+            <div class="row row">
+              <div class="form-group col-sm-4">
+                <label for="selectParty">Select Party</label>
+                <select class="form-control" [formControl]="selectParty" id="selectParty">
+                      <option value="Party 1">Party 1</option>
+                      <option value="Party 2">Party 2</option>
+                      <option value="Party 3">Party 3</option>
+                </select>
+              </div>
+             
+              <div class="form-group col-sm-4">
+                <label for="outwardDate">Outward Date</label>
+                <input type="date"  class="form-control" [formControl]="outwardDate" id="outwardDate">
+            </div>
+            <div class="form-group col-sm-4">
+            <label for="outwardNo">Outward No.</label>
+            <input type="number" placeholder="Outward No." class="form-control" [formControl]="outwardNo" id="outwardNo">
+            </div>
+            </div> 
+
+            <div class="row row">
+                <div class="form-group col-sm-4">
+                    <label for="outwardNoFormat">Outward Number Format </label>
+                    <input type="number" class="form-control" [formControl]="outwardNoFormat" id="outwardNoFormat">
+                </div>
+               
+                <div class="form-group col-sm-4">
+                  <label for="category">Category</label>
+                  <select class="form-control" [formControl]="category" id="category">
+                        <option value="Category 1">Category 1</option>
+                        <option value="Category 2">Category 2</option>
+                        <option value="Category 3">Category 3</option>
+                  </select>
+              </div>
+              <div class="form-group col-sm-4">
+                <label for="returnFromLot">Return From Lot</label>
+                <select class="form-control" [formControl]="returnFromLot" id="returnFromLot">
+                  <option value="Lot 1">Lot 1</option>
+                  <option value="Lot 2">Lot 2</option>
+                  <option value="Lot 3">Lot 3</option>
+            </select>
+            </div>
+            </div>
+             
+            <div class="row row">
+                <div class="form-group col-sm-4">
+                    <label for="utilisedCarats">Utilised Carats</label>
+                    <input type="number"  class="form-control" [formControl]="utilisedCarats" id="utilisedCarats">
+                </div>
+               
+                <div class="form-group col-sm-4">
+                  <label for="remark">Remark</label>
+                  <input type="string"  class="form-control" [formControl]="remark" id="remark">
+              </div>
+            </div>
+     </ba-card>
+
+     <ngb-tabset>
+       <ngb-tab title="Processed Item Detail">
+         <ng-template ngbTabContent>
+            <div class="row">
+                <div class="form-group col-sm-3">
+                  <label for="processedCategory">Category</label>
+                  <select class="form-control" [formControl]="processedCategory" id="processedCategory">
+                        <option value="Category 1">Category 1</option>
+                        <option value="Category 2">Category 2</option>
+                        <option value="Category 3">Category 3</option>
+                  </select>
+                </div>
+                <div class="form-group col-sm-3">
+                  <label for="returnItem">Return Item</label>
+                  <select class="form-control" [formControl]="returnItem" id="returnItem">
+                        <option value="Item 1">Item 1</option>
+                        <option value="Item 2">Item 2</option>
+                        <option value="Item 3">Item 3</option>
+                  </select>
+                </div>
+                <div class="form-group col-sm-3">
+                  <label for="processedPieces">Pieces</label>
+                  <input type="number" class="form-control" [formControl]="processedPieces" id="processedPieces">
+              </div>
+                <div class="form-group col-sm-3">
+                    <label for="processedCarats">Carats</label>
+                    <input type="number" class="form-control" [formControl]="processedCarats" id="processedCarats">
+                </div>
+                <p></p>
+                <button type="add" class="btn btn-default">Add</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-default">Remove</button>
+                <p></p>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <p></p>
+                    <label for="processedTotalPieces">Total Pieces</label>
+                    <input type="number" placeholder="Pcs" class="form-control" [formControl]="processedTotalPieces" id="processedTotalPieces">
+                </div>
+                <div class="form-group col-sm-6">
+                    <p></p>
+                    <label for="processedTotalCarats">Total Carats</label>
+                    <input type="number" placeholder="Cts" class="form-control" [formControl]="processedTotalCarats" id="processedTotalCarats">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                  <textarea class="form-control" [formControl]="" id="" rows="3"></textarea>
+                </div>
+                </div>
+      
+         </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Un-Processed Item Details">
+            <ng-template ngbTabContent>
+                <div class="row">
+                  <div class="form-group col-sm-4">
+                    <label for="unprocessedItem">Unprocessed Item</label>
+                    <select class="form-control" [formControl]="unprocessedItem" id="unprocessedItem">
+                          <option value="Item 1">Item 1</option>
+                          <option value="Item 2">Item 2</option>
+                          <option value="Item 3">Item 3</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label for="unprocessedPieces">Pieces</label>
+                    <input type="number" class="form-control" [formControl]="unprocessedPieces" id="unprocessedPieces">
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label for="unprocessedCarats">Carats</label>
+                    <input type="number" class="form-control" [formControl]="unprocessedCarats" id="unprocessedCarats">
+                </div>
+                <p></p>
+                <button type="add" class="btn btn-default">Add</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-default">Remove</button>
+                <p></p>
+                </div>
+                <div class="row">
+                  <div class="form-group col-sm-6">
+                      <p></p>
+                      <label for="unprocessedTotalPieces">Total Pieces</label>
+                      <input type="number" placeholder="Pcs" class="form-control" [formControl]="unprocessedTotalPieces" id="unprocessedTotalPieces">
+                  </div>
+                  <div class="form-group col-sm-6">
+                      <p></p>
+                      <label for="unprocessedTotalCarats">Total Carats</label>
+                      <input type="number" placeholder="Cts" class="form-control" [formControl]="unprocessedTotalCarats" id="unprocessedTotalCarats">
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col-sm-12">
+                    <textarea class="form-control" [formControl]="" id="" rows="3"></textarea>
+                  </div>
+                  </div>
+
+            </ng-template>
+           </ngb-tab>
+        </ngb-tabset>
+        <div class="row">
+          <div class="form-group col-sm-3">
+              <label for="processedCts">Processed Cts</label>
+              <input type="number" class="form-control" [formControl]="processedCts" id="processedCts">
+          </div>
+          <div class="form-group col-sm-3">
+              <label for="processLoss">Process Loss</label>
+              <input type="number" class="form-control" [formControl]="processLoss" id="processLoss">
+          </div>
+          <div class="form-group col-sm-3">
+              <label for="unprocessedCts">Un-Processed Cts</label>
+              <input type="number" class="form-control" [formControl]="unprocessedCts" id="unprocessedCts">
+          </div>
+          <div class="form-group col-sm-3">
+              <label for="totalReturnCts">Total Return Cts</label>
+              <input type="number" class="form-control" [formControl]="totalReturnCts" id="totalReturnCts">
+          </div>
+        </div>
+       
+              <div class="form-group">
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-default">Submit</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+          </div>
+        </div>
+  
+      </div> 
+      </div>
+    </form>
+  </div>

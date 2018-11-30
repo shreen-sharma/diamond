@@ -1,0 +1,19 @@
+@import '../../../../../../theme/sass/smartTables';
+
+[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.checkbox-inline {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+input:read-only:hover {
+    cursor: not-allowed;
+}
+
+// p{
+//     padding:3px;
+// }

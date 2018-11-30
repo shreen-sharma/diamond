@@ -1,0 +1,213 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)">
+    <i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="paymentEntryForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+
+          <div class="row">
+            <div class="form-group col-sm-3">
+              <label for="docCode">Document Code</label>
+              <select [formControl]="docCode" class="form-control" id="docCode">
+                <option value="LPI" disabled>Local Purchase Invoice</option>
+                <option value="LSI" disabled>Local Sales Invoice</option>
+                <option value="IPI" disabled>Import Purchase Invoice</option>
+                <option value="ESI" disabled>Export Sales Invoice</option>
+              </select>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="docDate">Document Date</label>
+              <input type="date" class="form-control" [formControl]="docDate" id="docDate">
+            </div>
+
+            <div class="form-group col-sm-3">
+              <label for="partyName">Party</label>
+              <input type="text" class="form-control" [formControl]="partyName" id="partyName" readonly>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="currency">Invoice Currency</label>
+              <select [formControl]="currency" class="form-control" id="currency">
+                <option *ngFor="let curr of currList" [value]="curr?.currId" disabled>{{curr?.currName}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <button type="button" class="btn btn-success margin" [disabled]="selectInvBtn" (click)="lgModalShow()">
+                <span>{{isExportVal}}</span>
+
+
+              </button>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="invoiceNo">Invoice No.</label>
+              <input type="text" class="form-control" [formControl]="invoiceNo" id="invoiceNo" readonly>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="invoiceDate">Invoice Date</label>
+              <input type="date" class="form-control" [formControl]="invoiceDate" id="invoiceDate" readonly>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="ordNo">Order No. / DC Ret. No.</label>
+              <input type="text" class="form-control" [formControl]="ordNo" id="ordNo" readonly>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for="narration">Remarks/Narration</label>
+              <input type="text" class="form-control" [formControl]="narration" id="narration">
+            </div>
+
+            <div class="col-sm-2 form-inline">
+              <label class="checkbox-inline" for="provisional">
+                <input type="checkbox" [formControl]="provisional" id="provisional">&nbsp;&nbsp;Provisional
+              </label>
+            </div>
+
+            <div class="col-sm-2 form-inline">
+              <label class="checkbox-inline" for="isExport">
+                <input type="checkbox" [formControl]="isExport" id="isExport">&nbsp;&nbsp;
+                <span> {{isType}} </span>
+              </label>
+            </div>
+            <!-- <div class="form-group col-sm-3">
+              <button type="button" [disabled]="(!invoiceNo.value)" class="btn btn-success margin"> Select Narration </button>
+            </div> -->
+
+          </div>
+
+          <div *ngIf="selectInvBtn">
+            <div class="row">
+              <div class="col-md-12">
+                <ba-card cardTitle="Payment Details" baCardClass="with-scroll">
+                  <div class="row">
+
+                    <div class="form-group col-sm-3">
+                      <label for="crDrCtrl">Credit / Debit</label>
+                      <select [formControl]="crDrCtrl" class="form-control" id="crDrCtrl">
+                        <option value="CR" disabled>Credit</option>
+                        <option value="DR" disabled>Debit</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                      <label for="accountCtrl">Account No.</label>
+                      <input type="number" class="form-control" [formControl]="accountCtrl" id="accountCtrl">
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                      <label for="amountCtrl">Amount</label>
+                      <input type="number" class="form-control" [formControl]="amountCtrl" id="amountCtrl">
+                    </div>
+
+                    <div class="form-group col-sm-3" [ngClass]="{'has-error': (!paymentModeCtrl.valid && paymentModeCtrl.touched), 'has-success': (paymentModeCtrl.valid && paymentModeCtrl.touched)}">
+                      <label for="paymentModeCtrl">Payment Mode</label>
+                      <select class="form-control" [formControl]="paymentModeCtrl" id="paymentModeCtrl" (change)="onChangePaymentMode($event.target.value)">
+                        <option *ngFor="let payment of paymentModeList" [ngValue]="payment">{{payment.name}}</option>
+                      </select>
+                      <small *ngIf="(!paymentModeCtrl.valid && paymentModeCtrl.touched)" class="text-danger">
+                        Payment Mode is required!
+                      </small>
+                      <small *ngIf="paymentModeList.length <= 4" class="text-warning">
+                        Please Add Payment Mode(PM) in Common with Name &amp; Code as Bank-BNK &amp; Cheque-CHQ &amp; Cash-CSH &amp; Adjustment-ADJST
+                        &amp; Online-ONL
+                      </small>
+                    </div>
+                  </div>
+
+                  <div *ngIf="bankCtrlStatus">
+                    <div class="row">
+                      <div class="form-group col-sm-12">
+                        <label for="bankBranchNameCtrl">Bank-Branch Name</label>
+                        <select class="form-control" id="bankBranchNameCtrl" [formControl]="bankBranchNameCtrl">
+                          <option *ngFor="let bankBranch of bankBranchList" [ngValue]="bankBranch">{{bankBranch.bankName}} -- {{bankBranch.bankBrName}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="chequeCtrlStatus">
+                    <div class="row">
+                      <div class="form-group col-sm-6">
+                        <label for="chequeNoCtrl">Cheque No.</label>
+                        <input type="number" class="form-control" [formControl]="chequeNoCtrl" id="chequeNoCtrl">
+                      </div>
+
+                      <div class="form-group col-sm-6">
+                        <label for="chequeDateCtrl">Cheque Date</label>
+                        <input type="date" class="form-control" [formControl]="chequeDateCtrl" id="chequeDateCtrl">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-group col-sm-5">
+                      <label for="narrationLineCtrl">Comment/Narration</label>
+                      <input type="text" class="form-control" [formControl]="narrationLineCtrl" id="narrationLineCtrl">
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                      <label for="exchRateCtrl">Exchange Rate</label>
+                      <input type="number" class="form-control" [formControl]="exchRateCtrl" id="exchRateCtrl">
+                    </div>
+
+                    <div class="form-inline col-sm-2">
+                      <button type="button" [disabled]="(!paymentModeCtrl.value || accountCtrl.value <= 0 || amountCtrl.value <= 0)" (click)="handleAdd()"
+                        class="btn btn-warning">&emsp;&emsp;Add&emsp;&emsp;</button>
+                    </div>
+
+                    <div class="form-inline col-sm-3 text-right">
+                      <button type="button" class="btn btn-info" *ngIf="showSbmtBtn" (click)="onPreviewHistory()">Preview History</button>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="form-group col-sm-12">
+                      <ba-card cardTitle="Payment Details List" baCardClass="with-scroll" class="smart-table-container">
+                        <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+                      </ba-card>
+                    </div>
+                  </div>
+
+                </ba-card>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-3">
+              <label for="totalAmount" style="color:blue;">Total Amount</label>
+              <input type="number" class="form-control" [formControl]="totalAmount" id="totalAmount" readonly>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="totalPaidAmount" style="color:gold;">Total Paid Amount</label>
+              <input type="number" class="form-control" [formControl]="totalPaidAmount" id="totalPaidAmount" readonly>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="payingAmount">Paying Amount</label>
+              <input type="number" class="form-control" [formControl]="payingAmount" id="payingAmount" readonly>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="outstandingAmount" style="color:firebrick;">Outstanding Amount</label>
+              <input type="number" class="form-control" [formControl]="outstandingAmount" id="outstandingAmount" readonly>
+            </div>
+          </div>
+
+        </ba-card>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-12">
+          <button type="submit" *ngIf="showSbmtBtn" [disabled]="paymentList.length == 0" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

@@ -1,0 +1,213 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)">
+    <i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="createItemAllotmentForm" #formDir="ngForm" (ngSubmit)="submit()">
+
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+
+          <div class="row">
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!category.valid && category.touched)  || (category.untouched && formDir.submitted), 'has-success': (category.valid && category.touched)}">
+              <label for="category">Select Category</label>
+              <select [formControl]="category" class="form-control" id="category" (change)="onChangeCat($event.target.value)">
+                <option *ngFor="let category of catList" [value]="category.catId">{{category.catName}}</option>
+              </select>
+              <small *ngIf="(!category.valid && category.touched) || (category.untouched && formDir.submitted)" class="text-danger">
+                Category is required
+              </small>
+            </div>
+
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!lotMasterByToLotId.valid && lotMasterByToLotId.touched) || (lotMasterByToLotId.untouched && formDir.submitted), 'has-success': (lotMasterByToLotId.valid && lotMasterByToLotId.touched)}">
+              <label for="lotMasterByToLotId">Destination Lot</label>
+              <select [formControl]="lotMasterByToLotId" class="form-control" id="lotMasterByToLotId" (change)="onChangeDLot($event.target.value)">
+                <option *ngFor="let lot of lotList" [value]="lot.lotId">{{lot.lotName}}</option>
+              </select>
+              <small *ngIf="(!lotMasterByToLotId.valid && lotMasterByToLotId.touched) || (lotMasterByToLotId.untouched && formDir.submitted)"
+                class="text-danger">
+                Destination Lot is required
+              </small>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (!lotMasterByFromLotId.valid && lotMasterByFromLotId.touched) || (lotMasterByFromLotId.untouched && formDir.submitted), 'has-success': (lotMasterByFromLotId.valid && lotMasterByFromLotId.touched)}">
+              <label for="lotMasterByFromLotId">Source Lot</label>
+              <select [formControl]="lotMasterByFromLotId" class="form-control" id="lotMasterByFromLotId" (change)="onChangeSLot($event.target.value)">
+                <option *ngFor="let lot of lotList" [value]="lot.lotId">{{lot.lotName}}</option>
+              </select>
+              <small *ngIf="(!lotMasterByFromLotId.valid && lotMasterByFromLotId.touched) || (lotMasterByFromLotId.untouched && formDir.submitted)"
+                class="text-danger">
+                Source Lot is required
+              </small>
+            </div>
+
+            <div class="form-group col-sm-3">
+              <label for="transDate">Allotment Date</label>
+              <input type="date" class="form-control" id="transDate" [value]="todayDate" disabled>
+            </div>
+
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (!lotItemByFromLotItemName.valid && lotItemByFromLotItemName.touched) || (lotItemByFromLotItemName.untouched && formDir.submitted), 'has-success': (lotItemByFromLotItemName.valid && lotItemByFromLotItemName.touched)}">
+              <label for="lotItemByFromLotItemName">Select Source Items</label>
+              <!-- <select [formControl]="lotItemByFromLotItemId" class="form-control" id="lotItemByFromLotItemId" (change)="onChangeSItem($event.target.value)">               
+                <option *ngFor="let item of itemSList" [value]="item.lotItemId">{{item.itemMaster.itemName}}</option>             
+              </select> aman-edited   -->
+              <input type="text" class="form-control" [formControl]="lotItemByFromLotItemName" id="lotItemByFromLotItemName" 
+               placeholder="Enter Source Item" [ngbTypeahead]="search" />
+              <small *ngIf="(!lotItemByFromLotItemName.valid && lotItemByFromLotItemName.touched) || (lotItemByFromLotItemName.untouched && formDir.submitted) "
+                class="text-danger">
+                Select Source Items is required
+              </small>
+            </div>
+
+            <div class="form-group col-sm-3 input-container input-container1">
+              <label for="availableCarats">Available Carats</label>
+              <input type="number" [formControl]="availableCarats" class="form-control" id="availableCarats" readonly>
+            </div>
+
+            <div class="form-group col-sm-3 input-container input-container2">
+              <label for="orgAvgRate">Available Rate</label>
+              <input type="number" [formControl]="orgAvgRate" class="form-control" id="orgAvgRate" readonly>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+          <div class="form-group col-sm-12" *ngIf="itemSList.length > 0 && lotMasterByFromLotId.valid && lotItemByFromLotItemId.valid">
+            <ba-card cardTitle="Item Parameter Detail" formArrayName="parameters" baCardClass="with-scroll">
+              <stock-item-parameter [itemParameter]="itemParameters.controls[i]" [paraNameList]="paraNameList"  [odd]="odd" (remove)="removeParameter(i)" *ngFor="let param of itemParameters.controls; let i=index; let odd=odd;"></stock-item-parameter>
+              <div class="mt-2">
+                <button (click)="addParameter()" class="btn btn-success btn-icon" type="button"><i class="fa fa-plus-circle"></i> Add Parameter</button>
+              </div>
+           </ba-card>
+          </div>
+        </div> -->
+
+        </ba-card>
+      </div>
+    </div>
+
+
+    <div *ngIf="successMessage">
+      <div class="form-group alert alert-success alert-dismissable col-md-12">
+        <a class="close" aria-label="close" (click)="successMessage = null">&times;</a>
+        <strong>Success!&nbsp;</strong> {{ successMessage }}
+      </div>
+    </div>
+
+
+
+    <div *ngIf="addedItemList.length > 0 && lotItemByFromLotItemId.valid && isSrcItemSelected">
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card cardTitle="Selected Source Item Details" baCardClass="with-scroll">
+
+            <div class="row">
+              <div class="form-group col-sm-4">
+                <label for="item">Source Item</label>
+                <input type="text" [formControl]="item" class="form-control" id="item" readonly>
+              </div>
+
+              <div class="form-group col-sm-5">
+                <div class="row">
+                  <div class="form-group col-sm-4">
+                    <label for="carats">Carats</label>
+                    <input type="number" [formControl]="carats" class="form-control" id="carats">
+                  </div>
+
+                  <div class="form-group col-sm-4">
+                    <label for="avgRate">Rate</label>
+                    <input type="number" [formControl]="avgRate" class="form-control" id="avgRate">
+                  </div>
+
+                  <div class="form-group col-sm-4">
+                    <label for="salePrice">Source Sale Price</label>
+                    <input type="number" [formControl]="salePrice" class="form-control" id="salePrice" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-3">
+                <div class="row">
+                  <div class="form-group col-sm-4">
+                    <p></p>
+                    <button type="button" class="btn btn-primary" (click)="onUpdate()">Update</button>
+                  </div>
+                  <div class="form-group col-sm-8">
+                    <p></p>
+                    <button type="button" class="btn btn-success btn-raised" (click)="onPreviewClick()">Preview Alloted Items</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <!-- <div class="form-group col-sm-12 abc xyz" [class.abc]="isSelected"> -->
+              <div class="form-group col-sm-12">
+                <ba-card cardTitle="Destination Lot Item Details" baCardClass="with-scroll" class="smart-table-container">
+                  <div class="row">
+                    <div class="form-group col-sm-2">
+                      <label for="destitemCodeCtrl">Dest. Item Code</label>
+                      <input type="text" [formControl]="destitemCodeCtrl" class="form-control color" id="destitemCodeCtrl" readonly>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                      <label for="destItemCtrl">Selected Destination Item</label>
+                      <input type="text" [formControl]="destItemCtrl" class="form-control color" id="destItemCtrl" readonly>
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                      <label for="destCaratsCtrl">Dest. Carats</label>
+                      <input type="number" [formControl]="destCaratsCtrl" class="form-control color" id="destCaratsCtrl" readonly>
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                      <label for="destAvgRateCtrl">Dest. Rate</label>
+                      <input type="number" [formControl]="destAvgRateCtrl" class="form-control color" id="destAvgRateCtrl" readonly>
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                      <label for="destSalePriceCtrl">Dest. Sale Price</label>
+                      <input type="number" [formControl]="destSalePriceCtrl" class="form-control color" id="destSalePriceCtrl" readonly>
+                    </div>
+                  </div>
+                  <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
+                </ba-card>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-8" [ngClass]="{'has-error': (!remarks.valid && remarks.touched) || (remarks.untouched && formDir.submitted), 'has-success': (remarks.valid && remarks.touched)}">
+                <label for="remarks">Remarks</label>
+                <input type="text" [formControl]="remarks" class="form-control" id="remarks">
+                <div *ngIf="((!remarks.valid && remarks.touched) || (remarks.untouched && formDir.submitted)) && remarks.errors != null"
+                  class="text-danger">
+                  <small *ngIf="remarks.errors.required">
+                    Remarks is required.
+                  </small>
+                  <small *ngIf="remarks.errors.maxlength">
+                    Remarks must not be greater than 255.
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-group col-sm-4 input-container input-container1">
+                <label for="totalCarets">Total Carats</label>
+                <input type="number" [formControl]="totalCarets" class="form-control" id="totalCarets" readonly>
+              </div>
+
+            </div>
+          </ba-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <button type="submit" [disabled]="!createItemAllotmentForm.valid && formDir.submitted" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+      </div>
+    </div>
+
+
+  </form>
+</div>

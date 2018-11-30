@@ -1,0 +1,98 @@
+<div class="widgets">
+    <form [formGroup]="importPurchaseSupplierInvoiceReportForm">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- <ba-card cardTitle="Invoice Report" baCardClass="with-scroll"> -->
+
+                <div class="row">
+                    <div class="form-group col-sm-3" [ngClass]="{'has-error': (!month.valid && month.touched), 'has-success': (month.valid && month.touched)}">
+                        <label for="month">Select Month</label>
+                        <select [formControl]="month" class="form-control" id="month">
+                            <option value="" [selected]=""> -- Select Month -- </option>
+                            <option *ngFor="let month of monthList" [value]="month.value">{{month.title}}</option>
+                        </select>
+                        <small *ngIf="(!month.valid && month.touched)" class="text-danger">
+                            Month is required
+                        </small>
+                    </div>
+
+                    <div class="form-group col-sm-3" [ngClass]="{'has-error': (!year.valid && year.touched), 'has-success': (year.valid && year.touched)}">
+                        <label for="year">Select Year</label>
+                        <select [formControl]="year" class="form-control" id="year">
+                            <option value="" [selected]=""> -- Select Year -- </option>
+                            <option *ngFor="let year of yearList" [value]="year">{{year}}</option>
+                        </select>
+                        <small *ngIf="(!year.valid && year.touched)" class="text-danger">
+                            Year is required
+                        </small>
+                    </div>
+
+
+                    <div class="col-sm-3 form-inline">
+                        <p>&nbsp;</p>
+                        <button type="button" (click)="createReport()" style="width:13em; height:2.5em" class="btn btn-warning btn-icon">
+                            <i class="fa fa-file"></i> Generate Report</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+
+                            </div>
+                        </div>
+                        <ba-card cardTitle=" Details" baCardClass="with-scroll" class="smart-table-container">
+                            <button id="csv" (click)="ConvertToCSV()" style="width:13em; height:2.5em" class="btn btn-info btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Export Excel</button> &nbsp;&nbsp; &nbsp;&nbsp;
+                            <button id="pdf" (click)="ConvertToPDF()" style="width:13em; height:2.5em;float: right;" class="btn btn-primary btn-sm">
+                                <i class="fa fa-file-pdf-o"></i> Export PDF</button>
+                            <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+                            <div class="custom">
+                                <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
+                            </div>
+                            <div class="row">
+                                <p> </p>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black;">Total Carats: </label>
+                                        <div>
+                                            <span class="pt-2">{{totalCarets ? totalCarets : 0 }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black;">Total Ord Amt Base:</label>
+                                        <div>
+                                            <span class="pt-2"> {{totalOrdAmtBase | number }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black;">Total Ord Amt Stock:</label>
+                                        <div>
+                                            <span class="pt-2"> {{totalOrdAmtStock | number }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black;">Total Net Amount:</label>
+                                        <div>
+                                            <span class="pt-2"> {{totalNetAmount | number }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black;">Total NP:</label>
+                                        <div>
+                                            <span class="pt-2"> {{totalNP | number }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ba-card>
+                    </div>
+                </div>
+
+                <!-- </ba-card> -->
+            </div>
+        </div>
+    </form>
+</div>

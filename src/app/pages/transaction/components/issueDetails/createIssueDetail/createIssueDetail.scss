@@ -1,0 +1,22 @@
+@import '../../../../../theme/sass/smartTables';
+select {
+    width: 100%!important;
+    height: calc(2.25rem + 0px)!important;
+}
+
+p {
+    padding:5px;
+}
+
+input:read-only, input:disabled {
+    color: whitesmoke;
+}
+
+.reset, .add {
+    margin-left: -15px!important;
+}
+
+.rght {
+    float: right;
+    margin-right: 4em;
+}

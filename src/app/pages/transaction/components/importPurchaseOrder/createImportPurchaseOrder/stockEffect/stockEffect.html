@@ -1,0 +1,117 @@
+<div class="col-md-12">
+  <form [formGroup]="importStockEffectForm" (submit)="handleAdd()">
+    <div class="row">
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': (!lotCtrl.valid && lotCtrl.touched), 'has-success': (lotCtrl.valid && lotCtrl.touched)}">
+        <label for="lotMaster">Select Lot: </label>
+        <select [formControl]="lotCtrl" class="form-control" id="lotMaster">
+          <option *ngFor="let lot of lots | async" [ngValue]="lot">{{lot.lotName}}</option>
+        </select>
+        <small *ngIf="(!lotCtrl.valid && lotCtrl.touched)" class="text-danger">
+          Lot is required
+        </small>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="itemName">Select Item: </label>
+        <input id="test" type="text" class="form-control" [formControl]="itemName" id="itemName" [ngbTypeahead]="search"/>
+        <small *ngIf="(item.valid)" class="">
+          Avg Rate: {{item.value.avgRate}}, Carats Available: {{item.value.totalCarets}}
+        </small>
+        <small *ngIf="(!item.valid && item.touched)" class="text-danger">
+          Item is required
+        </small>
+      </div>
+        <input type="hidden" [formControl]="item" class="form-control" id="itemMaster">
+      <div class="form-group col-sm-4">
+        <label for="descCtrl">Item Description: </label>
+        <select [formControl]="descCtrl" class="form-control" id="descCtrl">
+          <option *ngFor="let item of purchOrderItem" [value] ="item.description">{{item.description}}</option>
+        </select>
+        <small *ngIf="(item.valid)" class="">
+          Selling Price: {{item.value.itemMaster.salePrice}}
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-2">
+        <label for="pieces">Pieces: </label>
+        <input type="number" [formControl]="piecesCtrl" class="form-control" id="pieces">
+      </div>
+      <div class="form-group col-sm-2" [ngClass]="{'has-error': (!caratsCtrl.valid && caratsCtrl.touched), 'has-success': (caratsCtrl.valid && caratsCtrl.touched)}">
+        <label for="carets">Total Carats: </label>
+        <input type="number" [formControl]="caratsCtrl" class="form-control" id="carets">
+        <small *ngIf="(!caratsCtrl.valid && caratsCtrl.touched)" class="text-danger">
+          Carats is required
+        </small>
+      </div>
+      <!-- <div class="form-group col-sm-3" [ngClass]="{'has-error': (!rateCtrl.valid && rateCtrl.touched), 'has-success': (rateCtrl.valid && rateCtrl.touched)}">
+        <label for="rate">Rate/Carats: </label>
+        <input type="number" [formControl]="rateCtrl" class="form-control" id="rate">
+        <small *ngIf="(!rateCtrl.valid && rateCtrl.touched)" class="text-danger">
+          Rate is required
+        </small>
+      </div> -->
+      
+      <div class="col-sm-6"></div>
+      <div class="col-sm-2  text-right">
+          <button type="submit" [disabled]="( !caratsCtrl.valid || !descCtrl.value || !item.valid || !lotCtrl.valid)" class="btn btn-success">Add</button> 
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-sm-5">
+        <div class="row">
+          <div class=" col-sm-3">
+            <label for="amount">Avg Stock Rate: </label>
+            <span class="pt-2"> {{(wtAvgRate.value?wtAvgRate.value : 0)| currency:stockCurrencyCode:'1.0-2'}}</span>
+          </div>
+          <div class=" col-sm-3">
+            <label for="amount">Order Amount: </label>
+            <span class="pt-2"> {{(ordAmount? ordAmount:0)| currency:poCurrencyCode:'1.0-2'}}</span>
+          </div>
+          <div class=" col-sm-3">
+            <label for="amount">Order Amt in Base Currency: </label>
+            <span class="pt-2"> {{(orderAmountBase? orderAmountBase:0)| currency:baseCurrencyCode:'1.0-2'}}</span>
+          </div>
+          <div class=" col-sm-3">
+            <label for="amount">Total Cts: </label>
+            <span class="pt-2"> {{totCarats? totCarats:0}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <div class="row">
+          <div class=" col-sm-2">
+            <label for="amount">Selling Amt: </label>
+            <span class="pt-2">{{(sellingAmount? sellingAmount:0)| currency:stockCurrencyCode:'1.0-2'}}</span>
+          </div>
+          <div class="col-2">
+            <label for="amount">Stock Amt:</label>
+            <span class="pt-2">{{(stockAmount? stockAmount:0)| currency:stockCurrencyCode:'1.0-2'}}</span>
+          </div>
+          <div class="col-sm-2">
+            <label for="amount">Avg. Selling Rate: </label>
+            <span class="pt-2">{{(totSellingAmt? totSellingAmt:0)| currency:stockCurrencyCode:'1.0-2'}}</span>
+          </div>
+          <div class="col-3">
+              <label for="profit">NP in Stock Currency:</label>
+              <span class="pt-2">{{(notional? notional:0)| currency:stockCurrencyCode:'1.0-2'}}</span> 
+          </div>
+          <div class="col-3">
+            <label for="profit">NP in Base Currency:&emsp;</label>
+            <span class="pt-2">{{(baseNotional? baseNotional:0)| currency:baseCurrencyCode:'1.0-2'}}</span> 
+          </div>
+        </div>
+      </div>
+    </div> 
+  
+  </form>
+  <div class="row"></div>
+  <div class="row mt-2">
+    <div class="col-sm-12">
+      <ba-card cardTitle="Stock Items" baCardClass="with-scroll">
+        <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+        (editConfirm)="onEditConfirm($event)"></ng2-smart-table>
+      </ba-card>
+    </div>
+  </div>
+</div>
+

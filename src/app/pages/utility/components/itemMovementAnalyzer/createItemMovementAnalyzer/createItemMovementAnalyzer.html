@@ -1,0 +1,146 @@
+<div class="widgets">
+    <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>    
+    <form [formGroup]="createItemMovementAnalyzerForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+  
+            <div class="row row">
+              <div class="form-group col-sm-3">
+                <label for="company">Company</label>
+                <select class="form-control" id="company">
+                      <option value="company 1">Company 1</option>
+                      <option value="company 2">Company 2</option>
+                      <option value="company 3">Company 3</option>
+                </select>
+              </div>
+             
+              <div class="form-group col-sm-3">
+                <label for="category">Category</label>
+                <select class="form-control" id="category">
+                      <option value="Category 1">Category 1</option>
+                      <option value="Category 2">Category 2</option>
+                      <option value="Category 3">Category 3</option>
+                </select>
+              </div>
+  
+              <div class="form-group col-sm-3">
+                <label for="searchType">Search Type</label>
+                <select class="form-control" id="searchType">
+                    <option value="type 1">type 1</option>
+                    <option value="type 2">type 2</option>
+                    <option value="type 3">type 3</option>
+                </select>
+              </div>
+  
+              <div class="form-group col-sm-3">
+                  <label for="transactionType">Transaction Type</label>
+                  <select class="form-control" id="transactionType">
+                      <option value="trans 1">trans 1</option>
+                      <option value="trans 2">trans 2</option>
+                      <option value="trans 3">trans 3</option>
+                  </select>
+              </div>
+            </div>
+
+
+            <div class="row row">  
+                       
+              <div class="form-group col-sm-3">
+                <label for="partyType">Party Type</label>
+                <select class="form-control" id="partyType">
+                    <option value="type 1">type 1</option>
+                    <option value="type 2">type 2</option>
+                    <option value="type 3">type 3</option>
+                </select>
+              </div>
+  
+              <div class="form-group col-sm-3">
+                  <label for="party">Party</label>
+                  <select class="form-control" id="party">
+                      <option value="party 1">Party 1</option>
+                      <option value="party 2">party 2</option>
+                      <option value="party 3">party 3</option>
+                  </select>
+              </div>
+            
+  
+              <div class="form-group col-sm-3">
+                <label for="fromDate">From Date</label>
+                <input type="date" class="form-control" id="fromDate">
+              </div>
+
+            <div class="form-group col-sm-3">
+              <label for="toDate">To Date</label>
+              <input type="date" class="form-control" id="toDate">
+            </div>
+          </div>
+          
+          <div class="row row">
+          <div class="form-group col-sm-3">
+            <label for="lot">Lot</label>
+            <select class="form-control" id="lot">
+                <option value="Lot 1">Lot 1</option>
+                <option value="Lot 2">Lot 2</option>
+                <option value="Lot 3">Lot 3</option>
+            </select>
+          </div>
+
+          <div class="form-group col-sm-6">
+            <label for="item">Item</label>
+            <select class="form-control" id="item">
+                <option value="item 1">item 1</option>
+                <option value="item 2">item 2</option>
+                <option value="item 3">item 3</option>
+            </select>
+          </div>
+
+            <div class="form-group col-sm-3">
+                <label for="remark">Remark</label>
+                <select class="form-control" id="remark">
+                    <option value="remark 1">remark 1</option>
+                    <option value="remark 2">remark 2</option>
+                    <option value="remark 3">remark 3</option>
+                </select>
+              </div>
+           </div>
+ 
+              <div class="row">
+              <div class="col-md-12">
+                <ba-card formArrayName="parameters" baCardClass="with-scroll">
+
+                  <item-parameter [itemParameter]="itemParameters['controls'][i]" [odd]="odd" (remove)="removeParameter(i)" *ngFor="let param of itemParameters['controls']; let i=index; let odd=odd;"></item-parameter>
+                  <div class="mt-2">
+                    <button (click)="addParameter()" class="btn btn-success btn-icon" type="button"><i class="fa fa-plus-circle"></i> Add Parameter</button>
+                  </div>
+                  
+                </ba-card>
+              </div>
+            </div>    
+
+            
+                  <div class="form-group" style="max-width:100%">
+                    <button type="button" class="btn btn-default">Show</button>    
+                    <button type="button" class="btn btn-default">Preview</button>
+                    <button type="button" class="btn btn-default">Clear</button>
+                    <button type="button" class="btn btn-default">Close</button>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="type">Total Carats Details:</label>
+                       <textarea rows="10" cols="10" class="form-control" id="AvalItem"></textarea>
+                    </div>
+
+          </ba-card>
+        </div> 
+
+          <div class="form-group">
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+              </div>
+            </div>
+      </div> 
+    </form>
+  </div>
+  

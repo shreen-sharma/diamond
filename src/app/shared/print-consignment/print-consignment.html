@@ -1,0 +1,219 @@
+<div class="col-md-12">
+        <a class="close" aria-label="close" (click)="cancel()">&times;</a>
+</div>
+<div class="row">
+        <!-- <div class="col-md-3">    
+                <input type="text" class="form-control"  id="invoiceNo" placeholder="Invoice No." (change)="onInvoiceChange($event.target.value)">
+        </div>
+        <div class="col-md-3">
+            <input placeholder="Invoice Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="printDate" (change)="onPrintDateChange($event.target.value)">
+        </div>
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="iecNo" placeholder="IEC NO." (change)="onDeliveryNoteChange($event.target.value)">
+        </div>  
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="iecCode" placeholder="IEC CODE" (change)="onPaymentModeChange($event.target.value)">
+        </div> -->
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="suppRef" placeholder="Supplier's Ref." (change)="onSuppRefChange($event.target.value)">
+        </div> 
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="otherRef" placeholder="Other Reference(s)" (change)="onOtherRefChange($event.target.value)">
+        </div> 
+        <div class="col-md-3">    
+                <input type="text" class="form-control"  id="buyer" placeholder="Buyer(if not consignee)" (change)="onBuyOrdNoChange($event.target.value)">
+        </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="through" placeholder="Through" (change)="onDespatchedThroughChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="destination" placeholder="Destination" (change)="onDestinationChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="vesselNo" placeholder="Vessel/Flight No." (change)="onVesselNoChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="placeOfReceipt" placeholder="Place Of Receipt By Shipper" (change)="onPlaceOfReceiptChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="portOfLoad" placeholder="Port Of Load" (change)="onPortOfLoadChange($event.target.value)">
+            </div>
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="portOfDischarge" placeholder="Port Of Discharge" (change)="onPortOfDischargeChange($event.target.value)">
+            </div>           
+            <div class="col-md-3">    
+                    <input type="text" class="form-control"  id="term" placeholder="Term Of Delivery" (change)="onTermChange($event.target.value)">
+            </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control" id="companyBankName" placeholder="Company Bank Name" (change)="onBankNameChange($event.target.value)">
+    </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control" id="companyAccNo" placeholder="Company Acc No." (change)="onAccNoChange($event.target.value)">
+    </div>
+    <div class="col-md-3">    
+            <input type="text" class="form-control" id="swiftNo" placeholder="Bank AD CODE" (change)="onIfsChange($event.target.value)">
+    </div>
+    <div class="col-md-3">    
+        <input type="text" class="form-control" id="companyCountry" placeholder="Country Of Origin" (change)="oncompanyCountryChange($event.target.value)">
+        </div>
+        <div class="col-md-3">    
+                <input type="text" class="form-control" id="suppCountry" placeholder="Country Of Final Destination" (change)="onsuppCountryChange($event.target.value)">
+        </div>
+        <div class="col-md-3">   
+                <button class="btn btn-primary confirm-btn" (click)="submit()">Submit</button><br>
+        </div>
+ </div>
+
+
+
+<div class="modal-content" id="modal-content" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header">
+      <h4 class="topName3" style="text-align: center!important;">Invoice</h4>
+    </div>
+    <div class="modal-body">
+    <table style="width:100%; border-collapse: collapse;font-size: .7em!important;text-align: left!important;">
+       <tr>
+               <td style="border-right:none!important;">Through: <b>{{through}}</b></td>
+               <td style="border-left:none!important; border-right:none!important;"></td>
+               <td style="border-left:none!important;"></td>
+       </tr>
+        <tr>
+            <th rowspan="4">
+                <b>{{companyName}}</b><br>{{add11}} {{add12}}<br>{{city}} - {{pinCode}}<br>
+                State: {{state}}, Code: {{stateCode}}<br>
+                Contact: {{tel}}, {{mobile}}<br>Fax: {{fax}}<br>Email: {{email}}</th>
+            <td>Invoice No &amp; Date:<br><b>{{invoiceNo}}</b><b>&nbsp;&nbsp;&nbsp;{{printDate}}</b></td>
+            <td >Exporter's Ref. <b>{{suppRef}}</b><br>
+                IEC NO. : <b>{{iecNo}}</b></td>
+          </tr>
+          <tr>
+            <td style="border-right:none!important;">GST Number: <b>{{gstNo}}</b></td>
+            <td style="border-left:none!important;"></td>
+          </tr>
+          <tr>
+            <td style="border-right:none!important;">Other Reference(s) GR No.:<b> {{otherRef}}</b><br>
+                IEC CODE: <b>{{iecCode}}</b></td>
+                <td style="border-left:none!important;"></td>
+          </tr>
+          <tr>
+                <td style="border-right:none!important;">PAN NO.:<b> {{panNo}}</b></td>
+                <td style="border-left:none!important;"></td>
+          </tr>
+            <tr>
+                <th rowspan="4">
+                    Consignee:<br>
+                    DIRECT PARCEL<br>
+                    <b>{{cusName}}</b><br>{{cusAddress}}<br>{{cusCity}}<br>
+                    State Name: {{cusState}}, Code: {{cusStateCode}}<br>
+                    Place Of Supply: {{supState}}</th>
+                <td style="border-right:none!important;border-bottom:none!important; vertical-align:top!important;">Buyer(if other than consignee){{buyer}}</td>
+                <td style="border-left: none!important;border-bottom: none!important;"></td>
+                </tr>
+                <tr>
+                        <td style="border: none!important;"></td>
+                        <td style="border-left: none!important;border-top: none!important;border-bottom: none!important;"></td>
+                </tr>
+                <tr>
+                        <td style="border: none!important;"></td>
+                        <td style="border-left: none!important;border-top: none!important;border-bottom: none!important;"></td>
+                </tr>
+                <tr>
+                                <td style="vertical-align:top!important;">Country Of Origin Of Goods<br><b>{{companyCountry}}</b> </td>
+                                <td style="vertical-align:top!important;">Country Of Final Destination<br><b>{{suppCountry}}</b> </td>
+                        </tr>
+            </table>   
+            <table style="width:100%; border-collapse: collapse;font-size: .7em!important;text-align: left!important;">
+                <tr>                        
+                        <th rowspan="3" style="width:43.25%;">Terms Of Delivery Of Goods <br>DIRECT PARCEL<br>
+                        TERMS: <b>{{term}}</b><br>BANK DETAILS: <br>
+                        Bank Name: <b>{{companyBankName}}</b><br>
+                        Acc. NO.: <b>{{companyAccNo}}</b><br>
+                        AD CODE: <b>{{swiftNo}}</b></th>
+                        <td style="width:30%;">Pre-Carriage By <br><b>{{through}}</b></td>
+                        <td>Place Of Receipt by Pre-Carrier<br><b>{{placeOfReceipt}}</b></td>
+                </tr>
+                <tr>
+                        <td style="width:28%;">Vessel/Flight No.: <br><b>{{vesselNo}}</b></td>
+                        <td style="width:28%;">Port Of Loading: <br><b>{{portOfLoad}}</b></td>
+                </tr>
+                <tr>
+                        <td style="width:28%;">Port Of Discharge: <br><b>{{portOfDischarge}}</b></td>
+                        <td style="width:28%;">Final Destination: <br><b>{{destination}}</b></td>
+                </tr>
+            </table>       
+    <table class="table table-hover" align="center" style="margin-bottom:0em!important; font-size: .65em!important;">
+        <thead>
+            <tr>
+                <td>SI</td>
+                <td>Description Of Goods</td>
+                <td>HSN/SAC</td>
+                <td>Quantity</td>
+                <td>Rate <small>In US $</small></td>
+                <td>Amt. <small>In US $</small></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let list of items">
+                <td style="border-top: none!important; border-bottom: none!important; ">{{list.si}}</td>
+                <td style="border-top: none!important; border-bottom: none!important;text-align:left!important; "><b>{{list.description}}</b></td>
+                <td style="border-top: none!important; border-bottom: none!important;text-align:center!important; ">{{list.hsnCode}}</td>
+                <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; "><b>{{list.carats}}Cts</b> </td>
+                <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; ">{{list.rate}} </td>
+                <td style="border-top: none!important; border-bottom: none!important;text-align:right!important; "><b>{{list.amount}}</b></td>
+            </tr>
+                <tr>
+                        <td></td>
+                        <td style="text-align:right!important;"><b>G. TOTAL</b></td>
+                        <td></td>
+                        <td style="text-align:right!important;"><b>{{totalCarats}}Cts</b></td>
+                        <td style="text-align:right!important;"><b>C &amp; F US $</b></td>
+                        <td style="text-align:right!important;"><b>{{tAmount}}</b></td>
+                </tr>
+        </tbody>
+    </table> 
+    <table style="width:100%; border-collapse: collapse;font-size: .7em!important;text-align: left!important;margin-top:0em!important;">
+        <tr>
+            <th>
+                Amount Chargeable (in Words)<br>
+                <b>{{amtInWords}}</b><br><br>
+            </th>
+        </tr>
+    </table> 
+    <table style="width:100%; border-collapse: collapse;font-size: .7em!important;text-align: left!important;margin-top:0em!important;">
+                <tr>
+                    <th>
+                        <b><u>PAYMENT INSTRUCTION</u></b><br>
+                        <b>PLEASE REMIT PROCEEDS OF THIS BILL BY T.T.THROUGH THE {{cusBank}}</b>								
+                        <br><b>{{cusAddress}} SWIFT : {{cusSwiftNo}} TO A/C NO. {{cusAccNo}}</b>
+                        <br><b>FOR CREDIT OF: {{creditBank}}, {{creditBankAddr}} SWIFT CODE: {{creditBankSwift}} FURTHER CREDIT TO</b><br>
+                        <b>M/S. {{companyName}} A/C NO. {{companyAccNo}}</b>
+                </th>
+                </tr>
+            </table>
+    <table style="width:100%; border-collapse: collapse;font-size: .7em!important;text-align: left!important;margin-top:0em!important;">
+            <tr>
+                <td style="width:62%; text-align: justify; padding: 0 1em 0 1em!important">
+                    Declaration<br>
+                    <b><u>CONSIGNMENT BASIS</u></b><br>
+                    <b>We undertake to re-import unsold goods within the prescribed time limit and submit documentary
+                    evidence there-of  to our bankers within 60 days from the clearance of the goods.
+                    We also undertake to repatriate the sale proceeds of the goods sold through proper banking channel.</b><br>
+                    "The diamonds herein invoiced have been purchased from legitimate sources not involved in funding conflict in compliance with United Nations Resolutions. The seller hereby guarantees that these diamonds are conflict free, based on personal knowledge and/or written guarantees provided by the supplier of these diamonds"												
+                    <br>
+                    We declare that this Invoice shows the actual price of the goods			
+                        described and that all particulars are true and correct.			
+                        Goods Cut &amp; Polished in India.<br>
+                        <b>"Supply Meant for Export under Bound or Letter of Undertaking 				
+                                Without Payment of Integrated Tax"</b><br>			
+                    <b>"DOOR TO DOOR INSURANCE COVER BY BRINKS"	</b><br>
+                    						
+                </td>
+                <td style="vertical-align: top!important;">
+                    Signature &amp; Date
+                </td>
+            </tr>
+        </table>
+    </div>
+  </div>
+  <button class="btn btn-primary confirm-btn" (click)="print()" *ngIf="showPrint == true" style="margin: 3em 0 1em 2em;">Print</button>
+  <button class="btn btn-danger confirm-btn" (click)="cancel()" style="float:right!important;margin: 3em 2em 1em 0;">Close</button><br>

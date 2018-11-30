@@ -1,0 +1,171 @@
+<div class="widgets">
+    <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+    <form [formGroup]="goodsInwardForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+  
+            <div class="row row">
+              <div class="form-group col-sm-6">
+                <label for="selectParty">Select Party</label>
+                <select class="form-control" [formControl]="selectParty" id="selectParty">
+                      <option value="Party 1">Party 1</option>
+                      <option value="Party 2">Party 2</option>
+                      <option value="Party 3">Party 3</option>
+                </select>
+              </div>
+             
+              <div class="form-group col-sm-6">
+                <label for="process">Process</label>
+                <select class="form-control" [formControl]="process" id="process">
+                      <option value="Process 1">Process 1</option>
+                      <option value="Process 2">Process 2</option>
+                      <option value="Process 3">Process 3</option>
+                </select>
+            </div>
+            </div> 
+
+            <div class="row row">
+                <div class="form-group col-sm-6">
+                    <label for="inwardNo">Inward No.</label>
+                    <input type="number" placeholder="Inward No." class="form-control" [formControl]="inwardNo" id="inwardNo">
+                </div>
+               
+                <div class="form-group col-sm-6">
+                  <label for="inwardNoFormat">Inward No. Format</label>
+                  <input type="number" placeholder="Inward No. Format" class="form-control" [formControl]="inwardNoFormat" id="inwardNoFormat">
+              </div>
+            </div>
+             
+            <div class="row row">
+                <div class="form-group col-sm-6">
+                    <label for="inwardDate">Inward Date</label>
+                    <input type="date"  class="form-control" [formControl]="inwardDate" id="inwardDate">
+                </div>
+               
+                <div class="form-group col-sm-6">
+                  <label for="jangadDate">Jangad Date</label>
+                  <input type="date"  class="form-control" [formControl]="jangadDate" id="jangadDate">
+              </div>
+            </div>
+            <div class="row row">
+                <div class="form-group col-sm-6">
+                    <label for="jangadNo">Jangad No</label>
+                    <input type="number"  class="form-control" [formControl]="jangadNo" id="jangadNo">
+                </div>
+               
+                <div class="form-group col-sm-6">
+                    <label for="lot">Lot</label>
+                    <select class="form-control" [formControl]="lot" id="lot">
+                          <option value="Lot 1">Lot 1</option>
+                          <option value="Lot 2">Lot 2</option>
+                          <option value="Lot 3">Lot 3</option>
+                    </select>
+              </div>
+            </div>
+
+            <div class="row row">
+                <div class="form-group col-sm-12">
+                    <label for="instruction">Instruction</label>
+                    <textarea class="form-control" [formControl]="instruction" id="instruction" rows="1"></textarea>
+                </div>
+            </div>
+            
+            <div class="row row">          
+                <div class="form-group col-sm-12">
+                  <label for="remark">Remark:</label>
+                  <textarea class="form-control" [formControl]="remark" id="remark" rows="1"></textarea>
+                </div>
+                </div>
+
+     </ba-card>
+
+     <ngb-tabset>
+       <ngb-tab title="Issue Item Details">
+         <ng-template ngbTabContent>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                  <label for="issuedItem">Issued Item</label>
+                  <select class="form-control" [formControl]="issuedItem" id="issuedItem">
+                        <option value="Issued 1">Issued 1</option>
+                        <option value="Issued 2">Issued 2</option>
+                        <option value="Issued 3">Issued 3</option>
+                  </select>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="pieces">Pieces</label>
+                    <input type="number" placeholder="Pieces" class="form-control" [formControl]="pieces" id="pieces">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="carats">Carats</label>
+                    <input type="number" placeholder="Carats" class="form-control" [formControl]="carats" id="carats">
+                </div>
+                <p></p>
+                <button type="add" class="btn btn-default">Add</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-default">Remove</button>
+                <p></p>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <p></p>
+                    <label for="totalPieces">Total Pieces</label>
+                    <input type="number" placeholder="Pcs" class="form-control" [formControl]="totalPieces" id="totalPieces">
+                </div>
+                <div class="form-group col-sm-6">
+                    <p></p>
+                    <label for="totalCarats">Total Carats</label>
+                    <input type="number" placeholder="Cts" class="form-control" [formControl]="totalCarats" id="totalCarats">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                  <textarea class="form-control" [formControl]="" id="" rows="3"></textarea>
+                </div>
+                </div>
+      
+         </ng-template>
+        </ngb-tab>
+
+        <ngb-tab title="Issued Item Parameter Details">
+            <ng-template ngbTabContent>
+                <div class="row">
+                    <div class="col-md-12">
+                        <ba-card formArrayName="parameters" baCardClass="with-scroll">
+                
+                          <item-parameter [itemParameter]="itemParameters.controls[i]" [odd]="odd" (remove)="removeParameter(i)" *ngFor="let param of itemParameters.controls; let i=index; let odd=odd;"></item-parameter>
+                          <div class="mt-2">
+                            <button (click)="addParameter()" class="btn btn-success btn-icon" type="button"><i class="fa fa-plus-circle"></i> Add Parameter</button>
+                          </div>
+                            
+                          <!-- <div class="form-group col-sm-3">
+                            <label for="parameter1">Parameter 1</label>
+                            <select class="form-control" id="parameter1">
+                              <option value="Param 1">Param 1</option>
+                              <option value="Param 2">Param 2</option>
+                              <option value="Param 3">Param 3</option>
+                            </select>
+                          </div> -->
+                
+                        </ba-card>
+                      </div>
+                </div><p></p>
+                
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                      <textarea class="form-control" [formControl]="" id="" rows="3"></textarea>
+                    </div>
+                    </div>
+            </ng-template>
+           </ngb-tab>
+        </ngb-tabset>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-default">Submit</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+          </div>
+        </div>
+  
+      </div> 
+      </div>
+    </form>
+  </div>

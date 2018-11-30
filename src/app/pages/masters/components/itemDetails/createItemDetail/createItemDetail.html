@@ -1,0 +1,110 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="itemDetailForm" #formDir="ngForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="row" *ngIf="errorMsg">
+            <div class="alert alert-danger alert-dismissable col-12">
+              <a class="close" aria-label="close" (click)="errorMsg=''">&times;</a>
+              <strong>{{errorMsg}}</strong> 
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!itemCategory.valid && itemCategory.touched) || (itemCategory.untouched && formDir.submitted)), 'has-success': (itemCategory.valid && itemCategory.touched)}">
+              <label for="itemCategory">Item Category</label>
+                <select [formControl]="itemCategory" class="form-control" id="itemCategory">
+                  <option *ngFor="let itemCategory of catList | async" [value]="itemCategory.catId">{{itemCategory.catName}}</option>
+                </select>
+                <small *ngIf="(!itemCategory.valid && itemCategory.touched) || (itemCategory.untouched && formDir.submitted)" class="text-danger">
+                    Item Category is required
+                </small>
+            </div>
+
+            <!-- <div class="form-group col-sm-2" [ngClass]="{'has-error': ((!itemCode.valid && itemCode.touched) || (itemCode.untouched && formDir.submitted)), 'has-success': (itemCode.valid && itemCode.touched)}">
+              <label for="itemCode">Item Code</label>
+              <input type="text" [formControl]="itemCode" class="form-control" id="itemCode" required>
+                <div *ngIf="((!itemCode.valid && itemCode.touched) || (itemCode.untouched && formDir.submitted) && itemCode.errors != null)" class="text-danger">  
+                  <small *ngIf= "itemCode.errors.required">
+                      Code is required.
+                  </small>
+                  <small *ngIf="itemCode.errors.minlength">
+                       Code must be at least 2.
+                  </small>
+                  <small *ngIf="itemCode.errors.maxlength">
+                      Code must not be greater than 10.
+                  </small>
+                 </div> 
+            </div> -->
+
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (!itemName.valid && formDir.submitted), 'has-success': itemName.valid}">
+              <label for="itemName">Item Name</label>
+              <input type="text" [formControl]="itemName" disabled class="form-control" id="itemName">
+              <small *ngIf="((!itemName.valid && formDir.submitted))" class="text-danger">  
+                      Add Parameter Name &amp; Parameter value!
+              </small>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-12" [ngClass]="{'has-error': (!itemDesc.valid && itemDesc.touched),'has-success': (itemDesc.valid && itemDesc.touched)}">
+              <label for="itemDesc">Item Description</label>
+              <input type="text" [formControl]="itemDesc" class="form-control" id="itemDesc">
+              <small *ngIf="!itemDesc.valid && itemDesc.touched" class="text-danger">
+                      Description must not be greater than 250.
+              </small>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="form-group col-sm-5" [ngClass]="{'has-error': ((!costPrice.valid && costPrice.touched) || (costPrice.untouched && formDir.submitted)), 'has-success': (costPrice.valid && costPrice.touched)}">
+              <label for="costPrice">Cost Price</label>
+              <input type="number" [formControl]="costPrice" class="form-control" id="costPrice">
+              <small *ngIf="((!costPrice.valid && costPrice.touched) || (costPrice.untouched && formDir.submitted))" class="text-danger">
+                      Cost Price is required.
+              </small>
+            </div>
+
+            <div class="form-group col-sm-5" [ngClass]="{'has-error': ((!salePrice.valid && salePrice.touched) || (salePrice.untouched && formDir.submitted)), 'has-success': (salePrice.valid && salePrice.touched)}">
+              <label for="salePrice">Selling Price</label>
+              <input type="number" [formControl]="salePrice" class="form-control" id="salePrice">
+              <small *ngIf="((!salePrice.valid && salePrice.touched) || (salePrice.untouched && formDir.submitted))" class="text-danger">
+                      Sale Price is required.
+              </small>
+            </div>
+
+            <div class="col-sm-2 form-inline">
+              <label class="checkbox-inline" for="taxable">
+                <input type="checkbox" [formControl]="taxable" id="taxable">Taxable
+              </label>
+            </div>
+
+          </div>
+
+        </ba-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card cardTitle="Item Parameter Detail" formArrayName="parameters" baCardClass="with-scroll">
+          <item-param  *ngFor="let param of itemParameters['controls']; let i=index; let odd=odd;"
+            [itemParameter]="itemParameters['controls'][i]" [selectedParameters]="itemParameters.value" [selectedIds]="selectedIds"
+            [paraNameList]="paraNameList" [paraValueList]="paraValueList" [odd]="odd" (remove)="removeParameter(i)"></item-param>
+          <div class="mt-2">
+            <button (click)="addParameter()" class="btn btn-success btn-icon" type="button"><i class="fa fa-plus-circle"></i> Add Parameter</button>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button *ngIf="!upDateAccess" type="submit" [disabled]="!itemDetailForm.valid && formDir.submitted" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+      </div>
+    </div>
+
+  </form>
+</div>

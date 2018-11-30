@@ -1,0 +1,140 @@
+<div class="widgets">
+    <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="returnEntryForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="row row">
+            <div class="form-group col-sm-3">
+               <label for="exampleSelect1">Select Employee</label>
+                  <select class="form-control" id="exampleSelect1">
+                    <option value="employee1">Employee 1</option>
+                    <option value="employee2">Employee 2</option>
+                    <option value="employee3">Employee 3</option>
+                  </select>
+            </div>
+                <div class="form-group col-sm-3">
+               <label for="exampleSelect3">Select LOT</label>
+                  <select class="form-control" id="exampleSelect3">
+                    <option value="lot1">LOT 1</option>
+                    <option value="lot2">LOT 2</option>
+                    <option value="lot3">LOT 3</option>
+                  </select>
+            </div>
+                 <div class="form-group col-sm-3">
+               <label for="exampleSelect2">Issue NO.</label>
+                  <select class="form-control" id="exampleSelect2">
+                    <option value="Issue1">Issue 1</option>
+                    <option value="Issue2">Issue 2</option>
+                    <option value="Issue3">Issue 3</option>
+                  </select>
+            </div>
+                 <div class="form-group col-sm-3">
+               <label for="exampleSelect4">Select Issue Date</label>
+                  <select class="form-control" id="exampleSelect4">
+                    <option value="issueDate1">Issue Date 1</option>
+                    <option value="issueDate2">Issue Date 2</option>
+                    <option value="issueDate3">Issue Date 3</option>
+                  </select>
+            </div>
+          </div>
+
+          <div class="row row">
+            <div class="form-group col-sm-3">
+               <label for="issuedcarat">Issued Carats:</label>
+                 <input type="number" class="form-control" id="issuedcarat">
+            </div>
+           
+                <div class="form-group col-sm-3">
+               <label for="balanceC">Balance Carat</label>
+                  <input type="number" class="form-control" id="balanceC"> 
+            </div>
+                 <div class="form-group col-sm-3">
+               <label for="lotname">Lot name</label>
+                  <input type="text" class="form-control" id="lotname"> 
+            </div>
+            <div class="form-group col-sm-3">
+               <label for="TCost">Total Trans. Cost</label>
+                   <input type="number" class="form-control" id="TCost">
+            </div>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card cardTitle="Other Details" baCardClass="with-scroll">
+          <div class="row row">
+              <div class="form-group col-sm-2">
+               <label for="exampleSelect4">Return Date</label>
+                  <select class="form-control" id="exampleSelect4">
+                    <option value="returnDate1">Return Date 1</option>
+                    <option value="returnDate2">Return Date 2</option>
+                    <option value="returnDate3">Return Date 3</option>
+                  </select>
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="returnNo">Return No</label>
+              <input type="text" class="form-control" id="returnNo">
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="returnNo">Net Return Psc</label>
+              <input type="text" class="form-control" id="returnNo">
+            </div>
+            <div class="form-group col-sm-2">
+               <label for="returncts">Net Return Cts.</label>
+              <input type="text" class="form-control" id="returncts">
+            </div>
+                <div class="form-group col-sm-2">
+               <label for="trans">Net Trans. Cts.</label>
+              <input type="text" class="form-control" id="trans">
+            </div>
+             <div class="form-group col-sm-2">
+               <label for="trans">Total Proc. Loss</label>
+              <input type="text" class="form-control" id="trans">
+            </div>    
+          </div>
+
+          <div class="row row">
+              <div class="form-group col-sm-2">
+               <label for="exampleSelect4">Total Return cts</label>
+                 <input type="number" class="form-control" id="returnC">
+            </div>
+            
+             <div class="form-group col-sm-10">
+               <label for="remakr">Remark</label>
+              <input type="text" class="form-control" id="remark">
+            </div>    
+          </div>
+
+           <div class="row row">
+              <div class="form-group col-sm-6">
+               <label for="Selectitem">Select Item</label>
+                  <select class="form-control" id="Selectitem">
+                    <option value="returnDate1">item 1</option>
+                    <option value="returnDate2">item  2</option>
+                    <option value="returnDate3">item  3</option>
+                  </select>
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="returnNo">Returned Psc.</label>
+              <input type="text" class="form-control" id="returnNo">
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="returnNo">Returned Carats</label>
+              <input type="text" class="form-control" id="returnNo">
+            </div>
+            <div class="form-group col-sm-2">
+               <label for="returncts">Process Loss.</label>
+              <input type="text" class="form-control" id="returncts">
+            </div>
+          </div>
+
+         <button type="submit" class="btn btn-default">Add</button>
+          <button type="submit" class="btn btn-default" (click)="handleBack(true)">Remove</button>
+
+        </ba-card>
+      </div>
+    </div>
+  </form>
+</div>

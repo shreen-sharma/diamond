@@ -1,0 +1,95 @@
+<router-outlet>
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="userProfileForm"  #formDir="ngForm"  (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+
+            <ngb-alert *ngIf="message" type= danger (close)="message = null">{{ message }}</ngb-alert>
+
+          <div class="row">
+
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!userName.valid && userName.touched), 'has-success': (userName.valid && userName.touched)}">
+              <label>Login Name</label>
+              <input type="text" [formControl]="userName" class="form-control" id="exampleInputName2" readonly>
+            </div>
+
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!firstName.valid && firstName.touched), 'has-success': (firstName.valid && firstName.touched)}">
+              <label for="firstName">First Name</label>
+              <input type="text" [formControl]="firstName" class="form-control" id="firstName" readonly>
+            </div>
+
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!lastName.valid && lastName.touched), 'has-success': (lastName.valid && lastName.touched)}">
+              <label for="lastName">Last Name</label>
+              <input type="text" [formControl]="lastName" class="form-control" id="lastName" readonly>
+            </div>
+
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+              <label for="email">Email</label>
+              <input type="email" [formControl]="email" class="form-control" id="email" readonly>
+            </div>
+
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!mobileNumber.valid && mobileNumber.touched), 'has-success': (mobileNumber.valid && mobileNumber.touched)}">
+              <label for="mobileNumber">Mobile Number</label>
+              <input type="text" [formControl]="mobileNumber" class="form-control" id="mobileNumber" readonly>
+            </div>
+            
+            <div class="form-inline col-sm-4">
+              <button type="button" (click)="onChangePass()" class="btn btn-warning btn-raised">Change Password</button>&nbsp;&nbsp;
+            </div>
+
+            <div class="form-group col-sm-4" *ngIf="onChangePwd" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+              <label for="password">New Password</label>
+              <input type="password" [formControl]="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$!*%^&+=])(?=\S+$).{6,}$" class="form-control" id="password">
+              <div *ngIf="(!password.valid && password.touched ) && password.errors != null" class="text-danger">
+                <small *ngIf= "password.errors.required">
+                  New Password is required.
+                </small>
+                  <small *ngIf="password.errors.minlength">
+                    New Password must be at least 6.
+                </small>
+                <small *ngIf="password.errors.pattern">
+                  Password must contain atleast one Lowercase letter, Uppercase letter, Number, Special character and without WhiteSpace.
+              </small>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-4" *ngIf="onChangePwd" [ngClass]="{'has-error': ((!confPassword.valid && confPassword.touched) || (this.password.invalid && confPassword.touched) || message != null ), 'has-success': (confPassword.valid && confPassword.touched)}">
+              <label for="confPassword">Confirm Password</label>
+              <input type="password" [formControl]="confPassword" (focusout)="focusOutFunction()" class="form-control" id="confPassword">
+              <div *ngIf="(!confPassword.valid && confPassword.touched ) && confPassword.errors != null" class="text-danger">
+                <small *ngIf= "confPassword.errors.required">
+                  Confirm Password is required.
+                </small>
+                  <small *ngIf="confPassword.errors.minlength">
+                    Confirm Password must be at least 6.
+                </small>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  <ba-card cardTitle="Roles" baCardClass="with-scroll">
+                    <div class="form-group">
+                      <span *ngFor ="let role of roles">{{role}}<br/><br/></span>
+                    </div>
+                  </ba-card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+   
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button type="submit" [disabled]="!passValid" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+</router-outlet>

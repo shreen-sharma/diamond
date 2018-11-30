@@ -1,0 +1,99 @@
+<div class="widgets">
+
+  <form [formGroup]="misForm">
+    <div class="row">
+      <div class="col-md-12">
+
+        <!-- <ba-card cardTitle="MIS Report" baCardClass="with-scroll"> -->
+
+        <div class="row">
+
+          <!-- <div class="form-group col-sm-4" [ngClass]="{'has-error': (!category.valid && category.touched), 'has-success': (category.valid && category.touched)}">
+              <label for="category">Select Category</label>
+                 <select [formControl]="category" class="form-control" id="category" (change)="onChangeCat($event.target.value)">                
+                    <option *ngFor="let category of catList" [value]="category.catId">{{category.catName}}</option>             
+                </select>
+                <small *ngIf="(!category.valid && category.touched)" class="text-danger">
+                    Category is required
+                </small>
+            </div> -->
+
+          <div class="form-group col-sm-4" [ngClass]="{'has-error': (!lotMasterName.valid && lotMasterName.touched), 'has-success': (lotMasterName.valid && lotMasterName.touched)}">
+            <label for="lotMasterName">Select Lot</label>
+            <select [formControl]="lotMasterName" class="form-control" id="lotMasterName">
+
+              <option *ngFor="let lot of lotList" [value]="lot.lotId">{{lot.lotName}}</option>
+            </select>
+            <small *ngIf="(!lotMasterName.valid && lotMasterName.touched)" class="text-danger">
+              Lot is required
+            </small>
+          </div>
+
+
+          <div [hidden]="!isColorBrownLot" class="form-group col-sm-4" [ngClass]="{'has-error': (!ItemColor.valid && ItemColor.touched), 'has-success': (ItemColor.valid && ItemColor.touched)}">
+            <label for="ItemColor">Select Item Color</label>
+            <select [formControl]="ItemColor" class="form-control" id="ItemColor">
+              <option *ngFor="let lot of ItemColorList" [value]="lot" [selected]="1">{{lot}}</option>
+            </select>
+            <small *ngIf="(!lotMasterName.valid && lotMasterName.touched)" class="text-danger">
+              Item Color is required
+            </small>
+          </div>
+
+
+          <div class="col-sm-4 form-inline">
+            <p></p>
+            <button type="button" (click)="createReport()" class="btn btn-warning btn-icon">
+              <i class="fa  fa-file"></i> Generate Report</button>&nbsp;&nbsp;
+          </div>
+        </div>
+
+
+
+        <div *ngIf="reportStatus">
+          <div class="row">
+            <div class="col-md-12">
+              <ba-card cardTitle="Table Details" baCardClass="with-scroll">
+                <label>CT -> Carats ; Wt.SR -> Weighted Stock Rate ; Wt.SP -> Weighted Sales Price ;
+
+                </label>
+
+                <div class="form-group">
+                  <div class="col-sm-12">
+                    <!-- <button id="csv" (click)="ConvertToCSV()" style="width:13em; height:2.5em" class="btn btn-success btn-sm">
+                      <i class="fa fa-file-excel-o"></i> Export Excel</button> &nbsp;&nbsp; &nbsp;&nbsp; -->
+                    <button id="csv" (click)="ConvertToCSV()" style="width:13em; height:2.5em" class="btn btn-info btn-sm">
+                      <i class="fa fa-file-excel-o"></i> Export Excel</button> &nbsp;&nbsp; &nbsp;&nbsp;
+                    <button id="pdf" (click)="ConvertToPDF()" style="width:13em; height:2.5em;float: right;" class="btn btn-primary btn-sm">
+                      <i class="fa fa-file-pdf-o"></i> Export PDF</button>
+
+                  </div>
+                </div>
+                <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+                <!-- <button id="csv" (click)="ConvertToCSV()" style="width:13em; height:2.5em" class="btn btn-success btn-sm">
+                    <i class="fa fa-file-excel-o"></i> Export Excel</button> -->
+                <div class="custom">
+                  <ng2-smart-table [settings]="settings" [source]="source" id="smtTable"></ng2-smart-table>
+                </div>
+                <!--                      
+                    <div class="col-sm-12">
+                      <div class="row">
+                        <div class="form-group widthInc">
+                         
+                           <div>
+                              <span class="pt-2" *ngFor="let person of xxList"> 
+                              Total  {{ person }}</span>
+                          </div>
+                        </div>
+                        
+                        </div> 
+                      </div>  -->
+              </ba-card>
+            </div>
+          </div>
+        </div>
+        <!-- </ba-card> -->
+      </div>
+    </div>
+  </form>
+</div>

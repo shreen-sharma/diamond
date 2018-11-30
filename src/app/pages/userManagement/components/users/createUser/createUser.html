@@ -1,0 +1,169 @@
+<div class="widgets">
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)">
+    <i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="userForm" #formDir="ngForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12 text-danger" *ngIf="errorMsg">
+        {{errorMsg}}
+      </div>
+      <div class="col-md-12">
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <ngb-alert *ngIf="message" type= danger (close)="message = null">{{ message }}</ngb-alert>
+          <div class="row form-inline">
+            <div class="form-group col-sm-4" [ngClass]="{'has-error': (!userName.valid && userName.touched), 'has-success': (userName.valid && userName.touched)}">
+              <label>Login Name</label>
+              <input type="text" [formControl]="userName" class="form-control" id="exampleInputName2" [readonly]="isEdit">
+              <small *ngIf="(!userName.valid && userName.touched) || (userName.untouched && formDir.submitted)" class="text-danger">
+                User Name is required.
+              </small>
+            </div>
+
+            <div *ngIf="!isEdit" class="form-group col-sm-4" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+              <label for="password">Password</label>
+              <input type="password" [formControl]="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$!*%^&+=])(?=\S+$).{6,}$" class="form-control" id="password">
+              <div *ngIf="(!password.valid && password.touched) || (password.untouched && formDir.submitted)" class="text-danger">
+                <small *ngIf= "password.errors.required">
+                  Password is required.
+                </small>
+                  <small *ngIf="password.errors.minlength">
+                   Password must be at least 6.
+                </small>
+                <small *ngIf="password.errors.pattern">
+                  Password must contain atleast one Lowercase letter, Uppercase letter, Number, Special character and without WhiteSpace.
+              </small>
+              </div>
+            </div>
+            <div *ngIf="!isEdit" class="form-group col-sm-4" [ngClass]="{'has-error': (!confPassword.valid && confPassword.touched), 'has-success': (confPassword.valid && confPassword.touched)}">
+              <label for="confPassword">Confirm Password</label>
+              <input type="password" [formControl]="confPassword" (focusout)="focusOutFunction()" class="form-control" id="confPassword">
+              <div *ngIf="(!confPassword.valid && confPassword.touched) || (confPassword.untouched && formDir.submitted)" class="text-danger">
+                <small *ngIf= "confPassword.errors.required">
+                  Confirm Password is required.
+                </small>
+                  <small *ngIf="confPassword.errors.minlength">
+                    Confirm Password must be at least 6.
+                </small>
+              </div>
+            </div>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card cardTitle="User Info" baCardClass="with-scroll">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group" [ngClass]="{'has-error': (!firstName.valid && firstName.touched), 'has-success': (firstName.valid && firstName.touched)}">
+                <label for="firstName">First Name</label>
+                <input type="text" [formControl]="firstName" class="form-control" id="firstName">
+                <small *ngIf="(!firstName.valid && firstName.touched) || (firstName.untouched && formDir.submitted)" class="text-danger">
+                  First Name is required.
+                </small>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group" [ngClass]="{'has-error': (!lastName.valid && lastName.touched), 'has-success': (lastName.valid && lastName.touched)}">
+                <label for="lastName">Last Name</label>
+                <input type="text" [formControl]="lastName" class="form-control" id="lastName">
+                <small *ngIf="(!lastName.valid && lastName.touched) || (lastName.untouched && formDir.submitted)" class="text-danger">
+                  Last Name is required.
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+                <label for="email">Email</label>
+                <input type="email" [formControl]="email" class="form-control" id="email">
+                <small *ngIf="(!email.valid && email.touched) || (email.untouched && formDir.submitted)" class="text-danger">
+                  Email is required.
+                </small>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group" [ngClass]="{'has-error': (!mobileNumber.valid && mobileNumber.touched), 'has-success': (mobileNumber.valid && mobileNumber.touched)}">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="text" [formControl]="mobileNumber" class="form-control" id="mobileNumber">
+                <small *ngIf="(!mobileNumber.valid && mobileNumber.touched) || (mobileNumber.untouched && formDir.submitted)" class="text-danger">
+                  Mobile Number is required.
+                </small>
+              </div>
+            </div>
+          </div>
+        </ba-card>
+      </div>
+      <!-- <div class="col-md-6">
+        <ba-card cardTitle="Group and Company" baCardClass="with-scroll">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="company">Company</label>
+                <select [formControl]="companyId" class="form-control" id="company">
+                    <option *ngFor="let com of companies | async" [value]="com.hierId">{{com.hierName}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </ba-card>
+      </div> -->
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ba-card cardTitle="Roles and Permissions" baCardClass="with-scroll">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  <ba-card cardTitle="Roles" baCardClass="with-scroll">
+                    <div class="form-group">
+                      <label for="exampleSelect2">Select Roles for the user</label>
+                      <ngx-treeview [config]="treeConfig" [items]="roleItems" [itemTemplate]="treeItemTemplate" [headerTemplate]="treeHeaderTemplate"
+                        (selectedChange)="onRoleChange($event)">
+                      </ngx-treeview>
+                    </div>
+                  </ba-card>
+                </div>
+                <div class="col-md-6">
+                  <!-- <ba-card cardTitle="" baCardClass="with-scroll"> -->
+
+
+                  <!-- </ba-card> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </ba-card>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button type="submit" *ngIf="!errorMsg" [disabled]="!userForm.valid && formDir.submitted" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #treeItemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+  <div class="form-check">
+    <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa" [class.fa-caret-right]="item.collapsed"
+      [class.fa-caret-down]="!item.collapsed"></i>
+    <label class="form-check-label custom-control custom-checkbox">
+      <input type="checkbox" class="form-check-input custom-control-input" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange()"
+        [disabled]="item.disabled" />
+      <span class="custom-control-description">{{item.text}}</span>
+    </label>
+  </div>
+</ng-template>
+
+<ng-template #treeHeaderTemplate let-item="item" let-config="config" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+  <div class="form-check">
+    <label class="form-check-label custom-control custom-checkbox" *ngIf="config.hasAllCheckBox">
+      <input type="checkbox" class="form-check-input custom-control-input" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange(item.checked)"
+      />
+      <span class="custom-control-description">{{item.text}}</span>
+    </label>
+  </div>
+</ng-template>

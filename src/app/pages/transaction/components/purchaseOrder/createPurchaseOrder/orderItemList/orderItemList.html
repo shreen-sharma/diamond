@@ -1,0 +1,54 @@
+<div class="col-md-12">
+  <form [formGroup]="orderItem" (submit)="handleAdd()">
+    <div class="row">
+      <div class="form-group col-sm-4"  [ngClass]="{'has-error': (!descCtrl.valid && descCtrl.touched), 'has-success': (descCtrl.valid && descCtrl.touched)}">
+        <label for="itemDesc">Item Description: </label>
+        <input type="text" [formControl]="descCtrl" class="form-control" id="itemDesc">
+        <small *ngIf="(!descCtrl.valid && descCtrl.touched)" class="text-danger">
+          Description is required
+        </small>
+      </div>
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': (!caratsCtrl.valid && caratsCtrl.touched), 'has-success': (caratsCtrl.valid && caratsCtrl.touched)}">
+        <label for="carets">Total Carats: </label>
+        <input type="number" [formControl]="caratsCtrl" class="form-control" id="carets">
+        <small *ngIf="(!caratsCtrl.valid && caratsCtrl.touched)" class="text-danger">
+          Carats is required
+        </small>
+      </div>
+      <div class="form-group col-sm-4" [ngClass]="{'has-error': (!rateCtrl.valid && rateCtrl.touched), 'has-success': (rateCtrl.valid && rateCtrl.touched)}">
+        <label for="rate">Rate/Carats: </label>
+        <input type="number" [formControl]="rateCtrl" class="form-control" id="rate">
+        <input type="number" [formControl]="stockRateCtrl" class="form-control" id="stockRate" hidden>
+        <small *ngIf="(!rateCtrl.valid && rateCtrl.touched)" class="text-danger">
+          Rate is required
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <label for="your-input">Average Stock Rate: {{(wtAvgRate.value?wtAvgRate.value:0)| currency:stockCurrencyCode:'1.0-2'}}</label>
+      </div>  
+      <div class="col-2">
+        <label for="your-input">Carats: {{totalCarats}}</label>
+      </div>
+      <div class="col-3">
+        <label for="your-input">Cumulative Amount: {{(cumulitveAmount?cumulitveAmount:0)| currency:poCurrencyCode:'1.0-2'}}</label>
+      </div>
+      <div class="col-3">
+        <label for="your-input">Cumulative Amount in Base Currency: {{(cumulitveAmountBase?cumulitveAmountBase:0)| currency:baseCurrencyCode:'1.0-2'}}</label>
+      </div>
+      <div class="col-2 text-right">
+        <button type="submit" [disabled]="(!descCtrl.valid || !rateCtrl.valid || !caratsCtrl.valid)" class="btn btn-success">Add</button>
+      </div>
+    </div>
+  </form>
+  <div class="row"></div>
+  <div class="row mt-2">
+    <div class="col-sm-12">
+      <ba-card cardTitle="Order Items" baCardClass="with-scroll">
+        <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+        (editConfirm)="onEditConfirm($event)"></ng2-smart-table>
+      </ba-card>
+    </div>
+  </div>
+</div>

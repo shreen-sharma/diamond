@@ -1,0 +1,305 @@
+<div class="widgets">
+    <form [formGroup]="stockSummaryForm">
+        <div class="row">
+            <div class="col-md-12">
+                <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+                <!-- <ba-card cardTitle="Stock Summary" baCardClass="with-scroll"> -->
+                    <div class="row" *ngIf="!isLotItemReport">
+
+                    <div class="form-group col-sm-4" [ngClass]="{'has-error': (!category.valid && category.touched), 'has-success': (category.valid && category.touched)}">
+                        <label for="category">Select Category</label>
+                        <select [formControl]="category" class="form-control" id="category" (change)="onChangeCat($event.target.value)">
+                            <option *ngFor="let category of catList" [value]="category.catId">{{category.catName}}</option>
+                        </select>
+                        <small *ngIf="(!category.valid && category.touched)" class="text-danger">
+                            Category is required
+                        </small>
+                    </div>
+
+
+                    <div class="col-sm-4 form-inline" style="margin-left: 5%">
+                        <p>&nbsp;</p>
+                        <button type="button" (click)="createReport()" [disabled]="!reportStatus" style="width:13em; height:2.5em" class="btn btn-warning btn-icon">
+                            <i class="fa fa-file"></i> Generate Report</button>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="isLotItemReport">
+
+                    <div *ngIf="!isSummaryReport">
+                        <div class="form-group col-sm-16" [ngClass]="{'has-error': (!lot.valid && lot.touched), 'has-success': (lot.valid && lot.touched)}">
+                            <label for="lot">Select Lot</label>
+                            <select [formControl]="lot" class="form-control" id="lot">
+                                <option *ngFor="let lots of lotList" [value]="lots.lotId">{{lots.lotName}}</option>
+                            </select>
+                            <small *ngIf="(!lot.valid && lot.touched)" class="text-danger">
+                                lot is required
+                            </small>
+                        </div>
+                    </div>
+
+                    <div *ngIf="isSummaryReport">
+                        <div class="row">
+                            <div *ngIf="!iscombinedSummary"  class="col-sm-4" [ngClass]="{'has-error': (!level.valid && level.touched), 'has-success': (level.valid && level.touched)}">
+                                <label for="level" >Select Level</label>
+                                <select [formControl]="level" class="form-control" id="level">
+                                    <option value="All" [selected]="true">ALL</option>
+                                    <option value="COMPSTK">Physical Stock</option>
+                                    <option value="DCSTK">DC Stock</option>
+                                    <option value="CONSSTK">Consignment Stock</option>
+                                    <option value="INPRO">In-Progress</option>
+                                </select>
+                                <small *ngIf="(!level.valid && level.touched)" class="text-danger">
+                                    level is required
+                                </small>
+                            </div>
+                            <!-- aman -->
+                            <div *ngIf="iscombinedSummary" style="margin-left: 10%" class="form-group col-sm-16" [ngClass]="{'has-error': (!level.valid && level.touched), 'has-success': (level.valid && level.touched)}">
+                                    <label for="stockType" >Select Level</label>
+                                    <select [formControl]="stockType" class="form-control" id="stockType">
+                                        <option value="All" [selected]="true">ALL</option>
+                                        <option value="COMPSTK">Physical Stock</option>
+                                        <option value="DCSTK">DC Stock</option>
+                                        <option value="CONSSTK">Consignment Stock</option>
+                                        <option value="INPRO">In-Progress</option>
+                                    </select>
+                                    <small *ngIf="(!stockType.valid && stockType.touched)" class="text-danger">
+                                        Stock Type is required
+                                    </small>
+                                </div>
+                            <div *ngIf="!iscombinedSummary" class="form-group col-sm-4">
+                                <label for="lot">Select Lot</label>
+                                <select [formControl]="lot" class="form-control" id="lot" (change)="onChangeLot($event.target.value)">
+                                        <option value="" [selected]="isSelected"> -- Select Lot -- </option>
+                                    <option *ngFor="let lots of lotList" [value]="lots.lotId">{{lots.lotName}}</option>
+                                </select>
+                                <!-- <small *ngIf="(!lot.valid && lot.touched)" class="text-danger">
+                                    lot is required
+                                </small> -->
+                            </div>
+                            <!-- <div class="form-group col-sm-4" [ngClass]="{'has-error': ((!lotItem.valid && lotItem.touched) || (lotItem.untouched && formDir.submitted)), 'has-success': (lotItem.valid && lotItem.touched)}"> -->
+                            <div *ngIf="!iscombinedSummary" class="form-group col-sm-4">
+                                <label for="lotItem">Select Lot Item</label>
+                                <select [formControl]="lotItem" class="form-control" id="lotItem">
+                                        <option value="" [selected]="isSelected"> -- Select Lot Item -- </option>
+                                    <option *ngFor="let item of itemList" [value]="item.itemMaster.itemId" aria-placeholder="Lot Item Name">{{item.itemMaster.itemName}}</option>
+                                </select>
+                                <!-- <small *ngIf="(!lotItem.valid && lotItem.touched) || (lotItem.untouched && formDir.submitted)" class="text-danger">
+                                    Lot Item is required
+                                </small> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 form-inline">
+                        <p>&nbsp;</p>
+                        <button type="button" (click)="createReport()" [disabled]="!reportStatus" style="width:13em; height:2.5em" class="btn btn-warning btn-icon">
+                            <i class="fa fa-file"></i> Generate Report</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+
+
+                            </div>
+                        </div>
+                        <ba-card cardTitle="Stock Details" baCardClass="with-scroll" class="smart-table-container">
+                            <button id="csv" (click)="ConvertToCSV()" style="width:13em; height:2.5em" class="btn btn-info btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Export Excel</button> &nbsp;&nbsp; &nbsp;&nbsp;
+                            <button id="csv" (click)="ConvertToPDF()" style="width:13em; height:2.5em; float: right" class="btn btn-primary btn-sm">
+                                <i class="fa fa-file-pdf-o"></i> Export PDF</button>
+                                <div class="custom">
+                            <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table></div>
+                            <div class="row">
+                                <p> </p>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div *ngIf="!isLotItemReport">
+                                        <div *ngIf="!stockSummaryFlag" class="row col-sm-12">
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Total Carats: </label>
+                                                <div>
+                                                    <span class="pt-2">{{totalCarets ? totalCarets : 0 }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Avg. Stock Rate:</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(avgStockRate ? avgStockRate : 0 )| number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Total Amount:</label>
+                                                <div>
+                                                    <span class="pt-2"> $ {{totalAmount | number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black; text-align:center!important;">AMT in Rs:</label>
+                                                <div>
+                                                    <span class="pt-2"> {{ totalAmountRs | number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">CARATS %</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(ctsPerc ? ctsPerc : 100 )}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">AMOUNT %</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(amtPerc ? amtPerc : 100 )}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="stockSummaryFlag" class="row col-sm-12">
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Total Carats: </label>
+                                                <div>
+                                                    <span class="pt-2">{{totalCarets ? totalCarets : 0 }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Avg. SP Rate:</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(avgSPStockRates ? avgSPStockRates : 0 )| number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Total Amount SP:</label>
+                                                <div>
+                                                    <span class="pt-2"> $ {{totalAmountSP | number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black; text-align:center!important;">SP AMT in Rs:</label>
+                                                <div>
+                                                    <span class="pt-2"> {{ totalAmountSPRs | number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Avg. Stock Rate:</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(avgStockRate ? avgStockRate : 0 )| number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Total Amount SP:</label>
+                                                <div>
+                                                    <span class="pt-2"> $ {{totalAmount | number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black; text-align:center!important;">SP AMT in Rs:</label>
+                                                <div>
+                                                    <span class="pt-2"> {{ totalAmountRs | number }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- yasar -->
+                                    </div>
+
+                                    <div *ngIf="isLotItemReport">
+                                        <div *ngIf="isSummaryReport" class="row col-sm-12">
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Total Carats: </label>
+                                                <div>
+                                                    <span class="pt-2">{{totalCarets ? totalCarets : 0 }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Avg. Stock Rate:</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(avgStockRate ? avgStockRate : 0 )| number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Stock Amount (USD):</label>
+                                                <div>
+                                                    <span class="pt-2"> {{totalAmount | number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Avg. Sale Price:</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(saleAmtUSD | number)}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Sale Amount (USD):</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(saleAmtINR | number )}}</span>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="!iscombinedSummary" class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Avg. Bid Price:</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(avgBidPrice | number)}}</span>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="!iscombinedSummary" class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Bid Amount (USD):</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(bidAmt | number )}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!isSummaryReport" class="row col-sm-12">
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Total Carats: </label>
+                                                <div>
+                                                    <span class="pt-2">{{totalCarets ? totalCarets : 0 }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Avg. Stock Rate:</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(avgStockRate ? avgStockRate : 0 )| number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Stock Amount (USD):</label>
+                                                <div>
+                                                    <span class="pt-2"> {{totalAmount | number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black; text-align:center!important;">Stock Amount (INR):</label>
+                                                <div>
+                                                    <span class="pt-2"> {{ totalAmountRs | number }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Sale Amount (USD):</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(saleAmtUSD | number)}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-2 widthInc">
+                                                <label for="amount" style="color:black;">Sale Amount (INR):</label>
+                                                <div>
+                                                    <span class="pt-2"> {{(saleAmtINR | number )}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </ba-card>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

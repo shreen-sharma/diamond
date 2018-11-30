@@ -1,0 +1,202 @@
+<div class="widgets">
+    <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+    <form [formGroup]="jangadIssueEntryForm" #formDir="ngForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-12">
+          <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+  
+            <div class="row">
+                
+                <div class="form-group col-sm-3" [ngClass]="{'has-error': (!partyName.valid && partyName.touched)  || (partyName.untouched && formDir.submitted), 'has-success': (partyName.valid && partyName.touched)}">
+                  <label for="partyName">Select Party</label>
+                    <select [formControl]="partyName" class="form-control" id="partyName">                
+                        <option *ngFor="let partyName of partyList" [value]="partyName.partyId">{{partyName.partyName}}</option>             
+                    </select>
+                    <small *ngIf="(!partyName.valid && partyName.touched) || (partyName.untouched && formDir.submitted)" class="text-danger">
+                        Party Name is required
+                    </small>
+                </div>
+            
+                <div class="form-group col-sm-3" [ngClass]="{'has-error': (!process.valid && process.touched)  || (process.untouched && formDir.submitted), 'has-success': (process.valid && process.touched)}">
+                  <label for="process">Process</label>
+                    <select [formControl]="process" class="form-control" id="process">                
+                        <option *ngFor="let pro of processList" [value]="pro.partyId">{{pro.name}}</option>             
+                    </select>
+                    <small *ngIf="(!process.valid && process.touched) || (process.untouched && formDir.submitted)" class="text-danger">
+                        Process is required
+                    </small>
+                </div>
+      
+                <div class="form-group col-sm-3" [ngClass]="{'has-error': (!lotName.valid && lotName.touched) || (lotName.untouched && formDir.submitted), 'has-success': (lotName.valid && lotName.touched)}">
+                    <label for="lotName"> Lot</label>
+                    <select [formControl]="lotName" class="form-control" id="lotName">
+                        <option *ngFor="let lot of lotList" [value]="lot.lotId">{{lot.lotName}}</option>                    
+                    </select>
+                    <small *ngIf="(!lotName.valid && lotName.touched) || (lotName.untouched && formDir.submitted)" class="text-danger">
+                        Lot is required
+                    </small>
+                </div>
+
+                <div class="form-group col-sm-3">
+                  <label for="issueDate">Issue Date</label>
+                  <input type="text" class="form-control" id="issueDate" [value]="todayDate" disabled>
+                </div>
+             
+                 <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!jangadNumber.valid && jangadNumber.touched)|| (jangadNumber.untouched && formDir.submitted)), 'has-success': (jangadNumber.valid && jangadNumber.touched)}">
+                  <label for="jangadNumber">Jangad Number</label>
+                   <input type="text" [formControl]="jangadNumber" class="form-control" id="jangadNumber">
+                    <div *ngIf="((!jangadNumber.valid && jangadNumber.touched) || (jangadNumber.untouched && formDir.submitted))  && jangadNumber.errors != null" class="text-danger">  
+                      <small *ngIf= "jangadNumber.errors.required">
+                        Jangad Number is required.
+                      </small>
+                      <small *ngIf="jangadNumber.errors.maxlength">
+                        Jangad Number must not be greater than 5.
+                      </small>
+                    </div>
+                </div>  
+            
+                <div class="form-group col-sm-3">
+                    <label for="jangadFormat">Jangad Format</label>
+                    <input type="number"  class="form-control" [formControl]="jangadFormat" id="jangadFormat">
+                </div>
+
+                <div class="form-group col-sm-3" [ngClass]="{'has-error': (!expectedYield.valid && expectedYield.touched)  || (expectedYield.untouched && formDir.submitted), 'has-success': (expectedYield.valid && expectedYield.touched)}">
+                    <label for="expectedYield">Expected Yield</label>
+                    <select [formControl]="expectedYield" class="form-control" id="expectedYield"> 
+                        <option *ngFor="let expectedYield of expectedYieldList | async" [value]="expectedYield.yieldDescId">{{expectedYield.expectedYieldName}}</option>
+                    </select>
+                    <small *ngIf="(!expectedYield.valid && expectedYield.touched) || (expectedYield.untouched && formDir.submitted)" class="text-danger">
+                        Expected Yield is required
+                    </small>
+                </div>
+
+                 <div class="form-group col-sm-3" [ngClass]="{'has-error': (!jangadMixId.valid && jangadMixId.touched)  || (jangadMixId.untouched && formDir.submitted), 'has-success': (jangadMixId.valid && jangadMixId.touched)}">
+                    <label for="jangadMixId">Mix Jangad No</label>
+                    <select [formControl]="jangadMixId" class="form-control" id="jangadMixId"> 
+                        <option *ngFor="let jangadMixId of jangadMixIdList | async" [value]="jangadMixId.jangadMixIdId">{{jangadMixId.jangadMixIdNumber}}</option>
+                    </select>
+                    <small *ngIf="(!jangadMixId.valid && jangadMixId.touched) || (jangadMixId.untouched && formDir.submitted)" class="text-danger">
+                        Mix Jangad No is required
+                    </small>
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <label for="size">Size</label>
+                    <input type="number"  class="form-control" [formControl]="size" id="size">
+                </div>
+            
+                <div class="form-group col-sm-3">
+                    <label for="assorter">Assorter</label>
+                    <input type="number"  class="form-control" [formControl]="assorter" id="assorter">
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label for="instruction">Instruction</label>
+                    <input type="text" class="form-control" [formControl]="instruction" id="instruction">
+                </div>   
+
+            </div>
+     
+     
+    <div *ngIf="successMessage">
+        <div class="form-group alert alert-success alert-dismissable col-md-12">
+          <a class="close" aria-label="close" (click)="successMessage = null">&times;</a>
+          <strong>Success!&nbsp;</strong> {{ successMessage }}
+        </div>
+    </div>
+    
+    <ngb-tabset>
+       <ngb-tab title="Issued Item Detail">
+         <ng-template ngbTabContent>
+            <div class="row">
+              <div class="col-md-10">
+                 
+                <div class="row">
+
+                <div class="form-group col-sm-6" [ngClass]="{'has-error': ((!issuedItem.valid && issuedItem.touched) || (issuedItem.untouched && formDir.submitted)), 'has-success': (issuedItem.valid && issuedItem.touched)}">
+                  <label for="issuedItem">Issued Item</label>
+                    <select [formControl]="issuedItem" class="form-control" id="issuedItem">
+                         <option *ngFor="let pro of processList" [value]="pro.processId">{{pro.name}}</option>             
+                    </select>
+                    <small *ngIf="(!issuedItem.valid && issuedItem.touched) || (issuedItem.untouched && formDir.submitted)" class="text-danger">
+                        Issued Item is required
+                    </small>
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <label for="pieces">Pieces</label>
+                    <input type="number" class="form-control" [formControl]="pieces" id="pieces">
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <label for="carats">Carats</label>
+                    <input type="number" class="form-control" [formControl]="carats" id="carats">
+                </div>
+                </div>     
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+
+                    </div>
+                    <div class="form-group col-sm-3" >
+                            <label for="totalPieces">Total Pieces</label>
+                            <input type="number" class="form-control" [formControl]="totalPieces" id="totalPieces">
+                    </div>
+                    <div class="form-group col-sm-3 input-container input-container1">
+                        <label for="totalCarats">Total Carats</label>
+                        <input type="number" class="form-control" [formControl]="totalCarats" id="totalCarats">
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-inline">
+                        <div class="form-group col-sm-3">
+                            <button type="add" class="btn btn-primary btn-raised"> Add Issue </button>
+                        </div>
+                    </div>
+                </div>
+             </div>
+   
+                <div class="form-group">
+                    <ba-card cardTitle="Issued Item Details Under Selected Lot" baCardClass="with-scroll" class="smart-table-container">
+                    <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)" (editConfirm)="onCreateConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+                    </ba-card>
+                </div>
+         </ng-template>
+        </ngb-tab>
+    </ngb-tabset>  
+    </ba-card>
+  </div>
+</div> 
+        <!-- <ngb-tab title="Issued Item Parameter Detail">
+            <ng-template ngbTabContent>
+                <div class="row">
+                    <div class="col-md-12">
+                        <ba-card formArrayName="parameters" baCardClass="with-scroll">
+                
+                          <item-parameter [itemParameter]="itemParameters.controls[i]" [odd]="odd" (remove)="removeParameter(i)" *ngFor="let param of itemParameters.controls; let i=index; let odd=odd;"></item-parameter>
+                          <div class="mt-2">
+                            <button (click)="addParameter()" class="btn btn-success btn-icon" type="button"><i class="fa fa-plus-circle"></i> Add Parameter</button>
+                          </div>
+                        </ba-card>
+                      </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <textarea class="form-control" [formControl]="" id="" rows="3"></textarea>
+                    </div>
+                </div>
+            </ng-template>
+           </ngb-tab> -->
+     
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button type="submit" [disabled]="!jangadIssueEntryForm.valid && formDir.submitted" class="btn btn-primary btn-raised">Submit</button>&nbsp;&nbsp;
+            <!-- <button type="button" class="btn btn-default">Jangad Print</button> -->
+          </div>
+        </div>
+  
+     
+    </form>
+  </div>

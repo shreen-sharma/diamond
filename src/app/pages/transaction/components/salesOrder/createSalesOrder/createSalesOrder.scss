@@ -1,0 +1,17 @@
+[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.checkbox-inline {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+input:read-only, input:disabled {
+    color: whitesmoke;
+}
+
+input:read-only:hover {
+    cursor: not-allowed;
+}

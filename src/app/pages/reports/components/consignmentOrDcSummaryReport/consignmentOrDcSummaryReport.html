@@ -1,0 +1,69 @@
+<div class="widgets">
+    <form [formGroup]="movementsReportForm">
+        <div class="row">
+            <div class="col-md-12">
+
+                    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+                <div class="row">
+
+
+                 
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ba-card cardTitle="Details" baCardClass="with-scroll" class="smart-table-container">
+                            <button id="csv" (click)="ConvertToCSV()" style="width:13em; height:2.5em" class="btn btn-info btn-sm">
+                                <i class="fa fa-file-excel-o"></i> Export Excel</button> &nbsp;&nbsp; &nbsp;&nbsp;
+                                <button id="pdf" (click)="ConvertToPDF()" style="width:13em; height:2.5em; float: right;" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-file-pdf-o"></i> Export PDF</button>
+                                    <div class="custom">
+                                    <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table></div>
+                            <div class="row">
+                                <div  class="row col-sm-12">
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black;">Total Carats: </label>
+                                        <div>
+                                            <span class="pt-2">{{totalCarets ? totalCarets : 0 }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black;">Avg. Stock Rate:</label>
+                                        <div>
+                                            <span class="pt-2"> {{(avgStockRate ? avgStockRate : 0 )| number }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black;">Stock Amount (USD):</label>
+                                        <div>
+                                            <span class="pt-2">  {{stockAmtUSD | number }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black; text-align:center!important;">Stock Amount (INR):</label>
+                                        <div>
+                                            <span class="pt-2"> {{ stockAmtINR | number }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black;">Sale Amount (USD):</label>
+                                        <div>
+                                            <span class="pt-2"> {{(salesPriceUSD | number)}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 widthInc">
+                                        <label for="amount" style="color:black;">Sale Amount (INR):</label>
+                                        <div>
+                                            <span class="pt-2"> {{(salesPriceINR | number )}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ba-card>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,128 @@
+<div class="widgets">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+  <button type="button" class="btn btn-default mb-2" (click)="handleBack(true)"><i class="ion-chevron-left"></i>&nbsp;&nbsp;Back</button>
+  <form [formGroup]="exportSalesOrderForm" #formDir="ngForm">
+
+    <div class="row">
+       <div class="col-md-12"> 
+        <ba-card [cardTitle]="pageTitle" baCardClass="with-scroll">
+          <div class="row">
+           
+             <div class="form-group col-sm-2">
+                <label for="soDate">Sales Order Date</label>
+              <input type="date" [formControl]="soDate" class="form-control" id="soDate">
+            </div>
+         
+            <div class="form-group col-sm-2" [ngClass]="{'has-error': ((!categoryMaster.valid && categoryMaster.touched)), 'has-success': (categoryMaster.valid && categoryMaster.touched)}">
+              <label for="categoryMaster">Select Category</label>
+                 <select [formControl]="categoryMaster" class="form-control" id="categoryMaster" (change)="onChangeCat($event.target.value)">                
+                    <option *ngFor="let category of catMasterList | async" [value]="category.catId">{{category.catName}}</option>             
+                </select>
+                <small *ngIf="(!categoryMaster.valid && categoryMaster.touched)" class="text-danger">
+                  Item Category is required
+                </small>
+            </div>
+            
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!partyMasterByPartyId.valid && partyMasterByPartyId.touched)), 'has-success': (partyMasterByPartyId.valid && partyMasterByPartyId.touched)}">
+              <label for="partyMasterByPartyId">Select Customer</label>
+                <select [formControl]="partyMasterByPartyId" class="form-control" id="partyMasterByPartyId" #selectParty>                
+                  <option *ngFor="let party of partyTypeList | async" [ngValue]="party">{{party.partyName}}</option>             
+              </select>
+              <small *ngIf="(!partyMasterByPartyId.valid && partyMasterByPartyId.touched) || (partyMasterByPartyId.untouched && formDir.submitted)" class="text-danger">
+                Customer/Associates is required
+              </small>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for= "stockCurrency">Stock Currency</label>
+              <input [value]="stockCurrName" class="form-control" id="stockCurrency" readonly>
+              <input type="text" [formControl]="stockCurrency" class="form-control" id="stockCurrency" hidden>
+            </div>
+
+            <div class="form-group col-sm-3">
+              <label for= "stockExchangeRate">Stock To Base Exch Rate ({{stockCurrName}} -> {{baseCurrName}})</label>
+              <input [formControl]="stockExchangeRate" class="form-control" id="stockExchangeRate" readonly>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!soCurrency.valid && soCurrency.touched) || (soCurrency.untouched && formDir.submitted)), 'has-success': (soCurrency.valid && soCurrency.touched)}">
+              <label for= "soCurrency">SO Currency</label>
+              <select [formControl]="soCurrency" class="form-control" id="soCurrency">
+                <option *ngFor="let curr of currList" [value]="curr.currId">{{curr.currName}}</option>
+              </select>
+              <small *ngIf="(!soCurrency.valid && soCurrency.touched) || (soCurrency.untouched && formDir.submitted)" class="text-danger">
+                  Order Currency is required
+              </small>
+            </div>
+
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': ((!soExchangeRate.valid && soExchangeRate.touched) || (soExchangeRate.untouched && formDir.submitted)), 'has-success': (soExchangeRate.valid && soExchangeRate.touched)}">
+              <label for= "soExchangeRate">SO To Base Exch Rate ({{soCurrName}} -> {{baseCurrName}})</label>
+              <input [formControl]="soExchangeRate" class="form-control" id="soExchangeRate">
+              <small *ngIf="(!soExchangeRate.valid && soExchangeRate.touched) || (soExchangeRate.untouched && formDir.submitted)" class="text-danger">
+                  Provide Exchange Rate 
+              </small>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label for= "baseCurrency">Base Currency</label>
+              <input [value]="baseCurrName" class="form-control" id="baseCurr" readonly>
+              <input type="text" [formControl]="baseCurrency" class="form-control" id="baseCurrency" hidden>
+            </div>
+
+            <div class="col-sm-2 form-inline">
+              <label class="checkbox-inline" for="draftStatus">
+                <input type="checkbox" [formControl]="draftStatus" id="draftStatus">&nbsp;&nbsp;Draft
+              </label>
+            </div>
+
+            <div class="col-sm-2 form-inline">
+              <label class="checkbox-inline" for="advReal">
+                <input type="checkbox" [formControl]="advReal" id="advReal">Adv. Realisation
+              </label>              
+            </div>            
+         
+          </div> 
+        </ba-card>
+      </div> 
+    </div> 
+
+    <div *ngIf="errorMessage">
+      <div class="form-group alert alert-danger alert-dismissable col-md-12">
+        <a class="close" aria-label="close" (click)="errorMessage = null">&times;</a>
+        <strong></strong> {{ errorMessage }}
+      </div>
+    </div>
+
+    <div class="row" *ngIf="partyStatus">
+      <div class="col-md-12">
+        <ngb-tabset>
+          
+          <ngb-tab id="order" title="Order Item List">
+            <ng-template ngbTabContent>
+              <export-order-item-list [parentForm]="exportSalesOrderForm" [isViewMode]="isViewMode" [lotMasterList]="lotMasterList" [stockCurrCode]="stockCurrCode" [baseCurrCode]="baseCurrCode" [soCurrCode]="soCurrCode" [data]="salesOrderData.orderItems"></export-order-item-list>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab id="customer" title="Customer Details">
+            <ng-template ngbTabContent>
+              <export-order-customer-details [parentForm]="exportSalesOrderForm" [isViewMode]="isViewMode" [bankBranches]="partyBankBranches" [termsList]="termsList" [currList]="currList" [bankNameList]="bankNameList" [partyNote]="partyNote" [data]="salesOrderData.customerDetails"></export-order-customer-details>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab id="general" title="General Details">
+            <ng-template ngbTabContent>
+              <export-order-general-details [parentForm]="exportSalesOrderForm" [isViewMode]="isViewMode" [originCountryId]="originCountryId"  [stockCurrCode]="stockCurrCode" [baseCurrCode]="baseCurrCode" [soCurrCode]="soCurrCode" [data]="salesOrderData.saleDetails"></export-order-general-details>
+            </ng-template>
+          </ngb-tab>
+          
+        </ngb-tabset>
+      </div>
+    </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button type="button" class="btn btn-primary btn-raised" *ngIf="showSbmtBtn" (click)="submit()">Submit</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-default" (click)="handleBack(true)">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>

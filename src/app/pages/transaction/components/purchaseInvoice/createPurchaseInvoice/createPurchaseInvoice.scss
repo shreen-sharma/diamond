@@ -1,0 +1,42 @@
+@import '../../../../../theme/sass/smartTables';
+@import "../../../../../theme/sass/conf/conf";
+
+.margin {
+    margin-top: 18px!important;
+    margin-left: 10px;
+    padding: 10px 10px;
+}
+
+input:read-only, input:disabled {
+    color: floralwhite;
+}
+
+input:read-only:hover {
+    cursor: not-allowed;
+}
+
+p {
+    padding:2px;
+}
+
+.widthInc {
+    max-width: 13%!important;
+    flex-basis: 13%!important;
+}
+
+.widthIncre {
+    max-width: 10% !important;
+    flex-basis: 10% !important;
+}
+
+[type="checkbox"] {
+    margin-right: 5px;
+    size: 16px;
+}
+
+.checkbox-inline {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 4px;
+    font-size: 14.5px;
+}

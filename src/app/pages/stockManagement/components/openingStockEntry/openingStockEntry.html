@@ -1,0 +1,15 @@
+
+<div class="widgets">
+  
+  <div class="row">
+      <ba-card cardTitle="Opening Stock Entry" baCardClass="with-scroll" class="smart-table-container">
+          <ngb-alert *ngIf="errorMessage" type= danger (close)="errorMessage = null">{{ errorMessage }}</ngb-alert>
+          <ngb-alert *ngIf="successMessage" type= success (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+        <button type="button" class="btn btn-success" *ngIf="!entryProcessed" (click)="onProcessClick()">Process Opening Stock</button>
+        <button type="button" class="btn btn-success" (click)="onPreviewClick()">Preview</button>
+        <p></p>
+      <ng2-smart-table [settings]="settings" [source]="source" (create)="handleCreate()" (edit)="handleEdit($event)" (delete)="onDeleteConfirm($event)"></ng2-smart-table>
+    </ba-card>
+  </div>
+
+</div>

@@ -1,0 +1,25 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title">{{modalHeader}}</h4>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="widgets">
+        <!-- <div class="row"> -->
+          <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+        <!-- </div> -->
+      </div>
+  </div>
+  <div class="modal-footer">
+    <div *ngIf="successMessage">
+      <div class="form-group alert alert-success alert-dismissable col-md-12">
+        <a class="close" aria-label="close" (click)="successMessage = null">&times;</a>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>Success!&nbsp;</strong> {{ successMessage }}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+      </div>
+    </div>
+
+    <button *ngIf="!successMessage" class="btn btn-success confirm-btn" (click)="okModal()">Ok</button>
+  </div>
+</div>

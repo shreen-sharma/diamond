@@ -1,0 +1,25 @@
+
+@import '../../../../../theme/sass/smartTables';
+p {
+    padding:5px;
+}
+select {
+    width: 100%!important;
+    height: calc(2.25rem + 0px)!important;
+}
+
+.input-container {
+    position: relative;
+    float: left;
+} 
+
+.input-container1:after {
+    position: absolute;
+    right: 21px;
+    top: 31px;
+    color: brown;
+    content: 'Cts';
+} 
+input:read-only, textarea:read-only {
+    color: whitesmoke;
+}

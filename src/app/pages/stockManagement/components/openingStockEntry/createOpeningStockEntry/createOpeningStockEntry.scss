@@ -1,0 +1,79 @@
+@import '../../../../../theme/sass/smartTables';
+@import '../../../../../theme/sass/conf/conf';
+
+.modal {
+  padding-top: 300px;
+    
+  
+  .modal-content {
+    color: $dropdown-text;
+
+    .modal-header {
+      border: none;
+    }
+
+    .modal-footer {
+      border: none;
+    }
+
+    .close {
+      outline: none;
+    }
+  }
+}
+
+.modal-buttons .btn {
+  margin-right: 20px;
+}
+
+
+select {
+    width: 100%!important;
+    height: calc(2.25rem + 0px)!important;
+}
+
+p {
+    padding:5px;
+}
+
+.input-container {
+    position: relative;
+    float: left;
+} 
+
+// .input-container1:after {
+//     position: absolute;
+//     right: 21px;
+//     top: 31px;
+//     color: brown;
+//     content: 'Avg Rate';
+// } 
+
+// .input-container2:after {
+//     position: absolute;
+//     right: 21px;
+//     top: 31px;
+//     color: brown;
+//     content: 'Gross Amt';
+// } 
+
+.input-container3:after {
+    position: absolute;
+    right: 21px;
+    top: 31px;
+    color: brown;  
+    content: 'Added Carats';
+} 
+
+input:read-only {
+    color: whitesmoke;
+}
+
+input:read-only:hover {
+  cursor: not-allowed;
+}
+
+td {
+    padding-left: 5px;
+}
+

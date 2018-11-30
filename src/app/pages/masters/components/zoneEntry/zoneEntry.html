@@ -1,0 +1,10 @@
+
+<div class="widgets">
+
+  <div class="row">
+    <ba-card cardTitle="Zone Entry" baCardClass="with-scroll" class="smart-table-container">
+      <ng2-smart-table [settings]="settings" [source]="source" (create)="handleCreate()" (edit)="handleEdit($event)" (delete)="onDeleteConfirm($event)"></ng2-smart-table>
+    </ba-card>
+  </div>
+
+</div>

@@ -1,0 +1,22 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title">{{modalHeader}}</h4>
+    <p></p>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+      <span  aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  
+    <div class="widgets">
+      
+           <!-- <ba-card cardTitle="Select Sales Order" baCardClass="with-scroll" class="smart-table-container"> -->
+             <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
+           <!-- </ba-card> -->
+       </div>
+   
+  </div>
+  <!-- <div class="modal-footer">
+    <button class="btn btn-primary confirm-btn" (click)="closeModal()">Save changes</button>
+  </div> -->
+</div>
